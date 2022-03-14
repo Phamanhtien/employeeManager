@@ -1,0 +1,8 @@
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+body {
+    width: 60%;
+    left: 20%;
+    position: absolute;
+}

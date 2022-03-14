@@ -1,0 +1,41 @@
+.content-header {
+    margin-top: 10px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px;
+    border-style: solid;
+    padding-bottom: 10px;
+    .tab-name {
+        display: inline;
+        margin-left: 20px;
+    }
+    .icon {
+        display: inline;
+        right: 20px;
+        position: absolute;
+        .bi-plus-circle-fill {
+            height: 30px;
+            width: auto;
+            margin-right: 5px;
+        }
+        .bi-trash3-fill {
+            height: 23px;
+            width: auto;
+        }
+        .bi-pencil-square {
+            margin-right: 10px;
+        }
+    }
+}
+
+.table-content {
+    text-align:center;
+    justify-content: center;
+    display: flex;
+
+    .table-team-list {
+        margin-right: 5%;
+        width: 40%;
+    }
+}

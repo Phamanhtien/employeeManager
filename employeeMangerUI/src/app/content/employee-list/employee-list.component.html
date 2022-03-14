@@ -1,0 +1,81 @@
+<div class="content-header">
+    <div class="tab-name">
+        <b>Employee</b>
+    </div>
+    <div class="icon">
+        <i class="bi bi-plus-circle-fill" (click)="openAddEmployee()"></i>
+        <i class="bi bi-trash3-fill" (click)="openDeleteEmployee()"></i>
+    </div>
+</div>
+
+<div class="content-team">
+    <div class="total-employee-box">
+        <p class="total-employee-text">Total {{totalEmployee}} employees</p>
+    </div>
+    <div>
+        <div class="search-container input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">
+                <img src="./assets/icon/search.svg">
+            </span>
+            <input type="text" class="form-control" placeholder="Search employee by name" aria-label="Username" aria-describedby="addon-wrapping"
+                [ngModel]="searchByNameText" (ngModelChange)="findEmployeesByName($event)">
+        </div>
+    </div>
+    <div class="space"></div>
+</div>
+<div>
+    <p class="search-result">Search result</p>
+</div>
+<table class="table table-striped">
+    <thead class="thead">
+        <tr class="thead-row">
+            <th scope="col">
+            </th>
+            <th scope="col">
+                <b>No</b>
+            </th>
+            <th scope="col">
+                <b>Full name</b>
+            </th>
+            <th scope="col">
+                <b>Phone</b>
+            </th>
+            <th scope="col">
+                <b>Team</b>
+            </th>
+            <th scope="col">
+                <b>Option</b>
+            </th>
+        </tr>
+    </thead>
+    <tbody class="tbody">
+        <tr class="tbody-row" *ngFor="let employee of employeeList">
+            <td>
+                <input type="checkbox" value="{{employee.id}}">
+            </td>
+            <td class="employee-id">{{employee.id}}</td>
+            <td class="employee-fullName">{{employee.fullName}}</td>
+            <td class="employee-phone">{{employee.phone}}</td>
+            <td class="employee-team">{{employee.teamId}}</td>
+            <td class="employee-detail-delete">
+                <a href="employee-detail/{{employee.id}}">
+                    <i class="bi bi-info" style="font-size: 150%; color: cornflowerblue;"></i>
+                </a>
+                <i (click)="deleteAnEmployee(employee.id)" class="bi bi-trash3" style="font-size: 110%; color: cornflowerblue;"></i>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="pagination pagination-sm">
+    <li [ngClass]="pageNumber == 0 ? 'disabled' : ''" class="page-item">
+        <a class="page-link" (click)="pageNumber = pageNumber -1; getAllEmployeesWithPaging()">
+            <<</a>
+    </li>
+    <li *ngFor="let page of pageArray" [ngClass]="pageNumber == page ? 'disabled' : ''" class="page-item">
+        <a class="page-link" (click)="pageNumber = page ; getAllEmployeesWithPaging()">{{page}}</a>
+    </li>
+    <li [ngClass]="pageNumber == (numberOfPages) ? 'disabled' : ''" class="page-item">
+        <a class="page-link" (click)="pageNumber = pageNumber +1; getAllEmployeesWithPaging()">>></a>
+    </li>
+</ul>

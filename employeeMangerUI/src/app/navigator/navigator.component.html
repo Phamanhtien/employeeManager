@@ -1,0 +1,14 @@
+<div class="custom-navbar navbar text-center">
+    <div class="">
+        <div class="app-title-logo ">
+            <img class="logo" src="../assets/icon/EmployeeLogo.png">
+        </div>
+        <div class="app-title ">
+            Employee Mannager
+        </div>
+    </div>
+    <div class="tabs">
+        <a href="/employee" [ngClass]="endPoint == '/employee' ? 'active' : ''" class="btn btn-outline-primary">Employee</a>
+        <a href="/team" [ngClass]="endPoint == '/team' ? 'active' : ''" class="btn btn-outline-primary">Team</a>
+    </div>
+</div>

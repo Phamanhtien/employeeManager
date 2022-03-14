@@ -1,0 +1,81 @@
+<div class="content-header">
+    <div class="tab-name">
+        <b>Team</b>
+    </div>
+    <div class="icon">
+        <i class="bi bi-plus-circle-fill"></i>
+    </div>
+</div>
+<div class="content-team-list">
+    <div class="total-team-box">
+        <p class="total-team-text">Total {{totalTeam}} Teams</p>
+    </div>
+    <div class="space"></div>
+</div>
+<div class="table-content">
+    <table class="table-team-list table table-striped">
+        <thead class="thead">
+            <tr class="thead-row">
+                <th scope="col">
+                </th>
+                <th scope="col">
+                    <b>No</b>
+                </th>
+                <th scope="col">
+                    <b>Name</b>
+                </th>
+                <th scope="col">
+                    <b>Detail</b>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+            <tr class="tbody-row" *ngFor="let team of teams">
+                <td>
+                    <input type="checkbox">
+                </td>
+                <td class="team-id">{{team.id}}</td>
+                <td class="team-name">{{team.name}}</td>
+                <td class="team-detail">
+                    <i class="group-detail bi bi-person-lines-fill btnGroupAddon"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table-team-manager table table-striped">
+        <thead class="thead">
+            <tr class="thead-row">
+                <th scope="col">
+                </th>
+                <th scope="col">
+                    <b>No</b>
+                </th>
+                <th scope="col">
+                    <b>Full Name</b>
+                </th>
+                <th scope="col">
+                    <b>Phone</b>
+                </th>
+                <th scope="col">
+                    <b>Address</b>
+                </th>
+                <th scope="col">
+                    <b>Sex</b>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+            <tr class="tbody-row" *ngFor="let teamMember of teamMembers">
+                <td>
+                    <input type="checkbox">
+                </td>
+                <td class="team-id">{{teamMember.id}}</td>
+                <td class="team-name">{{teamMember.name}}</td>
+                <td class="team-phone">{{teamMember.phone}}</td>
+                <td class="team-address">{{teamMember.address}}</td>
+                <td class="team-sex">{{teamMember.sex}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

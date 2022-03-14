@@ -1,0 +1,115 @@
+$light-gray: rgb(216, 216, 216);
+$title-size: 75%;
+.my-modal {
+    .modal-header {
+        background-color: #0d6efd;
+        .modal-title {
+            color: white;
+        }
+    }
+    .modal-body {
+        .form-group-team {
+            width: 100%;
+            .drop-down {
+                border-bottom: solid 1px;
+                border-color:$light-gray;
+                height: 24px;
+                .team-list {
+                    ul {
+                        padding: none;
+                        li {
+                            list-style-type: none;
+                        }
+                    }
+                }
+                .btn {
+                    width: 100%;
+                    padding: 0px;
+                    display: flex;
+                    justify-content:space-between; 
+                    
+                }
+                .btn::after {
+                    position: absolute;
+                    right:  5px;
+                    top: 10px;
+                }
+
+            }
+        }
+
+        .form-group {
+            .title {
+                font-size:$title-size;
+                margin-bottom: 5px;
+                color: $light-gray
+            }
+            .form-control {
+                padding: 0px;
+                border-top: none;
+                border-left: none;
+                border-right: none;
+            }
+
+            .validator {
+                font-size:$title-size;
+                color: red;
+                margin-bottom: 16px;
+                height:18px;
+                width: 50%;
+                display: inline;
+            }
+            .name-length-per-max {
+                top: 0px;
+                text-align: end;
+                font-size:$title-size;
+                color: $light-gray;
+                margin-bottom: 16px;
+                height:18px;
+                width: 50%;
+                display: inline;
+            }
+    
+            .form-group-address {
+                width: 50%;
+            }
+            .form-group-sex {
+                width: 50%;
+                .drop-down {
+                    border-bottom: solid 1px;
+                    border-color:$light-gray;
+                    height: 24px;
+                    .btn {
+                        width: 100%;
+                        padding: 0px;
+                        display: flex;
+                        justify-content:space-between; 
+                        
+                    }
+                    .btn::after {
+                        position: absolute;
+                        right:  5px;
+                        top: 10px;
+                    }
+    
+                }
+            }
+    
+            .form-group-age {
+                width: 50%;
+            }
+    
+            .form-group-start {
+                width: 50%;
+            }
+            .form-group-money-per-hour {
+                width: 50%;
+            }
+    
+            .form-group-phone-number {
+                width: 50%;
+            }
+        }
+    }    
+}
+
