@@ -30,12 +30,12 @@ public class RetrieveEmployees {
         this.key = key;
     }
 
-    public int retrieveListEmployee() {
+    public int retrieveAllEmployee() {
         List<Employee> employeeList = employeeRepository.findAll();
         return employeeList.size();
     }
 
-    public List<Employee> retrieveListEmployeeWithPaging() {
+    public List<Employee> retrieveAllEmployeeWithPaging() {
         if (pageNumber <= -1) {
             throw new InvalidArgumentException("page number " + String.valueOf(pageNumber));
         }
@@ -45,7 +45,7 @@ public class RetrieveEmployees {
         return employeeList;
     }
 
-    public List<Employee> retrieveEmployeeByName() {
+    public List<Employee> retrieveAllEmployeeByNameWithPaging() {
         if (pageNumber <= -1) {
             throw new InvalidArgumentException("page number " + String.valueOf(pageNumber));
         }

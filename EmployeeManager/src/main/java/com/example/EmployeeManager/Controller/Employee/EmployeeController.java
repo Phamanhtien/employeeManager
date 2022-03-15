@@ -39,20 +39,20 @@ public class EmployeeController {
 
     @GetMapping("/all")
     public int retrieveAllEmployee() {
-        return retrieveEmployees.retrieveListEmployee();
+        return retrieveEmployees.retrieveAllEmployee();
     }
 
     @GetMapping("/all/{page}")
     public List<Employee> retrieveAllEmployeeByPage(@PathVariable int page) {
         retrieveEmployees.setPageNumber(page);
-        return retrieveEmployees.retrieveListEmployeeWithPaging();
+        return retrieveEmployees.retrieveAllEmployeeWithPaging();
     }
 
     @GetMapping("/search/{full_name}/{page}")
     public List<Employee> retrieveEmployeeByName(@PathVariable String full_name, @PathVariable int page){
         retrieveEmployees.setKey(full_name);
         retrieveEmployees.setPageNumber(page);
-        return retrieveEmployees.retrieveEmployeeByName();
+        return retrieveEmployees.retrieveAllEmployeeByNameWithPaging();
     }
 
     @GetMapping("/newest")

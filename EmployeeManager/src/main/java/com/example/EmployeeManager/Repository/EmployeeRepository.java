@@ -18,5 +18,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     List<Employee> findTop5ByOrderByStartDateDesc();
 
-    List<Employee> findByTeamId(Team team);
+    List<Employee> findByTeamId(int teamId);
 }

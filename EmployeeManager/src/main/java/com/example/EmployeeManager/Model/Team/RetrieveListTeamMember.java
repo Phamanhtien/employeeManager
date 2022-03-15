@@ -39,6 +39,6 @@ public class RetrieveListTeamMember {
         if (!optionalTeam.isPresent()) {
             throw new NotFoundException("team has id " + String.valueOf(id));
         }
-        return employeeRepository.findByTeamId(optionalTeam.get());
+        return employeeRepository.findByTeamId(id);
     }
 }

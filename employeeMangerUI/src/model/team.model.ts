@@ -3,12 +3,6 @@ export class Team {
     name: string = "";
     managerId: number = 0;
 
-    public constructor(id: number, name: string, managerId: number) {
-        this.id =  id;
-        this.name = name;
-        this.managerId = managerId;
-    }
-
     public setId(id: number) {
         this.id = id;
     }

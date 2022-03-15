@@ -19,6 +19,7 @@ import { InformationsComponent } from './content/employee-detail/working/informa
 import { AdvancesComponent } from './content/employee-detail/working/advances/advances.component';
 import { StaticsComponent } from './content/employee-detail/working/statics/statics.component';
 import { WorkingDateComponent} from './content/employee-detail/working/working-date/working-date.component';
+import { AddTeamComponent } from './content/add-team/add-team.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { WorkingDateComponent} from './content/employee-detail/working/working-d
     AdvancesComponent,
     StaticsComponent,
     WorkingDateComponent,
+    AddTeamComponent,
   ],
   imports: [
     BrowserModule,

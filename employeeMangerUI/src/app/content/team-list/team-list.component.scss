@@ -35,7 +35,14 @@
     display: flex;
 
     .table-team-list {
-        margin-right: 5%;
-        width: 40%;
+        padding-right: 10px;
+        width: 35%;
+        position: absolute;
+        left: 0px;
+    }
+    .table-team-member {
+        position: absolute;
+        width: 60%;
+        right: 0px;
     }
 }
