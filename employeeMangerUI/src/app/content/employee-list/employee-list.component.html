@@ -4,7 +4,7 @@
     </div>
     <div class="icon">
         <i class="bi bi-plus-circle-fill" (click)="openAddEmployee()"></i>
-        <i class="bi bi-trash3-fill" (click)="openDeleteEmployee()"></i>
+        <i [ngClass]="deleteEmployeeList.length == 0 ? 'disabled' : ''" class="bi bi-trash3-fill" (click)="openDeleteEmployee()"></i>
     </div>
 </div>
 
@@ -51,7 +51,7 @@
     <tbody class="tbody">
         <tr class="tbody-row" *ngFor="let employee of employeeList">
             <td>
-                <input type="checkbox" value="{{employee.id}}">
+                <input  (click)="setListDeleteEmployee(employee)" type="checkbox" (ngModel)="employee.getIsChecked()">
             </td>
             <td class="employee-id">{{employee.id}}</td>
             <td class="employee-fullName">{{employee.fullName}}</td>

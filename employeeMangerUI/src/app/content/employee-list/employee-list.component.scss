@@ -23,6 +23,10 @@
             height: 23px;
             width: auto;
         }
+        .disabled {
+            pointer-events: none;
+            color: rgb(211, 211, 211);
+        }
         .bi-pencil-square {
             margin-right: 10px;
         }

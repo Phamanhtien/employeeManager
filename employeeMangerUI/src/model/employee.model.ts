@@ -9,6 +9,21 @@ export class Employee {
     age: number = 0;
     startDate: Date = new Date();
     salaryPerHour: number = 0;
+    isChecked: boolean = false;
+
+    public EmployeeDTO(employee: Employee) {
+        this.id = employee.id;
+        this.avatar = employee.avatar;
+        this.fullName = employee.fullName;
+        this.phone = employee.phone;
+        this.address = employee.address;
+        this.teamId = employee.teamId;
+        this.sex = employee.sex;
+        this.age = employee.age;
+        this.startDate = employee.startDate;
+        this.salaryPerHour = employee.salaryPerHour;
+        this.isChecked = employee.isChecked;
+    }
 
     public setId(id: number) {
         this.id = id;
@@ -88,5 +103,13 @@ export class Employee {
 
     public getSalaryPerHour(): number {
         return this.salaryPerHour;
+    }
+
+    public setIsChecked(isChecked: boolean) {
+        this.isChecked = isChecked;
+    }
+
+    public getIsChecked(): boolean {
+        return this.isChecked;
     }
 }

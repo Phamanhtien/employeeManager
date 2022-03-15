@@ -23,7 +23,7 @@ export class EmployeeListComponent implements OnInit {
   totalEmployee: number = -1;
   employeeList: Employee[] = [];
   searchByNameText: string = "";
-  deleteEmployeeList: string =  "";
+  deleteEmployeeList: number[] =  [];
 
   constructor(
     private modalService: NgbModal,
@@ -46,6 +46,7 @@ export class EmployeeListComponent implements OnInit {
   openDeleteEmployee() {
     const modalRef = this.modalService.open(DeleteEmployeeComponent);
     modalRef.componentInstance.name = 'deleteEmployee';
+    modalRef.componentInstance.deleteEmployees = this.deleteEmployeeList;
   }
 
   getNumberOfEmployees() {
@@ -59,6 +60,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   getAllEmployeesWithPaging() {
+    this.resetParameters()
     this.employeeListWithPagingService.setPageNumber(this.pageNumber);
     this.employeeListWithPagingService.getAllEmployeesWithPaging().subscribe((res: any) => {
       this.employeeList = res
@@ -110,6 +112,24 @@ export class EmployeeListComponent implements OnInit {
         alert("The employee that you want to delete may be a manager. Please change manager and delete again");
       }
     );
+  }
+
+  setListDeleteEmployee(employeeData:Employee) {
+    var employee = new Employee()
+    employee.EmployeeDTO(employeeData)
+    var employeeIdIndexIndeleteEmployeeList:number = this.deleteEmployeeList.indexOf(employee.getId());
+    if (employeeIdIndexIndeleteEmployeeList == -1) {
+      this.deleteEmployeeList.push(employee.getId());
+    } else {
+      this.deleteEmployeeList.splice(employeeIdIndexIndeleteEmployeeList, 1)
+    }
+    console.log(this.deleteEmployeeList);
+  }
+
+  resetParameters() {
+    while (this.deleteEmployeeList.length > 0) {
+      this.deleteEmployeeList.pop()
+    }
   }
 }
 
