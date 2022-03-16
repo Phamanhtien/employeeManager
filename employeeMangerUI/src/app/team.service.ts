@@ -40,3 +40,21 @@ export class TeamMemberListService {
     this.teamId = teamId;
   }
 }
+
+const teamByIdApiUrl = 'http://localhost:8080/team';
+@Injectable({
+  providedIn: 'root'
+})
+export class TeamByIdService {
+  teamId: number = 0;
+  constructor(private httpClient: HttpClient) { }
+
+  getTeamById(): Observable<Employee[]> {
+    return this.httpClient.get<Employee[]>(teamMemberListApiUrl+"/"+this.teamId).pipe(
+    )
+  }
+
+  setTeamId(teamId: number) {
+    this.teamId = teamId;
+  }
+}

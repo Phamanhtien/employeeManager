@@ -1,11 +1,20 @@
 <div class="infomation">
     <h3>INFOMATIONS</h3>
     <div class="row">
-        <input type="text" class="col" placeholder="Start Date" aria-label="Username" aria-describedby="basic-addon1">
-        <input type="text" class="col" placeholder="Team" aria-label="Username" aria-describedby="basic-addon1">
+        <input type="text" class="col" placeholder="{{employee.startDate|date}}" aria-describedby="basic-addon1" (ngModelChange)="setEmployeeStartDate($event)">
+        <div class="col form-group">
+            <div ngbDropdown class="drop-down">
+                <button class="btn" id="team" ngbDropdownToggle>{{teamName}}</button>
+                <div class="team-list" ngbDropdownMenu aria-labelledby="team">
+                    <div *ngFor="let teamMember of teamList">
+                        <button (click)="setTeamId(team.id, teamMember.name)" ngbDropdownItem>{{teamMember.name}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
-        <input type="text" class="col" placeholder="Addres" aria-label="Username" aria-describedby="basic-addon1">
-        <input type="text" class="col" placeholder="Salary per hour" aria-label="Username" aria-describedby="basic-addon1">
+        <input type="text" class="col" placeholder="{{employee.address}}" aria-describedby="basic-addon1" (ngModelChange)="setEmployeeAddress($event)">
+        <input type="text" class="col" placeholder="{{employee.salaryPerHour}}" aria-describedby="basic-addon1" (ngModelChange)="setEmployeeSalaryPerHour($event)">
     </div>
 </div>

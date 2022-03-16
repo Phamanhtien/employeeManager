@@ -20,6 +20,7 @@ import { AdvancesComponent } from './content/employee-detail/working/advances/ad
 import { StaticsComponent } from './content/employee-detail/working/statics/statics.component';
 import { WorkingDateComponent} from './content/employee-detail/working/working-date/working-date.component';
 import { AddTeamComponent } from './content/add-team/add-team.component';
+import { SexPipePipe } from './sex-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AddTeamComponent } from './content/add-team/add-team.component';
     StaticsComponent,
     WorkingDateComponent,
     AddTeamComponent,
+    SexPipePipe,
   ],
   imports: [
     BrowserModule,

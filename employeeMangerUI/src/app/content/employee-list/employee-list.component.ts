@@ -20,7 +20,7 @@ export class EmployeeListComponent implements OnInit {
   pageNumber: number = 0;
   numberOfPages: number = 0;
   pageArray: number[] = []
-  totalEmployee: number = -1;
+  totalEmployee: number = 0;
   employeeList: Employee[] = [];
   searchByNameText: string = "";
   deleteEmployeeList: number[] =  [];

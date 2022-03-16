@@ -1,20 +1,20 @@
 <ul class="nav nav-tabs">
-    <li class="nav-item">
+    <li (click)="step = 1" class="nav-item">
         <p [ngClass]="step == 1 ? 'active':''" class="nav-link">INFORMATIONS</p>
     </li>
-    <li class="nav-item">
+    <li (click)="step = 2" class="nav-item">
         <p [ngClass]="step == 2 ? 'active':''" class="nav-link">WORKING</p>
     </li>
-    <li class="nav-item">
+    <li (click)="step = 3" class="nav-item">
         <p [ngClass]="step == 3 ? 'active':''" class="nav-link">ADVANCE</p>
     </li>
-    <li class="nav-item">
+    <li (click)="step = 4" class="nav-item">
         <p [ngClass]="step == 4 ? 'active':''" class="nav-link">STATISTICS</p>
     </li>
 </ul>
 
 <div *ngIf="step == 1">
-    <app-informations></app-informations>
+    <app-informations [employee]="employee"></app-informations>
 </div>
 
 <div *ngIf="step == 2">

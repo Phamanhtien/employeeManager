@@ -1,10 +1,31 @@
 .infomation {
-    margin-top:20px;
+    margin-top: 20px;
     .row {
         margin-top: 10px;
         .col {
+            width: 45%;
             margin-left: 20px;
             margin-right: 10px;
+            display: inline-block;
+        }
+        .form-group {
+            .drop-down {
+                height: 30px;
+                .btn {
+                    height: 30px;
+                    width: 100%;
+                    padding-top: 0px !important;
+                    padding-bottom: 0px !important;
+                }
+            }
+            border: 1px solid;
+            border-color: rgb(145, 145, 145);
+            height: 30px;
+            margin-left: 22px;
+            margin-right: 10px;
+            padding-left: 12px;
+            text-align: center;
+            vertical-align: middle;
         }
     }
 }

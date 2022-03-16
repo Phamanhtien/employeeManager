@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Employee } from '../../../../model/employee.model';
 
 @Component({
   selector: 'app-working',
@@ -6,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./working.component.scss']
 })
 export class WorkingComponent implements OnInit {
-  step:number = 4;
+  step:number = 1;
+
+  @Input() employee:Employee;
   constructor() { }
 
   ngOnInit(): void {

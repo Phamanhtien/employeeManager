@@ -1,13 +1,15 @@
 <div class="content-header">
     <div class="tab-name">
-        <b>Employee-name</b>
+        <b>{{employee.fullName}}</b>
     </div>
     <div class="icon">
         <i class="bi bi-pencil-square"></i>
-        <i class="bi bi-trash3-fill"></i>
+        <i (click)="deleteAnEmployee()" class="bi bi-trash3-fill"></i>
     </div>
 </div>
 <div class="employee-detail">
     <app-avatar class="employee-detail-avatar"></app-avatar>
-    <app-working class="employee-detail-working"></app-working>
+    <div *ngIf="employee.id != 0">
+        <app-working [employee]="employee" class="employee-detail-working"></app-working>
+    </div>
 </div>

@@ -106,3 +106,24 @@ export class DeleteEmployeeService {
     this.data = data;
   }
 }
+
+const apiUrlGetAnEmployee = 'http://localhost:8080/employee/';
+@Injectable({
+  providedIn: 'root'
+})
+export class GetAnEmployeeService {
+  id: number = 0;
+
+  constructor(private httpClient: HttpClient) {
+
+  }
+
+
+  getAnEmployee(){
+    return this.httpClient.get(apiUrlGetAnEmployee+this.id);
+  }
+
+  setId (id: number) {
+    this.id = id;
+  }
+}
