@@ -37,7 +37,20 @@ public class RetrieveEmployeeWorkingDate {
         this.employeeId = employeeId;
     }
 
-    public List<EmployeeWorkingDate> retrieveAllWorkingDayByEmployeeId() {
+    public Integer retrieveAllWorkingDayByEmployeeIdWithoutPaging() {
+        if (employeeId <= 0) {
+            throw new InvalidArgumentException("Employee id " + String.valueOf(employeeId));
+        }
+
+        Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
+        if (!optionalEmployee.isPresent()) {
+            throw new NotFoundException("Employee has id " + String.valueOf(employeeId));
+        }
+
+        return employeeWorkingDateRepository.findAllByEmployeeId(this.employeeId).size();
+    }
+
+    public List<EmployeeWorkingDate> retrieveAllWorkingDayByEmployeeIdWithPaging() {
 
         if (employeeId <= 0) {
             throw new InvalidArgumentException("Employee id " + String.valueOf(employeeId));

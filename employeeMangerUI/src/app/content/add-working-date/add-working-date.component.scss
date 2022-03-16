@@ -1,0 +1,10 @@
+$light-gray: rgb(216, 216, 216);
+$title-size: 75%;
+.validator {
+    font-size: $title-size;
+    color: red;
+    margin-bottom: 16px;
+    height: 18px;
+    width: 50%;
+    display: inline;
+}

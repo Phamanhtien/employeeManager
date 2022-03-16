@@ -23,11 +23,16 @@ public class EmployeeWorkingDateController {
 
     @Autowired DeleteEmployeeWorkingDate deleteEmployeeWorkingDate;
 
+    @GetMapping("/all/{employeeId}")
+    public Integer retrieveAllWorkingDateOfAnEmployeeWithoutPaging(@PathVariable int employeeId) {
+        retrieveEmployeeWorkingDate.setEmployeeId(employeeId);
+        return retrieveEmployeeWorkingDate.retrieveAllWorkingDayByEmployeeIdWithoutPaging();
+    }
     @GetMapping("/all/{employeeId}/{page}")
-    public List<EmployeeWorkingDate> retrieveAllWorkingDateOfAnEmployee(@PathVariable int employeeId, @PathVariable int page) {
+    public List<EmployeeWorkingDate> retrieveAllWorkingDateOfAnEmployeeWithPaging(@PathVariable int employeeId, @PathVariable int page) {
         retrieveEmployeeWorkingDate.setEmployeeId(employeeId);
         retrieveEmployeeWorkingDate.setPage(page);
-        return retrieveEmployeeWorkingDate.retrieveAllWorkingDayByEmployeeId();
+        return retrieveEmployeeWorkingDate.retrieveAllWorkingDayByEmployeeIdWithPaging();
     }
 
     @PostMapping("/add")
@@ -35,7 +40,7 @@ public class EmployeeWorkingDateController {
         createEmployeeWorkingDate.setRequestEmployeeWorkingDate(requestEmployeeWorkingDate);
         createEmployeeWorkingDate.createEmployeeWorkingDate();
     }
-
+    
     @DeleteMapping("/delete")
     public void deleteWorkingDateOfAnEmployee(@RequestBody RequestEmployeeWorkingDate requestEmployeeWorkingDate) {
         deleteEmployeeWorkingDate.setRequestEmployeeWorkingDate(requestEmployeeWorkingDate);

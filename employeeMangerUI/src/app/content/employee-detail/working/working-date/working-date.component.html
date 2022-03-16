@@ -1,12 +1,13 @@
 <div class="working-detail">
-    <h3>
-        WORKING
-    </h3>
+    <div class="head">
+        <h3>
+            WORKING
+        </h3>
+        <i (click)="openAddWorkingDateOfAnEmployee()" class="bi bi-plus-circle-fill"></i>
+    </div>
     <table class="table-team-working-date table table-striped">
         <thead class="thead">
             <tr class="thead-row">
-                <th scope="col">
-                </th>
                 <th scope="col">
                     <b>No</b>
                 </th>
@@ -22,17 +23,26 @@
             </tr>
         </thead>
         <tbody class="tbody">
-            <tr class="tbody-row" *ngFor="let workingDate of workingDates">
-                <td>
-                    <input type="checkbox">
-                </td>
+            <tr class="tbody-row" *ngFor="let workingDate of workingDateList">
                 <td class="team-id">{{workingDate.id}}</td>
-                <td class="team-name">{{workingDate.date}}</td>
+                <td class="team-name">{{workingDate.date |date}}</td>
                 <td class="team-phone">{{workingDate.hour}}</td>
                 <td class="team-address">
-                    <i class="bi bi-trash3-fill"></i>
+                    <i (click)="deleteAnWorkingDate(workingDate)" class="bi bi-trash3-fill"></i>
                 </td>
             </tr>
         </tbody>
     </table>
+    <ul class="pagination pagination-sm">
+        <li [ngClass]="pageNumber == 0 ? 'disabled' : ''" class="page-item">
+            <a class="page-link" (click)="pageNumber = pageNumber -1; getAllWorkingDateOfAnEmployeesWithPaging()">
+                <<</a>
+        </li>
+        <li *ngFor="let page of pageArray" [ngClass]="pageNumber == page ? 'disabled' : ''" class="page-item">
+            <a class="page-link" (click)="pageNumber = page ; getAllWorkingDateOfAnEmployeesWithPaging()">{{page}}</a>
+        </li>
+        <li [ngClass]="pageNumber == (numberOfPages) ? 'disabled' : ''" class="page-item">
+            <a class="page-link" (click)="pageNumber = pageNumber +1; getAllWorkingDateOfAnEmployeesWithPaging()">>></a>
+        </li>
+    </ul>
 </div>

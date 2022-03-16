@@ -1,0 +1,22 @@
+<div class="my-modal">
+    <div class="modal-header">
+        <h4 class="modal-title">Add new Employee working date</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <div class="col">
+                <p class="title">Date *</p>
+                <input type="date" placeholder="dd-mm-yyyy" class="form-control" [ngModel]="workingDate.date" (ngModelChange)="setEmployeeWorkingDate($event)">
+            </div>
+            <div class="col">
+                <p class="title">Hour *</p>
+                <input type="text" placeholder="Enter hour" class="form-control" [ngModel]="workingDate.hour" (ngModelChange)="setEmployeeWorkingHour($event)">
+                <p class="validator">{{hourMessageError}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="saveEmployee()">SUBMIT</button>
+        <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">CANCEL</button>
+    </div>
+</div>

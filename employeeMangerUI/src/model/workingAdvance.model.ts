@@ -2,7 +2,7 @@ export class WorkingDate {
     id: number = 0;
     employeeId: number = 0;
     date: Date = new Date();
-    hour: number = 0;
+    money: number = 0;
 
     public getId(): number { return this.id; }
     public setId(id: number) { this.id = id; }
@@ -13,6 +13,6 @@ export class WorkingDate {
     public getDate(): Date { return this.date }
     public setDate(date: Date) { this.date = date; }
 
-    public getHour(): number { return this.hour; }
-    public setHour(hour: number) { this.hour = hour; }
+    public getMoney(): number { return this.money;}
+    public setMoney(money: number) { this.money = money; }
 }

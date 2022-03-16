@@ -53,6 +53,9 @@ export class EmployeeListComponent implements OnInit {
     this.employeeListWithoutPagingService.getNumberOfEmployees().subscribe((res: any) => {
       this.totalEmployee = res;
       this.numberOfPages = ~~(this.totalEmployee / 5)
+      if (this.totalEmployee % 5 == 0) {
+        this.numberOfPages -= 1;
+      }
       for (let i = 1; i < this.numberOfPages; i++) {
         this.pageArray.push(i);
       }
@@ -91,6 +94,9 @@ export class EmployeeListComponent implements OnInit {
         }
         this.totalEmployee = this.employeeList.length;
         this.numberOfPages = ~~(this.totalEmployee / 5)
+        if (this.totalEmployee % 5 == 0) {
+          this.numberOfPages -= 1;
+        }
         for (let i = 1; i < this.numberOfPages; i++) {
           this.pageArray.push(i);
         }

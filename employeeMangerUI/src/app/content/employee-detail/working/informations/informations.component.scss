@@ -1,6 +1,10 @@
 .infomation {
     margin-top: 20px;
     text-align: center;
+    h3 {
+        display: flex;
+        justify-content: start;
+    }
     .row {
         margin-top: 10px;
         .col {
