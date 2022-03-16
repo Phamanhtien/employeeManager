@@ -26,6 +26,7 @@ export class InformationsComponent implements OnInit {
   ngOnInit(): void {
     this.getTeamById();
     this.getTeamList();
+
     
   }
 
@@ -49,12 +50,12 @@ export class InformationsComponent implements OnInit {
       this.addressMessageError = "Address can not be empty"
     } else {
       this.isAddressPassed = true;
-      this.employee.setAddress(employeeAddress);
+      this.employee.address = employeeAddress;
     }
   }
 
   setEmployeeStartDate(employeeStartDate: Date) {
-    this.employee.setStartDate(employeeStartDate);
+    this.employee.startDate = employeeStartDate;
   }
 
   setEmployeeSalaryPerHour(salaryPerHour: number) {
@@ -66,13 +67,13 @@ export class InformationsComponent implements OnInit {
     else {
       this.salaryPerHourMessageError = "";
       this.isSalaryPerHourPassed = true;
-      this.employee.setSalaryPerHour(salaryPerHour);
+      this.employee.salaryPerHour = Number(salaryPerHour);
     }
   }
 
   setTeamId(teamId: any, teamName: any) {
-    console.log("ok");
-    this.employee.setTeamId(teamId);
+    console.log(teamName);
+    this.employee.teamId = teamId;
     this.teamName = teamName;
   }
 }

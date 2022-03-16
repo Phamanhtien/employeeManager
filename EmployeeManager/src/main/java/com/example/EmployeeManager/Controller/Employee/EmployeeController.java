@@ -4,6 +4,7 @@ import com.example.EmployeeManager.Entity.Employee;
 import com.example.EmployeeManager.Entity.Request.RequestEmployee;
 import com.example.EmployeeManager.HandleException.NotFoundException;
 import com.example.EmployeeManager.Model.Employee.*;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +28,9 @@ public class EmployeeController {
 
     @Autowired
     private DeleteEmployee deleteEmployee;
+
+    @Autowired
+    private UpdateEmployee updateEmployee;
 
     @Autowired
     private UpLoadImageEmployee upLoadImageEmployee;
@@ -64,6 +68,12 @@ public class EmployeeController {
     public void createEmployee(@RequestBody RequestEmployee requestEmployee) {
         createEmployee.setRequestEmployee(requestEmployee);
         createEmployee.createEmployee();
+    }
+
+    @PostMapping("/update")
+    public void editEmployee(@RequestBody RequestEmployee requestEmployee) {
+        updateEmployee.setRequestEmployee(requestEmployee);
+        updateEmployee.updateEmployee();
     }
 
     @DeleteMapping("/delete")

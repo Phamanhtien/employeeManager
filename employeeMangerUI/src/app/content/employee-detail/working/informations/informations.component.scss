@@ -1,5 +1,6 @@
 .infomation {
     margin-top: 20px;
+    text-align: center;
     .row {
         margin-top: 10px;
         .col {
@@ -14,18 +15,25 @@
                 .btn {
                     height: 30px;
                     width: 100%;
-                    padding-top: 0px !important;
-                    padding-bottom: 0px !important;
+                    padding-top: 0px;
+                    padding-bottom: 0px;
                 }
+            }
+            input {
+                height: 26px;
+                width: 100%;
+                padding: none;
+                border: none;
             }
             border: 1px solid;
             border-color: rgb(145, 145, 145);
             height: 30px;
             margin-left: 22px;
             margin-right: 10px;
-            padding-left: 12px;
             text-align: center;
             vertical-align: middle;
+            padding-left: 0px;
+            padding-right: 0px;
         }
     }
 }

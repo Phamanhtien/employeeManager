@@ -3,7 +3,7 @@
         <b>{{employee.fullName}}</b>
     </div>
     <div class="icon">
-        <i class="bi bi-pencil-square"></i>
+        <i (click)=saveEmployee() class="bi bi-pencil-square"></i>
         <i (click)="deleteAnEmployee()" class="bi bi-trash3-fill"></i>
     </div>
 </div>

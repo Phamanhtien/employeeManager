@@ -127,3 +127,25 @@ export class GetAnEmployeeService {
     this.id = id;
   }
 }
+
+
+const apiUrlUpdateEmployee = 'http://localhost:8080/employee/update';
+@Injectable({
+  providedIn: 'root'
+})
+export class UpdateEmployeeService {
+
+  employee: Employee = new Employee();
+
+  constructor(private httpClient: HttpClient) {
+
+  }
+
+  public setEmployee (employee:Employee) {
+    this.employee = employee;
+  }
+
+  saveEmployee(){
+    return this.httpClient.post(apiUrlUpdateEmployee, this.employee)
+  }
+}
