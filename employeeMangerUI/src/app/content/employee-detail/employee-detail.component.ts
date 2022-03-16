@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit,ChangeDetectorRef  } from '@angular/core';
 import {
   GetAnEmployeeService,
   DeleteEmployeeService,
@@ -18,22 +18,27 @@ export class EmployeeDetailComponent implements OnInit {
 
   employeeId = window.location.href.split("/")[4];
   employee: Employee = new Employee();
-  
+  tabIndex: number = 1;
+
   @ViewChild(WorkingComponent) workingComponent;
 
   constructor(
     private router: Router,
     private getAnEmployeeService: GetAnEmployeeService,
     private deleteEmployeeService: DeleteEmployeeService,
-    private updateEmployeeService: UpdateEmployeeService
+    private updateEmployeeService: UpdateEmployeeService,
+    private changeDetectorRef: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.getAnEmployee();
   }
 
-  ngAfterViewInit() {
-
+  ngAfterViewChecked() {
+    if (this.workingComponent !== undefined) {
+      this.tabIndex = this.workingComponent.step;
+    }
+    this.changeDetectorRef.detectChanges();
   }
 
 
