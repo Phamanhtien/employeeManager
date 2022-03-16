@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Employee } from '../../../../../model/employee.model';
 import { Team } from '../../../../../model/team.model';
-import { TeamByIdService, TeamListService } from '../../../../team.service';
+import { TeamByIdService, TeamListService } from '../../../../../service/team.service';
 @Component({
   selector: 'app-informations',
   templateUrl: './informations.component.html',

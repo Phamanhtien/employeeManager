@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DeleteEmployeeService } from '../../employee.service';
+import { DeleteEmployeeService } from '../../../service/employee.service';
 
 @Component({
   selector: 'app-delete-employee',

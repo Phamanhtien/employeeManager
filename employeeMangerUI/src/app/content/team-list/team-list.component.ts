@@ -4,7 +4,7 @@ import { AddTeamComponent } from '../add-team/add-team.component'
 import {
   TeamListService,
   TeamMemberListService
-} from '../../team.service'
+} from '../../../service/team.service'
 import { Team } from '../../../model/team.model';
 import { Employee } from '../../../model/employee.model';
 

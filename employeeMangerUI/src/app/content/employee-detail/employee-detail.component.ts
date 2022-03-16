@@ -3,7 +3,7 @@ import {
   GetAnEmployeeService,
   DeleteEmployeeService,
   UpdateEmployeeService
-} from '../../employee.service'
+} from '../../../service/employee.service'
 import { Employee } from '../../../model/employee.model'
 import { Router } from '@angular/router';
 
@@ -18,6 +18,7 @@ export class EmployeeDetailComponent implements OnInit {
 
   employeeId = window.location.href.split("/")[4];
   employee: Employee = new Employee();
+  
   @ViewChild(WorkingComponent) workingComponent;
 
   constructor(
@@ -30,6 +31,11 @@ export class EmployeeDetailComponent implements OnInit {
   ngOnInit(): void {
     this.getAnEmployee();
   }
+
+  ngAfterViewInit() {
+
+  }
+
 
   getAnEmployee() {
     this.getAnEmployeeService.setId(Number(this.employeeId));

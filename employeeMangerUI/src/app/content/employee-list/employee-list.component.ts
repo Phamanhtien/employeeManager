@@ -7,7 +7,7 @@ import {
   EmployeeListWithPagingService,
   EmployeeListWithPagingByNameService,
   DeleteEmployeeService
-} from '../../employee.service'
+} from '../../../service/employee.service'
 import { Employee } from '../../../model/employee.model'
 
 @Component({

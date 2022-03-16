@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Employee } from '../../../model/employee.model';
 import { Team } from '../../../model/team.model';
-import { TeamListService } from '../../team.service';
-import { SaveEmployeeService } from '../../employee.service';
+import { TeamListService } from '../../../service/team.service';
+import { SaveEmployeeService } from '../../../service/employee.service';
 
 @Component({
   selector: 'app-add',
