@@ -24,9 +24,9 @@ public class EmployeeWorkingDateController {
     @Autowired DeleteEmployeeWorkingDate deleteEmployeeWorkingDate;
 
     @GetMapping("/all/{employeeId}")
-    public Integer retrieveAllWorkingDateOfAnEmployeeWithoutPaging(@PathVariable int employeeId) {
+    public Integer retrieveTotalWorkingDateOfAnEmployee(@PathVariable int employeeId) {
         retrieveEmployeeWorkingDate.setEmployeeId(employeeId);
-        return retrieveEmployeeWorkingDate.retrieveAllWorkingDayByEmployeeIdWithoutPaging();
+        return retrieveEmployeeWorkingDate.retrieveTotalWorkingDayByEmployeeId();
     }
     @GetMapping("/all/{employeeId}/{page}")
     public List<EmployeeWorkingDate> retrieveAllWorkingDateOfAnEmployeeWithPaging(@PathVariable int employeeId, @PathVariable int page) {

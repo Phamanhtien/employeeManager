@@ -37,7 +37,7 @@ public class RetrieveEmployeeWorkingDate {
         this.employeeId = employeeId;
     }
 
-    public Integer retrieveAllWorkingDayByEmployeeIdWithoutPaging() {
+    public Integer retrieveTotalWorkingDayByEmployeeId() {
         if (employeeId <= 0) {
             throw new InvalidArgumentException("Employee id " + String.valueOf(employeeId));
         }

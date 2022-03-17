@@ -6,7 +6,7 @@ import { WorkingDate } from '../model/workingDate.model'
 @Injectable({
   providedIn: 'root'
 })
-export class WorkingDateListWithoutPagingService {
+export class TotalWorkingDateOfAnEmployee {
   private apiUrl:string = 'http://localhost:8080/employeeWorking/date/all';
   employeeId: number = 0;
   pageNumber: number = 0;

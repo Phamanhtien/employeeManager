@@ -9,10 +9,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface EmployeeWorkingAdvanceRepository extends JpaRepository<EmployeeWorkingAdvance, Integer> {
+
+    List<EmployeeWorkingAdvance> findAllByEmployeeId(int EmployeeId);
 
     Page<EmployeeWorkingAdvance> findAllByEmployeeId(int EmployeeId, Pageable pageable);
 

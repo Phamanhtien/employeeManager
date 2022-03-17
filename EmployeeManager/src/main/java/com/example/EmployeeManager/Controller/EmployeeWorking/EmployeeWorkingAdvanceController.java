@@ -24,6 +24,12 @@ public class EmployeeWorkingAdvanceController {
     @Autowired
     private DeleteEmployeeWorkingAdvance deleteEmployeeWorkingAdvance;
 
+    @GetMapping("/all/{employeeId}")
+    public Integer retrieveTotalWorkingAdvancesOfAnEmployee(@PathVariable int employeeId) {
+        retrieveEmployeeWorkingAdvances.setEmployeeId(employeeId);
+        return retrieveEmployeeWorkingAdvances.retrieveTotalEmployeeWorkingAdvancesByEmployeeId();
+    }
+
     @GetMapping("/all/{employeeId}/{page}")
     public List<EmployeeWorkingAdvance> retrieveAllWorkingAdvancesOfAnEmployee (@PathVariable int employeeId, @PathVariable int page) {
         retrieveEmployeeWorkingAdvances.setEmployeeId(employeeId);

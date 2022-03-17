@@ -37,6 +37,20 @@ public class RetrieveEmployeeWorkingAdvances {
         this.employeeId = employeeId;
     }
 
+    public Integer retrieveTotalEmployeeWorkingAdvancesByEmployeeId () {
+        if (employeeId <= 0) {
+            throw new InvalidArgumentException("employee id " + String.valueOf(employeeId));
+        }
+
+        Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
+        if (!optionalEmployee.isPresent()) {
+            throw new NotFoundException("employee has id " + String.valueOf(employeeId));
+        }
+
+        Integer totalWorkingDate = employeeWorkingAdvanceRepository.findAllByEmployeeId(employeeId).size();
+        return totalWorkingDate;
+    }
+
     public List<EmployeeWorkingAdvance> retrieveEmployeeWorkingAdvancesByEmployeeId() {
 
         if (employeeId <= 0) {

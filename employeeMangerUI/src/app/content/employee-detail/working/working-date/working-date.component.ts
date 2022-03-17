@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { WorkingDate } from '../../../../../model/workingDate.model'
 import { Employee } from '../../../../../model/employee.model'
 import { AddWorkingDateComponent } from '../../../add-working-date/add-working-date.component'
-import { WorkingDateListWithoutPagingService, 
+import { TotalWorkingDateOfAnEmployee, 
          WorkingDateListWithPagingService,
          DeleteWorkingDateService } from '../../../../../service/working-date.service'
 
@@ -24,7 +24,7 @@ export class WorkingDateComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private workingDateListWithoutPagingService: WorkingDateListWithoutPagingService,
+    private totalWorkingDateOfAnEmployee: TotalWorkingDateOfAnEmployee,
     private workingDateListWithPagingService: WorkingDateListWithPagingService,
     private deleteWorkingDateService: DeleteWorkingDateService,
     private changeDetectorRef: ChangeDetectorRef
@@ -42,8 +42,8 @@ export class WorkingDateComponent implements OnInit {
   }
 
   getNumberOfWorkingDate() {
-    this.workingDateListWithoutPagingService.setEmployeeId(this.employee.id);
-    this.workingDateListWithoutPagingService.getAllEmployeesWithoutPaging().subscribe((res: any) => {
+    this.totalWorkingDateOfAnEmployee.setEmployeeId(this.employee.id);
+    this.totalWorkingDateOfAnEmployee.getAllEmployeesWithoutPaging().subscribe((res: any) => {
       this.numberOfWorkingDate = res;
       console.log(res);
       this.numberOfPages = ~~(this.numberOfWorkingDate / 5)
