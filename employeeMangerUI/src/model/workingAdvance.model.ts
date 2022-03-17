@@ -1,4 +1,4 @@
-export class WorkingDate {
+export class WorkingAdvance {
     id: number = 0;
     employeeId: number = 0;
     date: Date = new Date();

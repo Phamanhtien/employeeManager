@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { WorkingAdvance } from '../../../../../model/workingAdvance.model'
 @Component({
   selector: 'app-advances',
   templateUrl: './advances.component.html',
@@ -7,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdvancesComponent implements OnInit {
   advanceDate = new Date("2019-01-16");
-  advances =[
-    {id: 1, date: this.advanceDate.toLocaleDateString(), money:60 }] 
+  workingAdvanceList: WorkingAdvance[] = [];
   constructor() { }
 
   ngOnInit(): void {

@@ -40,7 +40,7 @@ public class EmployeeWorkingDateController {
         createEmployeeWorkingDate.setRequestEmployeeWorkingDate(requestEmployeeWorkingDate);
         createEmployeeWorkingDate.createEmployeeWorkingDate();
     }
-    
+
     @DeleteMapping("/delete")
     public void deleteWorkingDateOfAnEmployee(@RequestBody RequestEmployeeWorkingDate requestEmployeeWorkingDate) {
         deleteEmployeeWorkingDate.setRequestEmployeeWorkingDate(requestEmployeeWorkingDate);
