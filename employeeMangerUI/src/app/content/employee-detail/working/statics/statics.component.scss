@@ -1,10 +1,28 @@
 .statistics {
-    margin-top:20px;
+    margin-top: 20px;
     .row {
+        .row {
+            border-bottom: 1px solid;
+            padding: 0px;
+            padding-bottom: 20px;
+            .col {
+                margin-right: 20px;
+                margin-left: 0px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .btn {
+                margin-right: 0px;
+            }
+        }
         margin-top: 10px;
+        margin-left: 20px;
         .col {
             margin-left: 20px;
             margin-right: 10px;
+        }
+        h5 {
+            margin-top: 20px;
         }
     }
 }

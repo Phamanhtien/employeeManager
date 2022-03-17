@@ -6,17 +6,17 @@
         <div class="form-group row">
             <div class="col">
                 <p class="title">Date *</p>
-                <input type="date" placeholder="dd-mm-yyyy" class="form-control" [ngModel]="workingDate.date" (ngModelChange)="setEmployeeWorkingDate($event)">
+                <input type="date" placeholder="dd-mm-yyyy" class="form-control" [ngModel]="workingDate.date" (ngModelChange)="setEmployeeWorkingDateDate($event)">
             </div>
             <div class="col">
                 <p class="title">Hour *</p>
-                <input type="text" placeholder="Enter hour" class="form-control" [ngModel]="workingDate.hour" (ngModelChange)="setEmployeeWorkingHour($event)">
+                <input type="text" placeholder="Enter hour" class="form-control" [ngModel]="workingDate.hour" (ngModelChange)="setEmployeeWorkingDateHour($event)">
                 <p class="validator">{{hourMessageError}}</p>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="saveEmployee()">SUBMIT</button>
+        <button type="button" class="btn btn-primary" (click)="saveEmployeeDate()">SUBMIT</button>
         <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">CANCEL</button>
     </div>
 </div>

@@ -1,11 +1,25 @@
 <div class="statistics">
-        <h3>Statistics</h3>
+    <h3>Statistics</h3>
+
+    <div class="row">
         <div class="row">
-            <input type="text" class="col" placeholder="Number of working days" aria-label="Username" aria-describedby="basic-addon1">
-            <input type="text" class="col" placeholder="Total get" aria-label="Username" aria-describedby="basic-addon1">
-        </div>
-        <div class="row">
-            <input type="text" class="col" placeholder="Total Advance" aria-label="Username" aria-describedby="basic-addon1">
-            <input type="text" class="col" placeholder="Total recives" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="number" class="col" placeholder="Month" [ngModel]="statisticsRequest.month" (ngModelChange)="setEmployeeStaticMonth($event)">
+            <input type="number" class="col" placeholder="Year" [ngModel]="statisticsRequest.year" (ngModelChange)="setEmployeeStaticYear($event)">
+            <button type="button" class="btn btn-primary col" (click)="getStatic()">Static</button>
         </div>
     </div>
+
+    <div class="row" *ngIf="wasQuery">
+        <h5>Result</h5>
+    </div>
+
+    <div class="row" *ngIf="wasQuery">
+        <input type="text " class="col " placeholder="Number of working days " value="{{staticsReponse.totalNumberWorkingDate}}">
+        <input type="text " class="col " placeholder="Total get " value="{{staticsReponse.totalMoneyGet|currency}}">
+    </div>
+
+    <div class="row" *ngIf="wasQuery">
+        <input type="text " class="col " placeholder="Total Advance " value="{{staticsReponse.totalMoneyAdvance|currency}}">
+        <input type="text " class="col " placeholder="Total recives  " value={{staticsReponse.totalMoneyGet-staticsReponse.totalMoneyAdvance|currency}}>
+    </div>
+</div>

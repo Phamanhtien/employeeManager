@@ -24,11 +24,11 @@ export class AddWorkingDateComponent implements OnInit {
     this.workingDate.setEmployeeId(this.employeeId);
   }
 
-  public setEmployeeWorkingDate(date: Date) {
+  public setEmployeeWorkingDateDate(date: Date) {
     this.workingDate.setDate(date);
   }
 
-  public setEmployeeWorkingHour(hour: number) {
+  public setEmployeeWorkingDateHour(hour: number) {
     if (hour <= 0 || hour > 24) {
       this.hourMessageError = "Working hour have to greater than 0 and less than 24";
       this.isHourPassed = false;
@@ -46,7 +46,7 @@ export class AddWorkingDateComponent implements OnInit {
     }
   }
 
-  public saveEmployee() {
+  public saveEmployeeDate() {
     if (!this.isHourPassed) {
       if (this.hourMessageError == "") {
         alert(" Working hour is empty");

@@ -22,9 +22,9 @@
 </div>
 
 <div *ngIf="step == 3">
-    <app-advances></app-advances>
+    <app-advances [employee]="employee"></app-advances>
 </div>
 
 <div *ngIf="step == 4">
-    <app-statics></app-statics>
+    <app-statics [employee]="employee"></app-statics>
 </div>

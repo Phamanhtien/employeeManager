@@ -24,20 +24,20 @@ public class DeleteEmployeeWorkingAdvance {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    private int employeeWorkingAdvanceId;
+    private RequestEmployeeWorkingAdvance requestEmployeeWorkingAdvance;
 
-    public void setEmployeeWorkingAdvanceId(int employeeWorkingAdvanceId) {
-        this.employeeWorkingAdvanceId = employeeWorkingAdvanceId;
+    public void setRequestEmployeeWorkingAdvance(RequestEmployeeWorkingAdvance requestEmployeeWorkingAdvance) {
+        this.requestEmployeeWorkingAdvance = requestEmployeeWorkingAdvance;
     }
 
     public void deleteEmployeeWorkingAdvance() {
-         if(employeeWorkingAdvanceId <= 0) {
-             throw new InvalidArgumentException("employee working advance id has to greater than 0: "+ String.valueOf(employeeWorkingAdvanceId));
+         if(requestEmployeeWorkingAdvance.getId() <= 0) {
+             throw new InvalidArgumentException("employee working advance id has to greater than 0: "+ String.valueOf(requestEmployeeWorkingAdvance.getEmployeeId()));
          }
 
-        Optional<EmployeeWorkingAdvance> employeeWorkingAdvanceOptional = employeeWorkingAdvanceRepository.findById(employeeWorkingAdvanceId);
+        Optional<EmployeeWorkingAdvance> employeeWorkingAdvanceOptional = employeeWorkingAdvanceRepository.findById(requestEmployeeWorkingAdvance.getId());
          if (employeeWorkingAdvanceOptional.isPresent()){
-             employeeWorkingAdvanceRepository.deleteById(employeeWorkingAdvanceId);
+             employeeWorkingAdvanceRepository.deleteById(requestEmployeeWorkingAdvance.getId());
          }
     }
 }

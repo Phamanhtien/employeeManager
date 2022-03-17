@@ -1,0 +1,22 @@
+<div class="my-modal">
+    <div class="modal-header">
+        <h4 class="modal-title">Add new Employee working advance</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <div class="col">
+                <p class="title">Date *</p>
+                <input type="date" placeholder="dd-mm-yyyy" class="form-control" [ngModel]="workingAdvance.date" (ngModelChange)="setEmployeeWorkingAdvanceDate($event)">
+            </div>
+            <div class="col">
+                <p class="title">Money *</p>
+                <input type="text" placeholder="Enter hour" class="form-control" [ngModel]="workingAdvance.money" (ngModelChange)="setEmployeeWorkingAdvanceMoney($event)">
+                <p class="validator">{{moneyMessageError}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="saveEmployeeAdvance()">SUBMIT</button>
+        <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">CANCEL</button>
+    </div>
+</div>

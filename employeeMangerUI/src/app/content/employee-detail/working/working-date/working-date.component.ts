@@ -19,7 +19,6 @@ export class WorkingDateComponent implements OnInit {
   numberOfPages = 0;
   pageArray: number[] = [];
   @Input() employee: Employee;
-  workingDate = new Date("2019-01-16");
   workingDateList:WorkingDate[] = []
 
   constructor(

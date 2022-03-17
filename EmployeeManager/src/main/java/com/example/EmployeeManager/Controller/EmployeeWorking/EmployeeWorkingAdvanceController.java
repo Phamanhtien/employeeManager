@@ -2,7 +2,6 @@ package com.example.EmployeeManager.Controller.EmployeeWorking;
 
 import com.example.EmployeeManager.Entity.EmployeeWorkingAdvance;
 import com.example.EmployeeManager.Entity.Request.RequestEmployeeWorkingAdvance;
-import com.example.EmployeeManager.Entity.Request.RequestEmployeeWorkingDate;
 import com.example.EmployeeManager.Model.EmployeeWorking.Advances.CreateEmployeeWorkingAdvance;
 import com.example.EmployeeManager.Model.EmployeeWorking.Advances.DeleteEmployeeWorkingAdvance;
 import com.example.EmployeeManager.Model.EmployeeWorking.Advances.RetrieveEmployeeWorkingAdvances;
@@ -44,8 +43,8 @@ public class EmployeeWorkingAdvanceController {
     }
 
     @DeleteMapping("delete")
-    public void deleteWorkingAdvanceOfAnEmployee(@RequestBody int employeeWorkingAdvanceId) {
-        deleteEmployeeWorkingAdvance.setEmployeeWorkingAdvanceId(employeeWorkingAdvanceId);
+    public void deleteWorkingAdvanceOfAnEmployee(@RequestBody RequestEmployeeWorkingAdvance requestEmployeeWorkingAdvance) {
+        deleteEmployeeWorkingAdvance.setRequestEmployeeWorkingAdvance(requestEmployeeWorkingAdvance);
         deleteEmployeeWorkingAdvance.deleteEmployeeWorkingAdvance();
     }
 }
