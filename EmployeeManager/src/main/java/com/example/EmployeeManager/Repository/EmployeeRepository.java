@@ -16,6 +16,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     List<Employee> findByFullNameLike(String fullName,Pageable pageable);
 
+    List<Employee> findByFullNameLike(String fullName);
+
     List<Employee> findTop5ByOrderByStartDateDesc();
 
     List<Employee> findByTeamId(int teamId);

@@ -53,7 +53,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/search/{full_name}/{page}")
-    public List<Employee> retrieveEmployeeByName(@PathVariable String full_name, @PathVariable int page){
+    public List<Employee> retrieveEmployeeByNameWithPaging(@PathVariable String full_name, @PathVariable int page){
         retrieveEmployees.setKey(full_name);
         retrieveEmployees.setPageNumber(page);
         return retrieveEmployees.retrieveAllEmployeeByNameWithPaging();
@@ -87,5 +87,11 @@ public class EmployeeController {
         upLoadImageEmployee.setImage(image);
         upLoadImageEmployee.setEmployeeId(employeeId);
         upLoadImageEmployee.saveImage();
+    }
+
+    @GetMapping("/search/{full_name}")
+    public List<Employee> retrieveEmployeeByNameWithoutPaging(@PathVariable String full_name){
+        retrieveEmployees.setKey(full_name);
+        return retrieveEmployees.retrieveAllEmployeeByNameWithoutPaging();
     }
 }

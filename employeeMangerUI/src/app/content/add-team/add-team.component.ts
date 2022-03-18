@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Team } from '../../../model/team.model'
+import { Team } from '../../../model/team.model';
+import { Employee } from '../../../model/employee.model';
+import { EmployeeListWithoutPagingByNameService } from '../../../service/employee.service';
 
 @Component({
   selector: 'app-add-team',
@@ -13,6 +15,8 @@ export class AddTeamComponent implements OnInit {
   nameMessageError: string = "";
   isNamePassed = false;
   nameLength = 0;
+  teamManager:string = "Team manager";
+  employeeList:Employee[] = [];
 
   constructor(
     public activeModal: NgbActiveModal,

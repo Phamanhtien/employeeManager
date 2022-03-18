@@ -59,4 +59,10 @@ public class RetrieveEmployees {
         List<Employee> employeeList = employeeRepository.findTop5ByOrderByStartDateDesc();
         return employeeList;
     }
+
+    public List<Employee> retrieveAllEmployeeByNameWithoutPaging() {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        List<Employee> employeeList = employeeRepository.findByFullNameLike("%" + key + "%");
+        return employeeList;
+    }
 }

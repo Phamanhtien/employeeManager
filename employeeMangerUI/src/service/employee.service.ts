@@ -149,3 +149,25 @@ export class UpdateEmployeeService {
     return this.httpClient.post(apiUrlUpdateEmployee, this.employee)
   }
 }
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EmployeeListWithoutPagingByNameService {
+
+  private searchByNameText: String = " "
+
+  setSearchByNameText(searchByNameText: String) {
+    this.searchByNameText = searchByNameText;
+  }
+
+  constructor(private httpClient: HttpClient) {
+
+  }
+
+  getAllEmployeesWithPagingByName(): Observable<Employee[]> {
+    return this.httpClient.get<Employee[]>(apiUrlSearch + "/" + this.searchByNameText).pipe(
+    )
+  }
+}
