@@ -54,7 +54,7 @@ public class UpdateEmployee {
         }
 
         Employee employee = optionalEmployee.get();
-        employee = EmployeeDTO.requestToObject(requestEmployee,employee);
+        employee = EmployeeDTO.requestToObject(requestEmployee);
 
         employeeRepository.save(employee);
     }

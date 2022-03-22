@@ -58,7 +58,7 @@ public class CreateEmployee {
         }
 
         Employee employee = new Employee();
-        employee = EmployeeDTO.requestToObject(requestEmployee,employee);
+        employee = EmployeeDTO.requestToObject(requestEmployee);
 
         employeeRepository.save(employee);
     }

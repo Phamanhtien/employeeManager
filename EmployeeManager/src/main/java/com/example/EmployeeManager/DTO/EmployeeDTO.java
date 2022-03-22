@@ -7,7 +7,9 @@ import com.example.EmployeeManager.Entity.Team;
 
 public class EmployeeDTO {
 
-    public static Employee requestToObject(RequestEmployee requestEmployee, Employee employee) {
+    public static Employee requestToObject(RequestEmployee requestEmployee) {
+
+        Employee employee = new Employee();
         employee.setId(requestEmployee.getId());
         employee.setFullName(requestEmployee.getFullName());
         employee.setPhone(requestEmployee.getPhone());
@@ -20,7 +22,9 @@ public class EmployeeDTO {
         return employee;
     }
 
-    public static ResponseEmployee objectToResponse(ResponseEmployee responseEmployee, Employee employee, Team team) {
+    public static ResponseEmployee objectToResponse(Employee employee, Team team) {
+
+        ResponseEmployee responseEmployee = new ResponseEmployee();
         responseEmployee.setId (employee.getId());
         responseEmployee.setFullName(employee.getFullName());
         responseEmployee.setPhone(employee.getPhone());

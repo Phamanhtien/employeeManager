@@ -47,7 +47,7 @@ public class RetrieveEmployee {
         Team team = optionalTeam.get();
 
 
-        ResponseEmployee responseEmployee1 = EmployeeDTO.objectToResponse(responseEmployee,employee,team);
+        ResponseEmployee responseEmployee1 = EmployeeDTO.objectToResponse(employee,team);
         return responseEmployee;
     }
 }

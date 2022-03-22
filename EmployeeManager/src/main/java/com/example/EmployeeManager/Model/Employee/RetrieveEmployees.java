@@ -61,7 +61,7 @@ public class RetrieveEmployees {
             if (!optionalTeam.isPresent()) {
                 throw new NotFoundException("Team has id " + employee.getTeamId());
             }
-            responseEmployeeList.add(EmployeeDTO.objectToResponse(responseEmployee, employeeList.get(i),optionalTeam.get()));
+            responseEmployeeList.add(EmployeeDTO.objectToResponse(employeeList.get(i),optionalTeam.get()));
         }
         return responseEmployeeList;
     }
@@ -83,7 +83,7 @@ public class RetrieveEmployees {
             if (!optionalTeam.isPresent()) {
                 throw new NotFoundException("Team has id " + employee.getTeamId());
             }
-            responseEmployeeList.add(EmployeeDTO.objectToResponse(responseEmployee, employeeList.get(i),optionalTeam.get()));
+            responseEmployeeList.add(EmployeeDTO.objectToResponse(employeeList.get(i),optionalTeam.get()));
         }
         return responseEmployeeList;
     }
@@ -100,7 +100,7 @@ public class RetrieveEmployees {
             if (!optionalTeam.isPresent()) {
                 throw new NotFoundException("Team has id " + employee.getTeamId());
             }
-            responseEmployeeList.add(EmployeeDTO.objectToResponse(responseEmployee, employeeList.get(i),optionalTeam.get()));
+            responseEmployeeList.add(EmployeeDTO.objectToResponse(employeeList.get(i),optionalTeam.get()));
         }
         return responseEmployeeList;
     }
@@ -118,7 +118,7 @@ public class RetrieveEmployees {
             if (!optionalTeam.isPresent()) {
                 throw new NotFoundException("Team has id " + employee.getTeamId());
             }
-            responseEmployeeList.add(EmployeeDTO.objectToResponse(responseEmployee, employeeList.get(i),optionalTeam.get()));
+            responseEmployeeList.add(EmployeeDTO.objectToResponse(employeeList.get(i),optionalTeam.get()));
         }
         return responseEmployeeList;
     }
