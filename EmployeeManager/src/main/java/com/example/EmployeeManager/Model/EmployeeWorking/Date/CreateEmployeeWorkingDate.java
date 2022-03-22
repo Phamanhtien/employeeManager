@@ -7,6 +7,7 @@ import com.example.EmployeeManager.HandleException.InvalidArgumentException;
 import com.example.EmployeeManager.HandleException.NotFoundException;
 import com.example.EmployeeManager.Repository.EmployeeRepository;
 import com.example.EmployeeManager.Repository.EmployeeWorkingDateRepository;
+import com.example.EmployeeManager.DTO.WorkingDateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,9 +54,7 @@ public class CreateEmployeeWorkingDate {
         }
 
         EmployeeWorkingDate employeeWorkingDate = new EmployeeWorkingDate();
-        employeeWorkingDate.setEmployeeId(requestEmployeeWorkingDate.getEmployeeId());
-        employeeWorkingDate.setDate(date);
-        employeeWorkingDate.setHour(hour);
+        employeeWorkingDate = WorkingDateDTO.requestToObject(requestEmployeeWorkingDate);
         employeeWorkingDateRepository.save(employeeWorkingDate);
 
     }

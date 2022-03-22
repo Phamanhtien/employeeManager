@@ -2,6 +2,7 @@ package com.example.EmployeeManager.Controller.EmployeeWorking;
 
 import com.example.EmployeeManager.Entity.EmployeeWorkingDate;
 import com.example.EmployeeManager.Entity.Request.RequestEmployeeWorkingDate;
+import com.example.EmployeeManager.Entity.Response.ResponseEmployeeWorkingDate;
 import com.example.EmployeeManager.Model.EmployeeWorking.Date.CreateEmployeeWorkingDate;
 import com.example.EmployeeManager.Model.EmployeeWorking.Date.DeleteEmployeeWorkingDate;
 import com.example.EmployeeManager.Model.EmployeeWorking.Date.RetrieveEmployeeWorkingDate;
@@ -26,10 +27,10 @@ public class EmployeeWorkingDateController {
     @GetMapping("/all/{employeeId}")
     public Integer retrieveTotalWorkingDateOfAnEmployee(@PathVariable int employeeId) {
         retrieveEmployeeWorkingDate.setEmployeeId(employeeId);
-        return retrieveEmployeeWorkingDate.retrieveTotalWorkingDayByEmployeeId();
+        return retrieveEmployeeWorkingDate.getNumberOfAllWorkingDayByEmployeeId();
     }
     @GetMapping("/all/{employeeId}/{page}")
-    public List<EmployeeWorkingDate> retrieveAllWorkingDateOfAnEmployeeWithPaging(@PathVariable int employeeId, @PathVariable int page) {
+    public List<ResponseEmployeeWorkingDate> retrieveAllWorkingDateOfAnEmployeeWithPaging(@PathVariable int employeeId, @PathVariable int page) {
         retrieveEmployeeWorkingDate.setEmployeeId(employeeId);
         retrieveEmployeeWorkingDate.setPage(page);
         return retrieveEmployeeWorkingDate.retrieveAllWorkingDayByEmployeeIdWithPaging();

@@ -3,15 +3,18 @@ package com.example.EmployeeManager.Model.EmployeeWorking.Date;
 import com.example.EmployeeManager.Constant;
 import com.example.EmployeeManager.Entity.Employee;
 import com.example.EmployeeManager.Entity.EmployeeWorkingDate;
+import com.example.EmployeeManager.Entity.Response.ResponseEmployeeWorkingDate;
 import com.example.EmployeeManager.HandleException.InvalidArgumentException;
 import com.example.EmployeeManager.HandleException.NotFoundException;
 import com.example.EmployeeManager.Repository.EmployeeRepository;
 import com.example.EmployeeManager.Repository.EmployeeWorkingDateRepository;
+import com.example.EmployeeManager.DTO.WorkingDateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +40,7 @@ public class RetrieveEmployeeWorkingDate {
         this.employeeId = employeeId;
     }
 
-    public Integer retrieveTotalWorkingDayByEmployeeId() {
+    public Integer getNumberOfAllWorkingDayByEmployeeId() {
         if (employeeId <= 0) {
             throw new InvalidArgumentException("Employee id " + String.valueOf(employeeId));
         }
@@ -50,7 +53,7 @@ public class RetrieveEmployeeWorkingDate {
         return employeeWorkingDateRepository.findAllByEmployeeId(this.employeeId).size();
     }
 
-    public List<EmployeeWorkingDate> retrieveAllWorkingDayByEmployeeIdWithPaging() {
+    public List<ResponseEmployeeWorkingDate> retrieveAllWorkingDayByEmployeeIdWithPaging() {
 
         if (employeeId <= 0) {
             throw new InvalidArgumentException("Employee id " + String.valueOf(employeeId));
@@ -68,9 +71,17 @@ public class RetrieveEmployeeWorkingDate {
         Pageable pageable = PageRequest.of(page, PAGE_SIZE);
         List<EmployeeWorkingDate> employeeWorkingDateList
                 = employeeWorkingDateRepository.findAllByEmployeeId(employeeId, pageable).getContent();
-        if( employeeWorkingDateList.isEmpty()) {
+        if (employeeWorkingDateList.isEmpty()) {
             throw new NotFoundException("employee working date at page " + String.valueOf(page));
         }
-        return employeeWorkingDateList;
+
+
+        int employeeWorkingSize = employeeWorkingDateList.size();
+        List<ResponseEmployeeWorkingDate> responseEmployeeWorkingDateList = new ArrayList<ResponseEmployeeWorkingDate>();
+        for (int i = 0; i < employeeWorkingSize; i++) {
+            ResponseEmployeeWorkingDate responseEmployeeWorkingDate = new ResponseEmployeeWorkingDate();
+            responseEmployeeWorkingDateList.add(WorkingDateDTO.objectToResponse(employeeWorkingDateList.get(i)));
+        }
+            return responseEmployeeWorkingDateList;
     }
 }
