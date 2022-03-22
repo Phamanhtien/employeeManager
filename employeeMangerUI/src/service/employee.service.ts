@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-
 import { Employee } from './../model/employee.model';
 
 const httpOptions = {
@@ -166,8 +165,46 @@ export class EmployeeListWithoutPagingByNameService {
 
   }
 
-  getAllEmployeesWithPagingByName(): Observable<Employee[]> {
+  getAllEmployeesWithoutPagingByName(): Observable<Employee[]> {
     return this.httpClient.get<Employee[]>(apiUrlSearch + "/" + this.searchByNameText).pipe(
     )
   }
 }
+
+
+const uploadImageApiUrl = "http://localhost:8080/employee/upImage"
+@Injectable({
+  providedIn: 'root'
+})
+export class UploadEmployeeImageService {
+
+  private employeeId:number = 0;
+  private image:any;
+
+  setEmployeeId(employeeId:number) {
+    this.employeeId = employeeId;
+  }
+
+  setImage(image:any) {
+    this.image = image;
+  }
+  constructor(private httpClient: HttpClient) {
+
+  }
+
+
+  UploadEmployeeImage() {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': '' })
+    }
+
+    httpOptions.headers.set('Accept', 'application/json')
+
+    const formData = new FormData();
+    formData.append("file",this.image)
+    formData.append("employeeId", this.employeeId.toString())
+    return this.httpClient.post(uploadImageApiUrl,formData ).pipe(
+    )
+  }
+}
+

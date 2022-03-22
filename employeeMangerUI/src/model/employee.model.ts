@@ -4,12 +4,13 @@ export class Employee {
     fullName: string = "";
     phone: string = "";
     address: string = "";
-    teamId: number = 0;
+    teamName: string = "";
     sex: boolean = false;
     age: number = 0;
     startDate: Date = new Date();
     salaryPerHour: number = 0;
     isChecked: boolean = false;
+    teamId: number = 0;
 
     public EmployeeDTO(employee: Employee) {
         this.id = employee.id;
@@ -17,12 +18,13 @@ export class Employee {
         this.fullName = employee.fullName;
         this.phone = employee.phone;
         this.address = employee.address;
-        this.teamId = employee.teamId;
+        this.teamName = employee.teamName;
         this.sex = employee.sex;
         this.age = employee.age;
         this.startDate = employee.startDate;
         this.salaryPerHour = employee.salaryPerHour;
         this.isChecked = employee.isChecked;
+        this.teamId = employee.teamId;
     }
 
     public setId(id: number) {
@@ -65,12 +67,12 @@ export class Employee {
         return this.address
     }
 
-    public setTeamId(teamId: number) {
-        this.teamId = teamId;
+    public setTeamName(teamName: string) {
+        this.teamName = teamName;
     }
 
-    public getTeamId(): number {
-        return this.teamId;
+    public getTeamName(): string {
+        return this.teamName;
     }
 
     public setSex(sex: boolean) {
@@ -111,5 +113,13 @@ export class Employee {
 
     public getIsChecked(): boolean {
         return this.isChecked;
+    }
+
+    public setTeamId(teamId: number) {
+        this.teamId = teamId;
+    }
+
+    public getTeamId(): number { 
+        return this.teamId; 
     }
 }

@@ -1,14 +1,22 @@
 <div class="avatar">
-    <img src="../assets/{{employee.avatar}}">
-    <div class="badges">
-        <div class="id badge bg-primary text-wrap">
+
+    <div class="uploadImage">
+        <img src="../assets/{{employee.avatar}}">
+        <div>
+            <input class="uploadImageInput" type="file" id="selectedFile" style="display: none;" (change)="onFileChanged($event)" />
+            <input class="btn btn-primary input-choose" type="button" value="Choose" onclick="document.getElementById('selectedFile').click();" />
+            <button class="btn btn-primary button-submit" (click)="uploadImage()" value="">Submit</button>
+        </div>
+    </div>
+    <div class=" badges ">
+        <div class="id badge bg-primary text-wrap ">
             No: {{employee.id}}
         </div>
-        <div class="age badge bg-success text-wrap">
+        <div class="age badge bg-success text-wrap ">
             Age: {{employee.age}}
         </div>
         <br>
-        <div class="badge bg-warning text-wrap">
+        <div class="badge bg-warning text-wrap ">
             Sex: {{employee.sex| sexPipe}}
         </div>
     </div>

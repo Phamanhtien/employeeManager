@@ -17,8 +17,7 @@
             <span class="input-group-text" id="addon-wrapping">
                 <img src="./assets/icon/search.svg">
             </span>
-            <input type="text" class="form-control" placeholder="Search employee by name" aria-label="Username" aria-describedby="addon-wrapping"
-                [ngModel]="searchByNameText" (ngModelChange)="findEmployeesByName($event)">
+            <input type="text" class="form-control" placeholder="Search employee by name" aria-label="Username" aria-describedby="addon-wrapping" [ngModel]="searchByNameText" (ngModelChange)="findEmployeesByName($event)">
         </div>
     </div>
     <div class="space"></div>
@@ -51,12 +50,12 @@
     <tbody class="tbody">
         <tr class="tbody-row" *ngFor="let employee of employeeList">
             <td>
-                <input  (click)="setListDeleteEmployee(employee)" type="checkbox" (ngModel)="employee.getIsChecked()">
+                <input (click)="setListDeleteEmployee(employee)" type="checkbox" (ngModel)="employee.getIsChecked()">
             </td>
             <td class="employee-id">{{employee.id}}</td>
             <td class="employee-fullName">{{employee.fullName}}</td>
             <td class="employee-phone">{{employee.phone}}</td>
-            <td class="employee-team">{{employee.teamId}}</td>
+            <td class="employee-team">{{employee.teamName}}</td>
             <td class="employee-detail-delete">
                 <a href="employee-detail/{{employee.id}}">
                     <i class="bi bi-info" style="font-size: 150%; color: cornflowerblue;"></i>

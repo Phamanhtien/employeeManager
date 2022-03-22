@@ -10,11 +10,8 @@ import com.example.EmployeeManager.Repository.TeamRepository;
 import com.example.EmployeeManager.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.EmployeeManager.DTO.EmployeeDTO;
 
-import java.sql.Date;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Optional;
 
 @Service
@@ -61,15 +58,8 @@ public class CreateEmployee {
         }
 
         Employee employee = new Employee();
-        employee.setAvatar("");
-        employee.setFullName(requestEmployee.getFullName());
-        employee.setPhone(requestEmployee.getPhone());
-        employee.setAddress(requestEmployee.getAddress());
-        employee.setTeamId(requestEmployee.getTeamId());
-        employee.setSex(requestEmployee.isSex());
-        employee.setAge(requestEmployee.getAge());
-        employee.setStartDate(requestEmployee.getStartDate());
-        employee.setSalaryPerHour(requestEmployee.getSalaryPerHour());
+        employee = EmployeeDTO.requestToObject(requestEmployee,employee);
+
         employeeRepository.save(employee);
     }
 }

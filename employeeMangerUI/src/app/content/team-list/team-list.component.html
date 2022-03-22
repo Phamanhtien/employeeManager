@@ -32,8 +32,7 @@
                 <td class="team-id">{{team.id}}</td>
                 <td class="team-name">{{team.name}}</td>
                 <td class="team-detail">
-                    <i  class="group-detail bi bi-person-lines-fill btnGroupAddon"
-                        (click)="getAllTeamMember(team.id)"></i>
+                    <i class="group-detail bi bi-person-lines-fill btnGroupAddon" (click)="getAllTeamMember(team.id)"></i>
                 </td>
             </tr>
         </tbody>
@@ -65,7 +64,7 @@
                 <td class="team-name">{{teamMember.fullName}}</td>
                 <td class="team-phone">{{teamMember.phone}}</td>
                 <td class="team-address">{{teamMember.address}}</td>
-                <td class="team-sex">{{teamMember.sex}}</td>
+                <td class="team-sex">{{teamMember.sex|sexPipe}}</td>
             </tr>
         </tbody>
     </table>

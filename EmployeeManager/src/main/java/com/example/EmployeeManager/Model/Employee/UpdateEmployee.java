@@ -7,6 +7,7 @@ import com.example.EmployeeManager.HandleException.InvalidArgumentException;
 import com.example.EmployeeManager.HandleException.NotFoundException;
 import com.example.EmployeeManager.Repository.EmployeeRepository;
 import com.example.EmployeeManager.Repository.TeamRepository;
+import com.example.EmployeeManager.DTO.EmployeeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,10 +54,7 @@ public class UpdateEmployee {
         }
 
         Employee employee = optionalEmployee.get();
-        employee.setStartDate(requestEmployee.getStartDate());
-        employee.setTeamId(requestEmployee.getTeamId());
-        employee.setAddress(requestEmployee.getAddress());
-        employee.setSalaryPerHour(requestEmployee.getSalaryPerHour());
+        employee = EmployeeDTO.requestToObject(requestEmployee,employee);
 
         employeeRepository.save(employee);
     }

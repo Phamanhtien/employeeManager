@@ -1,10 +1,9 @@
 package com.example.EmployeeManager.Controller.Employee;
 
-import com.example.EmployeeManager.Entity.Employee;
 import com.example.EmployeeManager.Entity.Request.RequestEmployee;
+import com.example.EmployeeManager.Entity.Response.ResponseEmployee;
 import com.example.EmployeeManager.HandleException.NotFoundException;
 import com.example.EmployeeManager.Model.Employee.*;
-import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,31 +35,31 @@ public class EmployeeController {
     private UpLoadImageEmployee upLoadImageEmployee;
 
     @GetMapping("/{employeeId}")
-    public Employee retrieveEmployee(@PathVariable int employeeId) throws NotFoundException {
+    public ResponseEmployee retrieveEmployee(@PathVariable int employeeId) throws NotFoundException {
         retrieveEmployee.setId(employeeId);
         return retrieveEmployee.retrieveAnEmployee();
     }
 
     @GetMapping("/all")
     public int retrieveAllEmployee() {
-        return retrieveEmployees.retrieveAllEmployee();
+        return retrieveEmployees.getNumberOfAllEmployee();
     }
 
     @GetMapping("/all/{page}")
-    public List<Employee> retrieveAllEmployeeByPage(@PathVariable int page) {
+    public List<ResponseEmployee> retrieveAllEmployeeByPage(@PathVariable int page) {
         retrieveEmployees.setPageNumber(page);
         return retrieveEmployees.retrieveAllEmployeeWithPaging();
     }
 
     @GetMapping("/search/{full_name}/{page}")
-    public List<Employee> retrieveEmployeeByNameWithPaging(@PathVariable String full_name, @PathVariable int page){
+    public List<ResponseEmployee> retrieveEmployeeByNameWithPaging(@PathVariable String full_name, @PathVariable int page){
         retrieveEmployees.setKey(full_name);
         retrieveEmployees.setPageNumber(page);
         return retrieveEmployees.retrieveAllEmployeeByNameWithPaging();
     }
 
     @GetMapping("/newest")
-    public List<Employee> retrieveNewestEmployee() {
+    public List<ResponseEmployee> retrieveNewestEmployee() {
         return retrieveEmployees.retrieveTopFiveNewestEmployee();
     }
 
@@ -90,7 +89,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/search/{full_name}")
-    public List<Employee> retrieveEmployeeByNameWithoutPaging(@PathVariable String full_name){
+    public List<ResponseEmployee> retrieveEmployeeByNameWithoutPaging(@PathVariable String full_name){
         retrieveEmployees.setKey(full_name);
         return retrieveEmployees.retrieveAllEmployeeByNameWithoutPaging();
     }

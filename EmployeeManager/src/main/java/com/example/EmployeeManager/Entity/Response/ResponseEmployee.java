@@ -1,24 +1,21 @@
-package com.example.EmployeeManager.Entity.Request;
+package com.example.EmployeeManager.Entity.Response;
 
-import com.example.EmployeeManager.Entity.Team;
-
-import javax.persistence.*;
 import java.util.Date;
 
-public class RequestEmployee {
+public class ResponseEmployee {
 
     private int id;
-    private String avatar;
     private String fullName;
     private String phone;
     private String address;
-    private int teamId;
+    private String teamName;
     private boolean sex;
     private int age;
     private Date startDate;
     private double salaryPerHour;
+    private int teamId;
 
-    RequestEmployee() {
+    public ResponseEmployee() {
 
     }
 
@@ -28,14 +25,6 @@ public class RequestEmployee {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     public String getFullName() {
@@ -62,12 +51,12 @@ public class RequestEmployee {
         this.address = address;
     }
 
-    public int getTeamId() {
-        return teamId;
+    public String getTeamName() {
+        return teamName;
     }
 
-    public void setTeamId(int teamId) {
-        this.teamId = teamId;
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 
     public boolean isSex() {
@@ -100,5 +89,13 @@ public class RequestEmployee {
 
     public void setSalaryPerHour(double salaryPerHour) {
         this.salaryPerHour = salaryPerHour;
+    }
+
+    public int getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
     }
 }

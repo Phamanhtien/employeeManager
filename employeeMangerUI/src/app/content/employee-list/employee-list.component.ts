@@ -8,7 +8,9 @@ import {
   EmployeeListWithPagingByNameService,
   DeleteEmployeeService
 } from '../../../service/employee.service'
+import { TeamListService } from '../../../service/team.service'
 import { Employee } from '../../../model/employee.model'
+import { Team } from '../../../model/team.model'
 
 @Component({
   selector: 'app-employee-list',
@@ -24,6 +26,7 @@ export class EmployeeListComponent implements OnInit {
   employeeList: Employee[] = [];
   searchByNameText: string = "";
   deleteEmployeeList: number[] =  [];
+  teamList: Team[] = [];
 
   constructor(
     private modalService: NgbModal,
@@ -31,12 +34,16 @@ export class EmployeeListComponent implements OnInit {
     private employeeListWithPagingService: EmployeeListWithPagingService,
     private employeeListWithPagingByNameService: EmployeeListWithPagingByNameService,
     private deleteEmployeeService: DeleteEmployeeService,
+    private teamListService: TeamListService,
   ) { }
 
   ngOnInit(): void {
     this.getNumberOfEmployees();
     this.getAllEmployeesWithPaging();
+    // this.getTeamList();
   }
+
+  
 
   openAddEmployee() {
     const modalRef = this.modalService.open(AddEmployeeComponent);
@@ -137,5 +144,20 @@ export class EmployeeListComponent implements OnInit {
       this.deleteEmployeeList.pop()
     }
   }
+
+  // getTeamList() {
+  //   this.teamListService.getAllTeam().subscribe((res: any)=> {
+  //     this.teamList = res
+  //   })
+  // }
+
+  // getTeamName(id):string {
+  //   for (let team of this.teamList) {
+  //     if (team.id == id) {
+  //       return team.name
+  //     }
+  //   }
+  //   return "";
+  // }
 }
 

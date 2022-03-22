@@ -58,3 +58,22 @@ export class TeamByIdService {
     this.teamId = teamId;
   }
 }
+
+const addTeamApiUrl = "http://localhost:8080/team/add";
+@Injectable({
+  providedIn: 'root'
+})
+export class AddTeamService {
+  
+  team: Team = new Team();
+
+  constructor(private httpClient: HttpClient) { }
+
+  setTeam (team: Team) {
+    this.team = team;
+  }
+
+  saveTeam(){
+    return this.httpClient.post(addTeamApiUrl, this.team).pipe()
+  }
+}

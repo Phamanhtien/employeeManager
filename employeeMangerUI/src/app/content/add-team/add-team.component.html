@@ -11,21 +11,21 @@
                 <p class="name-length-per-max col">{{nameLength}}/225</p>
             </div>
         </div>
-        <!-- <div class="form-group form-group-team">
+        <div class="form-group form-group-team">
             <p class="title">Team manager *</p>
             <div ngbDropdown class="drop-down">
-                <button class="btn" id="team" ngbDropdownToggle>{{teamManager}}</button>
+                <input type="text" class="form-control" id="employeeList" ngbDropdownToggle [ngModel]="employeeName" (ngModelChange)="getEmployeeByName($event)">
                 <div class="team-list" ngbDropdownMenu aria-labelledby="team">
-                    <div *ngFor="let employee of teamList">
-                        <button (click)="setTeamId(team.id, team.name)" ngbDropdownItem>{{team.name}}</button>
+                    <div *ngFor="let employee of employeeList">
+                        <button (click)="setTeamManager(employee.id, employee.fullName)" ngbDropdownItem>{{employee.fullName}}</button>
                     </div>
                 </div>
             </div>
+            <p class="validator col">{{teamManagerMessageError}}</p>
         </div>
-        <p class="name-length-per-max"> </p> -->
     </div>
     <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-primary" (click)="saveEmployee()">SUBMIT</button> -->
+        <button type="button" class="btn btn-primary" (click)="saveTeam()">SUBMIT</button>
         <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">CANCEL</button>
     </div>
 </div>
