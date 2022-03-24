@@ -5,6 +5,7 @@ import java.util.Date;
 public class ResponseEmployee {
 
     private int id;
+    private String avatar;
     private String fullName;
     private String phone;
     private String address;
@@ -25,6 +26,14 @@ public class ResponseEmployee {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getFullName() {

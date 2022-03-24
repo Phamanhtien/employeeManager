@@ -3,15 +3,18 @@ package com.example.EmployeeManager.Model.EmployeeWorking.Advances;
 import com.example.EmployeeManager.Constant;
 import com.example.EmployeeManager.Entity.Employee;
 import com.example.EmployeeManager.Entity.EmployeeWorkingAdvance;
+import com.example.EmployeeManager.Entity.Response.ResponseEmployeeWorkingAdvance;
 import com.example.EmployeeManager.HandleException.InvalidArgumentException;
 import com.example.EmployeeManager.HandleException.NotFoundException;
 import com.example.EmployeeManager.Repository.EmployeeRepository;
 import com.example.EmployeeManager.Repository.EmployeeWorkingAdvanceRepository;
+import com.example.EmployeeManager.DTO.WorkingAdvanceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,8 +72,12 @@ public class RetrieveEmployeeWorkingAdvances {
         List<EmployeeWorkingAdvance> employeeWorkingAdvanceList =
                 employeeWorkingAdvanceRepository.findAllByEmployeeId(employeeId, pageable).getContent();
 
-        if (employeeWorkingAdvanceList.isEmpty()) {
-            throw new NotFoundException("employee working has id " + String.valueOf(employeeId) + " has no advances money in page " + String.valueOf(page));
+        int employeeWorkingAdvanceListSize = employeeWorkingAdvanceList.size();
+        List<ResponseEmployeeWorkingAdvance> responseEmployeeWorkingAdvanceList = new ArrayList<ResponseEmployeeWorkingAdvance>();
+        ResponseEmployeeWorkingAdvance responseEmployeeWorkingAdvance = new ResponseEmployeeWorkingAdvance();
+        for (int i = 0 ; i < employeeWorkingAdvanceListSize; i++) {
+            responseEmployeeWorkingAdvance = WorkingAdvanceDTO.objectToResponse(employeeWorkingAdvanceList.get(i));
+            responseEmployeeWorkingAdvanceList.add(responseEmployeeWorkingAdvance);
         }
         return employeeWorkingAdvanceList;
     }

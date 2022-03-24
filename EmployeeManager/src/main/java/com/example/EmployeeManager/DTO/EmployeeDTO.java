@@ -11,6 +11,7 @@ public class EmployeeDTO {
 
         Employee employee = new Employee();
         employee.setId(requestEmployee.getId());
+        employee.setAvatar(requestEmployee.getAvatar());
         employee.setFullName(requestEmployee.getFullName());
         employee.setPhone(requestEmployee.getPhone());
         employee.setAddress(requestEmployee.getAddress());
@@ -23,9 +24,9 @@ public class EmployeeDTO {
     }
 
     public static ResponseEmployee objectToResponse(Employee employee, Team team) {
-
         ResponseEmployee responseEmployee = new ResponseEmployee();
-        responseEmployee.setId (employee.getId());
+        responseEmployee.setId(employee.getId());
+        responseEmployee.setAvatar(employee.getAvatar());
         responseEmployee.setFullName(employee.getFullName());
         responseEmployee.setPhone(employee.getPhone());
         responseEmployee.setAddress(employee.getAddress());

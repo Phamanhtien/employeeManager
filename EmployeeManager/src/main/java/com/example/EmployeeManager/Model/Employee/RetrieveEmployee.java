@@ -28,7 +28,6 @@ public class RetrieveEmployee {
     }
 
     public ResponseEmployee retrieveAnEmployee() throws NotFoundException {
-        ResponseEmployee responseEmployee = new ResponseEmployee();
 
         Optional<Employee>optionalEmployee = employeeRepository.findById(id);
         if (id <= 0 ) {
@@ -47,7 +46,7 @@ public class RetrieveEmployee {
         Team team = optionalTeam.get();
 
 
-        ResponseEmployee responseEmployee1 = EmployeeDTO.objectToResponse(employee,team);
+        ResponseEmployee responseEmployee = EmployeeDTO.objectToResponse(employee,team);
         return responseEmployee;
     }
 }

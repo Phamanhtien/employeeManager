@@ -2,15 +2,12 @@ package com.example.EmployeeManager.Model.EmployeeWorking.Advances;
 
 import com.example.EmployeeManager.Entity.Employee;
 import com.example.EmployeeManager.Entity.EmployeeWorkingAdvance;
-import com.example.EmployeeManager.Entity.EmployeeWorkingDate;
 import com.example.EmployeeManager.Entity.Request.RequestEmployeeWorkingAdvance;
-import com.example.EmployeeManager.Entity.Request.RequestEmployeeWorkingDate;
 import com.example.EmployeeManager.HandleException.InvalidArgumentException;
 import com.example.EmployeeManager.HandleException.NotFoundException;
 import com.example.EmployeeManager.Repository.EmployeeRepository;
 import com.example.EmployeeManager.Repository.EmployeeWorkingAdvanceRepository;
-import com.example.EmployeeManager.Repository.EmployeeWorkingDateRepository;
-import org.aspectj.weaver.ast.Not;
+import com.example.EmployeeManager.DTO.WorkingAdvanceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,9 +55,8 @@ public class CreateEmployeeWorkingAdvance {
 
         Employee employee = optionalEmployee.get();
         EmployeeWorkingAdvance employeeWorkingAdvance = new EmployeeWorkingAdvance();
-        employeeWorkingAdvance.setEmployee(employee);
-        employeeWorkingAdvance.setDate(requestEmployeeWorkingAdvance.getDate());
-        employeeWorkingAdvance.setMoney(requestEmployeeWorkingAdvance.getMoney());
+
+        employeeWorkingAdvance = WorkingAdvanceDTO.requestToObject(requestEmployeeWorkingAdvance, employee);
         employeeWorkingAdvanceRepository.save(employeeWorkingAdvance);
     }
 }
