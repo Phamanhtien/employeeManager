@@ -41,12 +41,12 @@ public class EmployeeController {
     }
 
     @GetMapping("/all")
-    public int retrieveAllEmployee() {
+    public int getNumberOfAllEmployee() {
         return retrieveEmployees.getNumberOfAllEmployee();
     }
 
     @GetMapping("/all/{page}")
-    public List<ResponseEmployee> retrieveAllEmployeeByPage(@PathVariable int page) {
+    public List<ResponseEmployee> retrieveAllEmployeeWithPaging(@PathVariable int page) {
         retrieveEmployees.setPageNumber(page);
         return retrieveEmployees.retrieveAllEmployeeWithPaging();
     }
@@ -64,13 +64,13 @@ public class EmployeeController {
     }
 
     @PostMapping("/add")
-    public void createEmployee(@RequestBody RequestEmployee requestEmployee) {
+    public void addEmployee(@RequestBody RequestEmployee requestEmployee) {
         createEmployee.setRequestEmployee(requestEmployee);
         createEmployee.createEmployee();
     }
 
     @PostMapping("/update")
-    public void editEmployee(@RequestBody RequestEmployee requestEmployee) {
+    public void updateEmployee(@RequestBody RequestEmployee requestEmployee) {
         updateEmployee.setRequestEmployee(requestEmployee);
         updateEmployee.updateEmployee();
     }

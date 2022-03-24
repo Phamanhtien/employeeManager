@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 import { DeleteEmployeeComponent } from '../delete-employee/delete-employee.component';
 import {
-  EmployeeListWithoutPagingService,
+  GetNumberOfAllEmployee,
   EmployeeListWithPagingService,
   EmployeeListWithPagingByNameService,
   DeleteEmployeeService
@@ -30,7 +30,7 @@ export class EmployeeListComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private employeeListWithoutPagingService: EmployeeListWithoutPagingService,
+    private employeeListWithoutPagingService: GetNumberOfAllEmployee,
     private employeeListWithPagingService: EmployeeListWithPagingService,
     private employeeListWithPagingByNameService: EmployeeListWithPagingByNameService,
     private deleteEmployeeService: DeleteEmployeeService,

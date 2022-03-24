@@ -2,24 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Employee } from './../model/employee.model';
+import { EmployeeApiList } from '../util/EmployeeApiList'
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'Application/json' })
 }
 
-const apiUrl = 'http://localhost:8080/employee/all';
-
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeListWithoutPagingService {
+export class GetNumberOfAllEmployee {
 
   constructor(private httpClient: HttpClient) {
 
   }
 
   getNumberOfEmployees(): Observable<Employee[]> {
-    return this.httpClient.get<Employee[]>(apiUrl).pipe(
+    return this.httpClient.get<Employee[]>(EmployeeApiList.getNumberOfAllEmployee).pipe(
     )
   }
 }
@@ -40,12 +39,12 @@ export class EmployeeListWithPagingService {
   }
 
   getAllEmployeesWithPaging(): Observable<Employee[]> {
-    return this.httpClient.get<Employee[]>(apiUrl + "/" + this.pageNumber).pipe(
+    return this.httpClient.get<Employee[]>(EmployeeApiList.retrieveAllEmployeeWithPaging + this.pageNumber).pipe(
     )
   }
 }
 
-const apiUrlSearch = 'http://localhost:8080/employee/search';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -67,27 +66,26 @@ export class EmployeeListWithPagingByNameService {
   }
 
   getAllEmployeesWithPagingByName(): Observable<Employee[]> {
-    return this.httpClient.get<Employee[]>(apiUrlSearch + "/" + this.searchByNameText + "/" + this.pageNumber).pipe(
+    return this.httpClient.get<Employee[]>(EmployeeApiList.retrieveEmployeeByNameWithPaging + this.searchByNameText + "/" + this.pageNumber).pipe(
     )
   }
 }
 
-const apiUrlSaveEmployee = 'http://localhost:8080/employee/add';
+
 @Injectable({
   providedIn: 'root'
 })
-export class SaveEmployeeService {
+export class AddEmployeeSerivece {
 
   constructor(private httpClient: HttpClient) {
 
   }
 
   saveEmployee(data: Employee){
-    return this.httpClient.post(apiUrlSaveEmployee, data)
+    return this.httpClient.post(EmployeeApiList.addEmployee, data)
   }
 }
 
-const apiUrlDeleteEmployee = 'http://localhost:8080/employee/delete';
 @Injectable({
   providedIn: 'root'
 })
@@ -98,7 +96,7 @@ export class DeleteEmployeeService {
   }
 
   deleteEmployee(){
-    return this.httpClient.request('delete',apiUrlDeleteEmployee, {body: this.data} );
+    return this.httpClient.request('delete',EmployeeApiList.deleteEmployee, {body: this.data} );
   }
 
   setData(data: number[]) {
@@ -106,7 +104,6 @@ export class DeleteEmployeeService {
   }
 }
 
-const apiUrlGetAnEmployee = 'http://localhost:8080/employee/';
 @Injectable({
   providedIn: 'root'
 })
@@ -119,7 +116,7 @@ export class GetAnEmployeeService {
 
 
   getAnEmployee(){
-    return this.httpClient.get(apiUrlGetAnEmployee+this.id);
+    return this.httpClient.get(EmployeeApiList.retrieveEmployee+this.id);
   }
 
   setId (id: number) {
@@ -128,7 +125,6 @@ export class GetAnEmployeeService {
 }
 
 
-const apiUrlUpdateEmployee = 'http://localhost:8080/employee/update';
 @Injectable({
   providedIn: 'root'
 })
@@ -145,7 +141,7 @@ export class UpdateEmployeeService {
   }
 
   saveEmployee(){
-    return this.httpClient.post(apiUrlUpdateEmployee, this.employee)
+    return this.httpClient.post(EmployeeApiList.updateEmployee, this.employee)
   }
 }
 
@@ -166,13 +162,12 @@ export class EmployeeListWithoutPagingByNameService {
   }
 
   getAllEmployeesWithoutPagingByName(): Observable<Employee[]> {
-    return this.httpClient.get<Employee[]>(apiUrlSearch + "/" + this.searchByNameText).pipe(
+    return this.httpClient.get<Employee[]>(EmployeeApiList.retrieveEmployeeByNameWithPaging + this.searchByNameText).pipe(
     )
   }
 }
 
 
-const uploadImageApiUrl = "http://localhost:8080/employee/upImage"
 @Injectable({
   providedIn: 'root'
 })
@@ -193,17 +188,11 @@ export class UploadEmployeeImageService {
   }
 
 
-  UploadEmployeeImage() {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': '' })
-    }
-
-    httpOptions.headers.set('Accept', 'application/json')
-
+  uploadEmployeeImage() {
     const formData = new FormData();
     formData.append("file",this.image)
     formData.append("employeeId", this.employeeId.toString())
-    return this.httpClient.post(uploadImageApiUrl,formData ).pipe(
+    return this.httpClient.post(EmployeeApiList.uploadImage,formData ).pipe(
     )
   }
 }

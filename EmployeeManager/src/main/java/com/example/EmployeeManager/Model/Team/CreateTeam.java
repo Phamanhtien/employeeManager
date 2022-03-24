@@ -7,6 +7,7 @@ import com.example.EmployeeManager.HandleException.InvalidArgumentException;
 import com.example.EmployeeManager.HandleException.NotFoundException;
 import com.example.EmployeeManager.Repository.EmployeeRepository;
 import com.example.EmployeeManager.Repository.TeamRepository;
+import com.example.EmployeeManager.DTO.TeamDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,10 +42,9 @@ public class CreateTeam {
             throw new InvalidArgumentException("team name has to fill");
         }
 
-        Team team = new Team();
         Employee manager = managerOptional.get();
-        team.setName(requestTeam.getName());
-        team.setManagerId(requestTeam.getManagerId());
+        Team team = new Team();
+        team = TeamDTO.requestToObject(requestTeam);
         teamRepository.save(team);
     }
 }

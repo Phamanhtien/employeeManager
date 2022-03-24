@@ -2,6 +2,8 @@ package com.example.EmployeeManager.Controller.Team;
 
 import com.example.EmployeeManager.Entity.Employee;
 import com.example.EmployeeManager.Entity.Request.RequestTeam;
+import com.example.EmployeeManager.Entity.Response.ResponseEmployee;
+import com.example.EmployeeManager.Entity.Response.ResponseTeam;
 import com.example.EmployeeManager.Entity.Team;
 import com.example.EmployeeManager.Model.Team.CreateTeam;
 import com.example.EmployeeManager.Model.Team.RetrieveListTeamMember;
@@ -29,13 +31,13 @@ public class TeamController {
     private RetrieveListTeamMember retrieveListTeamMember;
 
     @GetMapping("/{teamId}")
-    public Team retrieveTeamById(@PathVariable int teamId) {
+    public ResponseTeam retrieveTeamById(@PathVariable int teamId) {
         retrieveTeam.setTeamId(teamId);
         return retrieveTeam.retrieveTeam();
     }
 
     @GetMapping("/all")
-    public List<Team> retrieveTeam() {
+    public List<ResponseTeam> retrieveTeams() {
         return retrieveTeams.retrieveTeams();
     }
 
@@ -46,7 +48,7 @@ public class TeamController {
     }
 
     @GetMapping("/{teamId}/members")
-    public List<Employee> getAllTeamMember(@PathVariable int teamId) {
+    public List<ResponseEmployee> getAllTeamMember(@PathVariable int teamId) {
         retrieveListTeamMember.setId(teamId);
         return retrieveListTeamMember.retrieveListTeamMember();
     }

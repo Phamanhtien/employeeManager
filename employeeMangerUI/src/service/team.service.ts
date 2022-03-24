@@ -3,11 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Team } from './../model/team.model';
 import { Employee } from './../model/employee.model';
+import { TeamApiList } from '../util/TeamApiList';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'Application/json' })
 }
-
-const teamApiUrl = 'http://localhost:8080/team/all';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +17,11 @@ export class TeamListService {
   constructor(private httpClient: HttpClient) { }
 
   getAllTeam(): Observable<Team[]> {
-    return this.httpClient.get<Team[]>(teamApiUrl).pipe(
+    return this.httpClient.get<Team[]>(TeamApiList.retrieveTeams).pipe(
     )
   }
 }
 
-
-const teamMemberListApiUrl = 'http://localhost:8080/team';
 @Injectable({
   providedIn: 'root'
 })
@@ -32,7 +30,7 @@ export class TeamMemberListService {
   constructor(private httpClient: HttpClient) { }
 
   getAllTeamMembers(): Observable<Employee[]> {
-    return this.httpClient.get<Employee[]>(teamMemberListApiUrl+"/"+this.teamId+"/members").pipe(
+    return this.httpClient.get<Employee[]>(TeamApiList.getAllTeamMember+this.teamId+"/members").pipe(
     )
   }
 
@@ -41,7 +39,6 @@ export class TeamMemberListService {
   }
 }
 
-const teamByIdApiUrl = 'http://localhost:8080/team';
 @Injectable({
   providedIn: 'root'
 })
@@ -50,7 +47,7 @@ export class TeamByIdService {
   constructor(private httpClient: HttpClient) { }
 
   getTeamById(): Observable<Employee[]> {
-    return this.httpClient.get<Employee[]>(teamMemberListApiUrl+"/"+this.teamId).pipe(
+    return this.httpClient.get<Employee[]>(TeamApiList.retrieveTeamById+this.teamId).pipe(
     )
   }
 

@@ -40,7 +40,7 @@ export class AvatarComponent implements OnInit {
   uploadImage() {
     this.uploadEmployeeImageService.setEmployeeId(this.employee.id);
     this.uploadEmployeeImageService.setImage(this.image)
-    this.uploadEmployeeImageService.UploadEmployeeImage().subscribe((res: any)=>
+    this.uploadEmployeeImageService.uploadEmployeeImage().subscribe((res: any)=>
     {
       console.warn();
       alert("success!");

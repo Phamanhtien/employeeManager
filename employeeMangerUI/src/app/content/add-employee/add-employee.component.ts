@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Employee } from '../../../model/employee.model';
 import { Team } from '../../../model/team.model';
 import { TeamListService } from '../../../service/team.service';
-import { SaveEmployeeService } from '../../../service/employee.service';
+import { AddEmployeeSerivece } from '../../../service/employee.service';
 
 @Component({
   selector: 'app-add',
@@ -32,7 +32,7 @@ export class AddEmployeeComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private teamListService: TeamListService,
-    private saveEmployeeService: SaveEmployeeService) { }
+    private saveEmployeeService: AddEmployeeSerivece) { }
 
   ngOnInit(): void {
     this.getAllTeam();
