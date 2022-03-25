@@ -30,7 +30,7 @@ export class EmployeeListComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private employeeListWithoutPagingService: GetNumberOfAllEmployee,
+    private getNumberOfAllEmployee: GetNumberOfAllEmployee,
     private employeeListWithPagingService: EmployeeListWithPagingService,
     private employeeListWithPagingByNameService: EmployeeListWithPagingByNameService,
     private deleteEmployeeService: DeleteEmployeeService,
@@ -57,7 +57,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   getNumberOfEmployees() {
-    this.employeeListWithoutPagingService.getNumberOfEmployees().subscribe((res: any) => {
+    this.getNumberOfAllEmployee.getNumberOfEmployees().subscribe((res: any) => {
       this.totalEmployee = res;
       this.numberOfPages = ~~(this.totalEmployee / 5)
       if (this.totalEmployee % 5 == 0) {

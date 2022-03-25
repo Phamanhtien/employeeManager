@@ -32,7 +32,7 @@ export class AddEmployeeComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private teamListService: TeamListService,
-    private saveEmployeeService: AddEmployeeSerivece) { }
+    private addEmployeeSerivece: AddEmployeeSerivece) { }
 
   ngOnInit(): void {
     this.getAllTeam();
@@ -185,7 +185,7 @@ export class AddEmployeeComponent implements OnInit {
     }
 
     if (this.isNamePassed && this.isAgePassed && this.isSalaryPerHourPassed && this.isPhonePassed && this.isAddressPassed && this.team != "team" && this.sex != "sex") {
-      this.saveEmployeeService.saveEmployee(this.employee).subscribe((res: any) => {
+      this.addEmployeeSerivece.saveEmployee(this.employee).subscribe((res: any) => {
         console.warn();
         this.activeModal.close('Close click')
         alert("Success")

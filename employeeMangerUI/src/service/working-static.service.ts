@@ -3,15 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { StatisticsRequest } from '../model/statictisRequest.model';
 import { StaticsReponse } from '../model/statictisResponse.model';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'Application/json' })
-}
+import { EmployeeStatisticApiList } from '../util/EmployeeStatisticApiList';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GetWorkingStaticService {
+export class GetStaticEmployeeWorkingService {
   private apiUrl:string = 'http://localhost:8080/employeeWorking/static';
   statisticsRequest: StatisticsRequest = new StatisticsRequest();
 
@@ -21,7 +18,7 @@ export class GetWorkingStaticService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getStatictis(): Observable<StaticsReponse> {
-    return this.httpClient.post<StaticsReponse>(this.apiUrl, this.statisticsRequest).pipe()
+  getStaticEmployeeWorking(): Observable<StaticsReponse> {
+    return this.httpClient.post<StaticsReponse>(EmployeeStatisticApiList.getStaticEmployeeWorking, this.statisticsRequest).pipe()
   }
 }

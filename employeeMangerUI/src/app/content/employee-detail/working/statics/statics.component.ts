@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { StatisticsRequest } from '../../../../../model/statictisRequest.model'
 import { StaticsReponse } from '../../../../../model/statictisResponse.model';
 import { Employee } from '../../../../../model/employee.model'
-import { GetWorkingStaticService } from '../../../../../service/working-static.service';
+import { GetStaticEmployeeWorkingService } from '../../../../../service/working-static.service';
 
 @Component({
   selector: 'app-statics',
@@ -22,7 +22,7 @@ export class StaticsComponent implements OnInit {
   @Input() employee: Employee;
 
   constructor(
-    private getWorkingStaticService: GetWorkingStaticService,
+    private getStaticEmployeeWorkingService: GetStaticEmployeeWorkingService,
   ) { }
 
   ngOnInit(): void {
@@ -90,8 +90,8 @@ export class StaticsComponent implements OnInit {
     }
 
     if (this.isMonthPassed == true && this.isYearPassed == true) {
-      this.getWorkingStaticService.setstatisticsRequest(this.statisticsRequest)
-      this.getWorkingStaticService.getStatictis().subscribe((res: any) => {
+      this.getStaticEmployeeWorkingService.setstatisticsRequest(this.statisticsRequest)
+      this.getStaticEmployeeWorkingService.getStaticEmployeeWorking().subscribe((res: any) => {
         this.staticsReponse = res;
       })
       this.wasQuery = true;

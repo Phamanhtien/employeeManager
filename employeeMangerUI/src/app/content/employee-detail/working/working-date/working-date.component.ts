@@ -3,8 +3,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { WorkingDate } from '../../../../../model/workingDate.model'
 import { Employee } from '../../../../../model/employee.model'
 import { AddWorkingDateComponent } from '../../../add-working-date/add-working-date.component'
-import { TotalWorkingDateOfAnEmployee, 
-         WorkingDateListWithPagingService,
+import { GetNumberOfAllWorkingDateOfAnEmployeeService, 
+         RetrieveAllWorkingDateOfAnEmployeeWithPagingService,
          DeleteWorkingDateService } from '../../../../../service/working-date.service'
 
 @Component({
@@ -23,8 +23,8 @@ export class WorkingDateComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private totalWorkingDateOfAnEmployee: TotalWorkingDateOfAnEmployee,
-    private workingDateListWithPagingService: WorkingDateListWithPagingService,
+    private getNumberOfAllWorkingDateOfAnEmployeeService: GetNumberOfAllWorkingDateOfAnEmployeeService,
+    private retrieveAllWorkingDateOfAnEmployeeWithPagingService: RetrieveAllWorkingDateOfAnEmployeeWithPagingService,
     private deleteWorkingDateService: DeleteWorkingDateService,
     private changeDetectorRef: ChangeDetectorRef
   ) { }
@@ -41,8 +41,8 @@ export class WorkingDateComponent implements OnInit {
   }
 
   getNumberOfWorkingDate() {
-    this.totalWorkingDateOfAnEmployee.setEmployeeId(this.employee.id);
-    this.totalWorkingDateOfAnEmployee.getAllEmployeesWithoutPaging().subscribe((res: any) => {
+    this.getNumberOfAllWorkingDateOfAnEmployeeService.setEmployeeId(this.employee.id);
+    this.getNumberOfAllWorkingDateOfAnEmployeeService.getNumberOfAllWorkingDateOfAnEmployee().subscribe((res: any) => {
       this.numberOfWorkingDate = res;
       console.log(res);
       this.numberOfPages = ~~(this.numberOfWorkingDate / 5)
@@ -56,9 +56,9 @@ export class WorkingDateComponent implements OnInit {
   }
 
   getAllWorkingDateOfAnEmployeesWithPaging() {
-    this.workingDateListWithPagingService.setEmployeeId(this.employee.id);
-    this.workingDateListWithPagingService.setPageNumber(this.pageNumber)
-    this.workingDateListWithPagingService.getAllWorkingDateOfAnEmployeesWithPaging().subscribe((res: any) => {
+    this.retrieveAllWorkingDateOfAnEmployeeWithPagingService.setEmployeeId(this.employee.id);
+    this.retrieveAllWorkingDateOfAnEmployeeWithPagingService.setPageNumber(this.pageNumber)
+    this.retrieveAllWorkingDateOfAnEmployeeWithPagingService.getAllWorkingDateOfAnEmployeesWithPaging().subscribe((res: any) => {
       this.workingDateList = res;
     })
   }

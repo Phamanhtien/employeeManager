@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { WorkingDate } from '../../../model/workingDate.model';
-import { SaveWorkingDateService } from '../../../service/working-date.service';
+import { AddWorkingDateOfAnEmployeeService } from '../../../service/working-date.service';
 
 @Component({
   selector: 'app-add-working-date',
@@ -17,7 +17,7 @@ export class AddWorkingDateComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private saveWorkingDateService: SaveWorkingDateService
+    private addWorkingDateOfAnEmployeeService: AddWorkingDateOfAnEmployeeService
   ) { }
 
   ngOnInit(): void {
@@ -57,8 +57,8 @@ export class AddWorkingDateComponent implements OnInit {
       }
     }
 
-    this.saveWorkingDateService.setWorkingDate(this.workingDate);
-    this.saveWorkingDateService.saveWorkingDate().subscribe((res: any) => {
+    this.addWorkingDateOfAnEmployeeService.setWorkingDate(this.workingDate);
+    this.addWorkingDateOfAnEmployeeService.addWorkingDateOfAnEmployee().subscribe((res: any) => {
       console.warn();
       alert("Success");
     })

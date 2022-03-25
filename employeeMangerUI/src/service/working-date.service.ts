@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { WorkingDate } from '../model/workingDate.model'
+import { EmployeeDateApiList } from '../util/EmployeeDateApiList'
 
 @Injectable({
   providedIn: 'root'
 })
-export class TotalWorkingDateOfAnEmployee {
-  private apiUrl:string = 'http://localhost:8080/employeeWorking/date/all';
+export class GetNumberOfAllWorkingDateOfAnEmployeeService {
   employeeId: number = 0;
   pageNumber: number = 0;
 
@@ -17,8 +17,8 @@ export class TotalWorkingDateOfAnEmployee {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllEmployeesWithoutPaging(): Observable<number> {
-    return this.httpClient.get<number>(this.apiUrl + "/" + this.employeeId).pipe(
+  getNumberOfAllWorkingDateOfAnEmployee(): Observable<number> {
+    return this.httpClient.get<number>(EmployeeDateApiList.getNumberOfAllWorkingDateOfAnEmployee + this.employeeId).pipe(
     )
   }
 }
@@ -28,8 +28,7 @@ export class TotalWorkingDateOfAnEmployee {
 @Injectable({
   providedIn: 'root'
 })
-export class WorkingDateListWithPagingService {
-  private apiUrl:string = 'http://localhost:8080/employeeWorking/date/all';
+export class RetrieveAllWorkingDateOfAnEmployeeWithPagingService {
   employeeId: number = 0;
   pageNumber: number = 0;
 
@@ -44,7 +43,7 @@ export class WorkingDateListWithPagingService {
   constructor(private httpClient: HttpClient) { }
 
   getAllWorkingDateOfAnEmployeesWithPaging(): Observable<WorkingDate[]> {
-    return this.httpClient.get<WorkingDate[]>(this.apiUrl + "/" +this.employeeId+"/" + this.pageNumber).pipe(
+    return this.httpClient.get<WorkingDate[]>(EmployeeDateApiList.retrieveAllWorkingDateOfAnEmployeeWithPaging +this.employeeId+"/" + this.pageNumber).pipe(
     )
   }
 }
@@ -52,8 +51,8 @@ export class WorkingDateListWithPagingService {
 @Injectable({
   providedIn: 'root'
 })
-export class SaveWorkingDateService {
-  private apiUrl:string = 'http://localhost:8080/employeeWorking/date/add';
+export class AddWorkingDateOfAnEmployeeService {
+  private apiUrl:string = '';
   workingDate: WorkingDate = new WorkingDate();
 
   setWorkingDate(workingDate: WorkingDate) {
@@ -62,8 +61,8 @@ export class SaveWorkingDateService {
 
   constructor(private httpClient: HttpClient) { }
 
-  saveWorkingDate(): Observable<WorkingDate[]> {
-    return this.httpClient.post<WorkingDate[]>(this.apiUrl, this.workingDate).pipe()
+  addWorkingDateOfAnEmployee(): Observable<WorkingDate[]> {
+    return this.httpClient.post<WorkingDate[]>(EmployeeDateApiList.addWorkingDateOfAnEmployee, this.workingDate).pipe()
   }
 }
 
@@ -71,7 +70,6 @@ export class SaveWorkingDateService {
   providedIn: 'root'
 })
 export class DeleteWorkingDateService {
-  private apiUrl:string = 'http://localhost:8080/employeeWorking/date/delete';
   workingDate: WorkingDate = new WorkingDate();
 
   setWorkingDate(workingDate: WorkingDate) {
@@ -81,7 +79,7 @@ export class DeleteWorkingDateService {
   constructor(private httpClient: HttpClient) { }
 
   deleteWorkingDate() {
-    return this.httpClient.request('delete',this.apiUrl, {body:this.workingDate}).pipe()
+    return this.httpClient.request('delete',EmployeeDateApiList.deleteWorkingDateOfAnEmployee, {body:this.workingDate}).pipe()
   }
 }
 

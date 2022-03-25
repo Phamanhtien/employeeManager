@@ -25,7 +25,7 @@ public class EmployeeWorkingDateController {
     @Autowired DeleteEmployeeWorkingDate deleteEmployeeWorkingDate;
 
     @GetMapping("/all/{employeeId}")
-    public Integer retrieveTotalWorkingDateOfAnEmployee(@PathVariable int employeeId) {
+    public Integer getNumberOfAllWorkingDateOfAnEmployee(@PathVariable int employeeId) {
         retrieveEmployeeWorkingDate.setEmployeeId(employeeId);
         return retrieveEmployeeWorkingDate.getNumberOfAllWorkingDayByEmployeeId();
     }
@@ -37,7 +37,7 @@ public class EmployeeWorkingDateController {
     }
 
     @PostMapping("/add")
-    public void createWorkingDateOfAnEmployee(@RequestBody RequestEmployeeWorkingDate requestEmployeeWorkingDate) {
+    public void addWorkingDateOfAnEmployee(@RequestBody RequestEmployeeWorkingDate requestEmployeeWorkingDate) {
         createEmployeeWorkingDate.setRequestEmployeeWorkingDate(requestEmployeeWorkingDate);
         createEmployeeWorkingDate.createEmployeeWorkingDate();
     }

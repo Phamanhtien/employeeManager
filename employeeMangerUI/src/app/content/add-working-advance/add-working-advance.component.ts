@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WorkingAdvance } from '../../../model/workingAdvance.model'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { SaveWorkingAdvanceService } from '../../../service/working-advance.service'
+import { AddWorkingAdvanceOfAnEmployeeService } from '../../../service/working-advance.service'
 
 @Component({
   selector: 'app-add-working-advance',
@@ -17,7 +17,7 @@ export class AddWorkingAdvanceComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private saveWorkingAdvanceService: SaveWorkingAdvanceService,
+    private addWorkingAdvanceOfAnEmployeeService: AddWorkingAdvanceOfAnEmployeeService,
 
   ) { }
 
@@ -59,8 +59,8 @@ export class AddWorkingAdvanceComponent implements OnInit {
     }
 
     if (this.isMoneyPassed) {
-      this.saveWorkingAdvanceService.setWorkingAdvance(this.workingAdvance);
-      this.saveWorkingAdvanceService.saveWorkingAdvance().subscribe((res: any) => {
+      this.addWorkingAdvanceOfAnEmployeeService.setWorkingAdvance(this.workingAdvance);
+      this.addWorkingAdvanceOfAnEmployeeService.addWorkingAdvanceOfAnEmployee().subscribe((res: any) => {
         console.warn();
         alert("Success");
       })

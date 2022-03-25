@@ -30,7 +30,7 @@ export class TeamMemberListService {
   constructor(private httpClient: HttpClient) { }
 
   getAllTeamMembers(): Observable<Employee[]> {
-    return this.httpClient.get<Employee[]>(TeamApiList.getAllTeamMember+this.teamId+"/members").pipe(
+    return this.httpClient.get<Employee[]>(TeamApiList.getAllTeamMember + this.teamId + "/members").pipe(
     )
   }
 
@@ -47,7 +47,7 @@ export class TeamByIdService {
   constructor(private httpClient: HttpClient) { }
 
   getTeamById(): Observable<Employee[]> {
-    return this.httpClient.get<Employee[]>(TeamApiList.retrieveTeamById+this.teamId).pipe(
+    return this.httpClient.get<Employee[]>(TeamApiList.retrieveTeamById + this.teamId).pipe(
     )
   }
 
@@ -56,21 +56,20 @@ export class TeamByIdService {
   }
 }
 
-const addTeamApiUrl = "http://localhost:8080/team/add";
 @Injectable({
   providedIn: 'root'
 })
 export class AddTeamService {
-  
+
   team: Team = new Team();
 
   constructor(private httpClient: HttpClient) { }
 
-  setTeam (team: Team) {
+  setTeam(team: Team) {
     this.team = team;
   }
 
-  saveTeam(){
-    return this.httpClient.post(addTeamApiUrl, this.team).pipe()
+  saveTeam() {
+    return this.httpClient.post(TeamApiList.addTeam, this.team).pipe()
   }
 }

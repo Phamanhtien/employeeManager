@@ -42,7 +42,7 @@ public class TeamController {
     }
 
     @PostMapping("/add")
-    public void createTeam(@RequestBody RequestTeam requestTeam){
+    public void addTeam(@RequestBody RequestTeam requestTeam){
         createTeam.setRequestTeam(requestTeam);
         createTeam.createTeam();
     }

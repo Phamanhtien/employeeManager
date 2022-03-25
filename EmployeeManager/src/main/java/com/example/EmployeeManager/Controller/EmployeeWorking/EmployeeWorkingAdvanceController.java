@@ -24,7 +24,7 @@ public class EmployeeWorkingAdvanceController {
     private DeleteEmployeeWorkingAdvance deleteEmployeeWorkingAdvance;
 
     @GetMapping("/all/{employeeId}")
-    public Integer retrieveTotalWorkingAdvancesOfAnEmployee(@PathVariable int employeeId) {
+    public Integer getNumberOfAllWorkingAdvancesOfAnEmployee(@PathVariable int employeeId) {
         retrieveEmployeeWorkingAdvances.setEmployeeId(employeeId);
         return retrieveEmployeeWorkingAdvances.retrieveTotalEmployeeWorkingAdvancesByEmployeeId();
     }
@@ -37,7 +37,7 @@ public class EmployeeWorkingAdvanceController {
     }
 
     @PostMapping("add")
-    public void createWorkingAdvanceOfAnEmployee(@RequestBody RequestEmployeeWorkingAdvance requestEmployeeWorkingAdvance) {
+    public void addWorkingAdvanceOfAnEmployee(@RequestBody RequestEmployeeWorkingAdvance requestEmployeeWorkingAdvance) {
         createEmployeeWorkingAdvance.setRequestEmployeeWorkingDate(requestEmployeeWorkingAdvance);
         createEmployeeWorkingAdvance.createEmployeeWorkingAdvance();
     }

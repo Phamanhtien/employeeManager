@@ -3,9 +3,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { WorkingAdvance } from '../../../../../model/workingAdvance.model';
 import { Employee } from '../../../../../model/employee.model';
 import { AddWorkingAdvanceComponent } from '../../../add-working-advance/add-working-advance.component';
-import { GetTotalWorkingAdvanceService,
-         WorkingAdvanceListWithPagingService,
-         DeleteWorkingAdvanceService, } from '../../../../../service/working-advance.service';
+import { GetNumberOfAllWorkingAdvancesOfAnEmployee,
+         RetrieveAllWorkingAdvancesOfAnEmployee,
+         DeleteWorkingAdvanceOfAnEmployeeService, } from '../../../../../service/working-advance.service';
 
 @Component({
   selector: 'app-advances',
@@ -23,9 +23,9 @@ export class AdvancesComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private getTotalWorkingAdvanceService: GetTotalWorkingAdvanceService,
-    private workingAdvanceListWithPagingService: WorkingAdvanceListWithPagingService,
-    private deleteWorkingAdvanceService: DeleteWorkingAdvanceService,
+    private getNumberOfAllWorkingAdvancesOfAnEmployee: GetNumberOfAllWorkingAdvancesOfAnEmployee,
+    private retrieveAllWorkingAdvancesOfAnEmployee: RetrieveAllWorkingAdvancesOfAnEmployee,
+    private deleteWorkingAdvanceOfAnEmployeeService: DeleteWorkingAdvanceOfAnEmployeeService,
   ) { }
 
   ngOnInit(): void {
@@ -40,8 +40,8 @@ export class AdvancesComponent implements OnInit {
   }
 
   getNumberOfWorkingDate() {
-    this.getTotalWorkingAdvanceService.setEmployeeId(this.employee.id);
-    this.getTotalWorkingAdvanceService.getAllEmployeesWithoutPaging().subscribe((res: any) => {
+    this.getNumberOfAllWorkingAdvancesOfAnEmployee.setEmployeeId(this.employee.id);
+    this.getNumberOfAllWorkingAdvancesOfAnEmployee.getNumberOfAllWorkingAdvancesOfAnEmployee().subscribe((res: any) => {
       this.numberOfWorkingAdvance = res;
       console.log(res);
       this.numberOfPages = ~~(this.numberOfWorkingAdvance / 5)
@@ -56,16 +56,16 @@ export class AdvancesComponent implements OnInit {
 
 
   getAllWorkingAdvanceOfAnEmployeesWithPaging() {
-    this.workingAdvanceListWithPagingService.setEmployeeId(this.employee.id);
-    this.workingAdvanceListWithPagingService.setPageNumber(this.pageNumber)
-    this.workingAdvanceListWithPagingService.getAllWorkingAdvanceOfAnEmployeesWithPaging().subscribe((res: any) => {
+    this.retrieveAllWorkingAdvancesOfAnEmployee.setEmployeeId(this.employee.id);
+    this.retrieveAllWorkingAdvancesOfAnEmployee.setPageNumber(this.pageNumber)
+    this.retrieveAllWorkingAdvancesOfAnEmployee.retrieveAllWorkingAdvancesOfAnEmployee().subscribe((res: any) => {
       this.workingAdvanceList = res;
     })
   }
 
   deleteAnWorkingAdvance(workingAdvance: WorkingAdvance) {
-    this.deleteWorkingAdvanceService.setWorkingDate(workingAdvance);
-    this.deleteWorkingAdvanceService.deleteWorkingAdvance().subscribe((res: any) => {
+    this.deleteWorkingAdvanceOfAnEmployeeService.setWorkingDate(workingAdvance);
+    this.deleteWorkingAdvanceOfAnEmployeeService.deleteWorkingAdvanceOfAnEmployee().subscribe((res: any) => {
       console.warn();
       alert("Success");
     })
