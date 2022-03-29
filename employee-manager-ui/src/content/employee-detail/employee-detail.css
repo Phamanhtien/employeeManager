@@ -1,0 +1,34 @@
+.content-header {
+    margin-top: 10px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px;
+    border-style: solid;
+    padding-bottom: 10px;
+}
+.tab-name {
+    display: inline;
+    margin-left: 20px;
+}
+.icon {
+    display: inline;
+    right: 20px;
+    position: absolute;
+
+}
+
+.employee-detail {
+    display: flex;
+    margin-top: 5px;
+}
+
+.employee-avatar {
+    width: 175px;
+    margin-right: 5%;
+}
+.employee-working {
+    width: 75%;
+    right: 0px;
+    position: absolute;
+}

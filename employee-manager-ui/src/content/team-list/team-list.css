@@ -1,0 +1,40 @@
+.content-header {
+    margin-top: 10px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px;
+    border-style: solid;
+    padding-bottom: 10px;
+    
+}
+
+.tab-name {
+    display: inline;
+    margin-left: 20px;
+}
+.icon {
+    display: inline;
+    right: 20px;
+    position: absolute;
+}
+
+.table-content {
+    text-align:center;
+    justify-content: center;
+    display: flex;
+
+
+}
+
+.table-team-list {
+    padding-right: 10px;
+    width: 35%;
+    position: absolute;
+    left: 0px;
+}
+.table-team-member {
+    position: absolute;
+    width: 60%;
+    right: 0px;
+}
