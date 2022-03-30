@@ -1,0 +1,159 @@
+
+.modal-header {
+    background-color: #0d6efd;
+}
+    
+.modal-title {
+    color: white;
+}
+    
+.form-group-team {
+    width: 100%;
+}
+    
+.drop-down {
+    border-bottom: solid 1px;
+    border-color: rgb(216, 216, 216);
+    height: 24px;
+}
+    
+ul {
+    padding: none;
+}
+    
+li {
+    list-style-type: none;
+}
+    
+.modal-footer .btn {
+    width: 100%;
+    padding: 0px;
+    display: flex;
+    justify-content:space-between; 
+}
+.btn::after {
+    position: absolute;
+    right:  5px;
+    top: 10px;
+}
+
+.form-group .title {
+    font-size:75%;
+    margin-bottom: 5px;
+    color: rgb(216, 216, 216);
+}
+
+.form-group .form-control {
+    padding: 0px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.form-group .validator {
+    font-size:75%;
+    color: red;
+    margin-bottom: 16px;
+    height:18px;
+    width: 50%;
+    display: inline;
+}
+
+.form-group .name-length-per-max {
+    top: 0px;
+    text-align: end;
+    font-size:75%;
+    color:rgb(216, 216, 216);
+    margin-bottom: 16px;
+    height:18px;
+    width: 50%;
+    display: inline;
+}
+
+.form-group .form-group-address {
+    width: 50%;
+}
+
+.form-group .form-group-sex {
+    width: 50%;
+}
+
+.form-group .form-group-sex .drop-down {
+    border-bottom: solid 1px;
+    border-color:rgb(216, 216, 216);
+    height: 24px;
+}
+
+.form-group .form-group-sex .drop-down .btn {
+    width: 100%;
+    padding: 0px;
+    display: flex;
+    justify-content:space-between; 
+    
+}
+
+.form-group .form-group-sex .drop-down .btn::after {
+    position: absolute;
+    right:  5px;
+    top: 10px;
+}
+   
+.form-group .form-group-age {
+    width: 50%;
+}
+    
+.form-group .form-group-start {
+    width: 50%;
+}
+
+.form-group .form-group-money-per-hour {
+    width: 50%;
+}
+    
+.form-group .form-group-phone-number {
+    width: 50%;
+}
+
+
+.modal-header {
+background-color: #0d6efd;
+}
+
+.modal-title {
+color: white;
+}
+
+.form-group-team {
+width: 100%;
+
+}
+
+.drop-down {
+border-bottom: solid 1px;
+border-color: rgb(216, 216, 216);
+height: 24px;
+
+
+}
+
+ul {
+padding: none;
+
+}
+
+li {
+list-style-type: none;
+}
+
+.btn {
+width: 100%;
+padding: 0px;
+display: flex;
+justify-content:space-between; 
+
+}
+.btn::after {
+position: absolute;
+right:  5px;
+top: 10px;
+}

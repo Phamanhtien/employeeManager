@@ -1,6 +1,6 @@
 import React from 'react';
 import './info.css'
-import { Dropdown, DropdownButton, ButtonGroup, Button } from 'react-bootstrap';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 class Info extends React.Component {
     render() {

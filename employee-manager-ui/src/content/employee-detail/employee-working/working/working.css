@@ -1,0 +1,17 @@
+.working-detail {
+    margin-top: 20px;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+}
+.table-team-working-date {
+    text-align: center;
+    width: 100%;
+}
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    right: 0px;
+}

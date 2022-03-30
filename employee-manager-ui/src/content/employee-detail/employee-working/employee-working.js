@@ -3,6 +3,9 @@ import { BsPencilSquare, BsFillTrashFill } from 'react-icons/bs';
 
 import './employee-working.css'
 import Info from './info/info';
+import Working from './working/working';
+import Advance from './advance/advance';
+import Statistics from './statistics/statistics'
 
 class EmployeeWorking extends React.Component {
     render() {
@@ -27,15 +30,16 @@ class EmployeeWorking extends React.Component {
                 </div>
 
                 <div>
-                    {/* <app-working-date [employee]="employee"></app-working-date> */}
+                    <Working></Working>
                 </div >
+                <br></br><br></br>
 
-                <div  >
-                    {/* <app-advances [employee] = "employee" ></app - advances > */}
+                <div >
+                   <Advance></Advance>
                 </div >
 
                 <div >
-                    {/* <app-statics [employee] = "employee" ></app - statics > */}
+                   <Statistics></Statistics>
                 </div >
             </div >
         )

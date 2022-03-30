@@ -1,0 +1,34 @@
+.statistics {
+    margin-top: 20px;
+
+}
+
+.row-statistics {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.row-statistics .row{
+    border-bottom: 1px solid;
+    padding: 0px;
+    padding-bottom: 20px;
+
+}
+
+.row-statistics .row .col {
+    margin-right: 20px;
+    margin-left: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.row-statistics .row .btn {
+    margin-right: 0px;
+}
+
+.row-statistics .row .col {
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.row-statistics h5 {
+    margin-top: 20px;
+}
