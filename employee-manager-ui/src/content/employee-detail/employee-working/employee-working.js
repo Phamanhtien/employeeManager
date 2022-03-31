@@ -1,6 +1,4 @@
 import React from 'react';
-import { BsPencilSquare, BsFillTrashFill } from 'react-icons/bs';
-
 import './employee-working.css'
 import Info from './info/info';
 import Working from './working/working';

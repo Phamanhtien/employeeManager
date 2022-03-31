@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000/"})
 public class EmployeeController {
 
     @Autowired
@@ -89,8 +89,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/search/{full_name}")
-    public List<ResponseEmployee> retrieveEmployeeByNameWithoutPaging(@PathVariable String full_name){
+    public int retrieveEmployeeByNameWithoutPaging(@PathVariable String full_name){
         retrieveEmployees.setKey(full_name);
-        return retrieveEmployees.retrieveAllEmployeeByNameWithoutPaging();
+        return retrieveEmployees.numberOfAllEmployeeByName();
     }
 }

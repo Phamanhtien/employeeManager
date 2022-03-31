@@ -1,4 +1,6 @@
-.content-header {
+.employee-list-content-header {
+    display: flex;
+    justify-content: space-between;
     margin-top: 10px;
     border-top: 0px;
     border-left: 0px;

@@ -1,4 +1,5 @@
 .content-header {
+    display: flex;
     margin-top: 10px;
     border-top: 0px;
     border-left: 0px;

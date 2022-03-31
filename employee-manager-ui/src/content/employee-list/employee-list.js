@@ -1,93 +1,173 @@
+import React, { useEffect, useState } from 'react';
 import { BsPlusCircleFill, BsFillTrashFill, BsInfo } from 'react-icons/bs';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 import search from './../../assets/icon/search.svg';
+import Loading from './../../util/loading/loading';
 import './employee-list.css'
 
-function EmployeeList() {
-    return (
-        <div>
-            <div class="content-header">
-                <div class="tab-name">
-                    <b>Employee</b>
-                </div>
-                <div class="icon">
-                    <BsPlusCircleFill></BsPlusCircleFill>
-                    <BsFillTrashFill></BsFillTrashFill>
-                </div>
-            </div>
+function EmployeeList () {
 
-            <div class="content-team">
-                <div class="total-employee-box">
-                    <p class="total-employee-text">Total 6 employees</p>
-                </div>
-                <div>
-                    <div class="search-container input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping">
-                            <img src={search}></img>
-                        </span>
-                        <input class="form-control" placeholder="Search employee by name" type="text"></input>
+    const [numberOfAllEmployees, setNumberOfAllEmployees] = useState(0);
+
+    const [pageNumber, setPageNumber] = useState(0);
+
+    const [employeeList, setEmployeeList] = useState([]);
+    const [isLoaded, setLoaded] = useState(false);
+
+    const [searchName, setSearchName] = useState("");
+
+    useEffect (() => {
+        if (!isLoaded) {
+            if (searchName === "") {
+                getNumberOfAllEmployee();
+                retrieveAllEmployeeWithPaging();
+            }
+
+            if (searchName !== "") {
+                retrieveEmployeeByNameWithoutPaging();
+                retrieveEmployeeByNameWithPaging();
+            }
+        }
+    })
+
+    var pageArray = [];
+    var numberOfPages = ~~(numberOfAllEmployees / 5)
+    if (numberOfAllEmployees % 5 === 0) {
+        numberOfPages -= 1;
+    }
+    for (let i = 0; i <= numberOfPages; i++) {
+        pageArray.push(
+            <li key={"page-item"+i} className={`page-item ${pageNumber === i? "disabled":""} `} onClick={()=>{setPageNumber(i);setLoadedStateToInitialLoading();}}>
+                <a href='#' className="page-link">{i+1}</a>
+            </li>
+        );
+    }
+
+    const employeeListElement = [];
+    for(let i = 0; i < employeeList.length; i++) {
+        employeeListElement.push(
+            <tr className="tbody-row" key={employeeList[i].id}>
+                <td><input type="checkbox"></input></td>
+                <td className="employee-id">{employeeList[i].id}</td>
+                <td className="employee-fullName">{employeeList[i].fullName}</td>
+                <td className="employee-phone">{employeeList[i].phone}</td>
+                <td className="employee-team">{employeeList[i].teamName}</td>
+                <td className="employee-detail-delete">
+                    <Link to={`../employee/${employeeList[i].id}`}>
+                        <BsInfo style={{ fontSize: '150%' }}></BsInfo>
+                    </Link>
+                    <BsFillTrashFill></BsFillTrashFill>
+                </td>
+            </tr>
+        )
+    }
+
+        return (
+            <div>
+                <div className="employee-list-content-header">
+                    <div className="tab-name">
+                        <b>Employee</b>
+                    </div>
+                    <div className="icon">
+                        <BsPlusCircleFill></BsPlusCircleFill>
+                        <BsFillTrashFill></BsFillTrashFill>
                     </div>
                 </div>
-                <div class="space"></div>
-            </div>
-            <div class="search-result">
+    
+                <div className="content-team">
+                    <div className="total-employee-box">
+                        <p className="total-employee-text">Total {numberOfAllEmployees} employees</p>
+                    </div>
+                    <div>
+                        <div className="search-container input-group flex-nowrap">
+                            <span className="input-group-text" id="addon-wrapping">
+                                <img src={search}></img>
+                            </span>
+                            <input className="form-control" onChange={(input)=>{setSearchName(input.target.value);setLoadedStateToInitialLoading();setPageNumber(0)}} placeholder="Search employee by name" type="text" value={searchName}></input>
+                        </div>
+                    </div>
+                    <div className="space"></div>
+                </div>
+                <div className="search-result">
                     <p>Search result</p>
                 </div>
+    
+                <table className="table table-striped">
+                    <thead className="thead">
+                        <tr className="thead-row">
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                                <b>No</b>
+                            </th>
+                            <th scope="col">
+                                <b>Full name</b>
+                            </th>
+                            <th scope="col">
+                                <b>Phone</b>
+                            </th>
+                            <th scope="col">
+                                <b>Team</b>
+                            </th>
+                            <th scope="col">
+                                <b>Option</b>
+                            </th>
+                        </tr>
+                    </thead>
+    
+                    <tbody className="tbody">
+                        {employeeListElement}
+                    </tbody>
+                </table>
+    
+                <ul className="pagination pagination-sm">
+                    <li className={`page-item ${pageNumber === 0? "disabled":""} `} onClick={()=>{setPageNumber(pageNumber-1);setLoadedStateToInitialLoading();}}>
+                        <a href='#' className="page-link">Previous</a>
+                    </li>
+                    {pageArray}
+                    <li className={`page-item ${pageNumber === numberOfPages? "disabled":""} `} onClick={()=>{setPageNumber(pageNumber+1);setLoadedStateToInitialLoading();}}>
+                        <a href='#' className="page-link" >Next</a>
+                    </li>
+                </ul>
+            </div>
+        )
 
-            <table class="table table-striped">
-                <thead class="thead">
-                    <tr class="thead-row">
-                        <th scope="col">
-                        </th>
-                        <th scope="col">
-                            <b>No</b>
-                        </th>
-                        <th scope="col">
-                            <b>Full name</b>
-                        </th>
-                        <th scope="col">
-                            <b>Phone</b>
-                        </th>
-                        <th scope="col">
-                            <b>Team</b>
-                        </th>
-                        <th scope="col">
-                            <b>Option</b>
-                        </th>
-                    </tr>
-                </thead>
+    function getNumberOfAllEmployee() {
+        axios.get('http://localhost:8080/employee/all').then(res => {
+        setNumberOfAllEmployees(res.data);
+      })
+      .catch(error => console.error(error));
+    }
 
-                <tbody class="tbody">
-                    <tr class="tbody-row" >
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td class="employee-id">1</td>
-                        <td class="employee-fullName">Phạm Anh Tiến</td>
-                        <td class="employee-phone">0353858859</td>
-                        <td class="employee-team">team này của Tiến</td>
-                        <td class="employee-detail-delete">
-                            <a href="employee-detail/1">
-                                <BsInfo style={{ fontSize: '150%' }}></BsInfo>
-                            </a>
-                            <BsFillTrashFill></BsFillTrashFill>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    function retrieveAllEmployeeWithPaging() {
+        axios.get('http://localhost:8080/employee/all/'+ pageNumber).then(res => {
+            setEmployeeList(res.data);
+            setLoaded(true);
+          })
+        .catch(error => console.log(error));
+    }
 
-            <ul class="pagination pagination-sm">
-                <li class="page-item">
-                    <a href='#' class="page-link">Previous</a>
-                </li>
-                <li >
-                    <a href='#' class="page-link">1</a>
-                </li>
-                <li>
-                    <a href='#' class="page-link" >Next</a>
-                </li>
-            </ul>
-        </div>
-    );
+    function retrieveEmployeeByNameWithoutPaging() {
+        axios.get('http://localhost:8080/employee/search/'+searchName).then(res => {
+            setNumberOfAllEmployees(res.data);
+          })
+        .catch(error => {console.log(error)});
+    }
+
+    function retrieveEmployeeByNameWithPaging() {
+        axios.get('http://localhost:8080/employee/search/'+searchName+"/"+pageNumber).then(res => {
+            setEmployeeList(res.data);
+            setLoaded(true);
+            console.log(employeeList)
+          })
+        .catch(error => {console.log(error)});
+    }
+
+    function setLoadedStateToInitialLoading() {
+        setLoaded(false);
+    }
 }
 
 export default EmployeeList

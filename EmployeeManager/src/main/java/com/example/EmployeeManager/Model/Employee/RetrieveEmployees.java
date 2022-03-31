@@ -105,21 +105,12 @@ public class RetrieveEmployees {
         return responseEmployeeList;
     }
 
-    public List<ResponseEmployee> retrieveAllEmployeeByNameWithoutPaging() {
+    public int numberOfAllEmployeeByName() {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         List<Employee> employeeList = employeeRepository.findByFullNameLike("%" + key + "%");
 
         List<ResponseEmployee> responseEmployeeList = new ArrayList<ResponseEmployee>();
         int employeeListSize = employeeList.size();
-        for (int i = 0; i < employeeListSize; i++ ) {
-            ResponseEmployee responseEmployee = new ResponseEmployee();
-            Employee employee = employeeList.get(i);
-            Optional<Team> optionalTeam = teamRepository.findById(employee.getTeamId());
-            if (!optionalTeam.isPresent()) {
-                throw new NotFoundException("Team has id " + employee.getTeamId());
-            }
-            responseEmployeeList.add(EmployeeDTO.objectToResponse(employeeList.get(i),optionalTeam.get()));
-        }
-        return responseEmployeeList;
+        return employeeListSize;
     }
 }
