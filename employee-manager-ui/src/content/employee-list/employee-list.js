@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import search from './../../assets/icon/search.svg';
 import Loading from './../../util/loading/loading';
+import CreatePaging from '../../util/GeneralFunction/CreatePaging';
 import './employee-list.css'
 
 function EmployeeList () {
@@ -31,19 +32,6 @@ function EmployeeList () {
             }
         }
     })
-
-    var pageArray = [];
-    var numberOfPages = ~~(numberOfAllEmployees / 5)
-    if (numberOfAllEmployees % 5 === 0) {
-        numberOfPages -= 1;
-    }
-    for (let i = 0; i <= numberOfPages; i++) {
-        pageArray.push(
-            <li key={"page-item"+i} className={`page-item ${pageNumber === i? "disabled":""} `} onClick={()=>{setPageNumber(i);setLoadedStateToInitialLoading();}}>
-                <a href='#' className="page-link">{i+1}</a>
-            </li>
-        );
-    }
 
     const employeeListElement = [];
     for(let i = 0; i < employeeList.length; i++) {
@@ -121,18 +109,14 @@ function EmployeeList () {
                         {employeeListElement}
                     </tbody>
                 </table>
-    
-                <ul className="pagination pagination-sm">
-                    <li className={`page-item ${pageNumber === 0? "disabled":""} `} onClick={()=>{setPageNumber(pageNumber-1);setLoadedStateToInitialLoading();}}>
-                        <a href='#' className="page-link">Previous</a>
-                    </li>
-                    {pageArray}
-                    <li className={`page-item ${pageNumber === numberOfPages? "disabled":""} `} onClick={()=>{setPageNumber(pageNumber+1);setLoadedStateToInitialLoading();}}>
-                        <a href='#' className="page-link" >Next</a>
-                    </li>
-                </ul>
+                <CreatePaging pagingCallback={pagingCallBack} numberOfAllEmployees={numberOfAllEmployees} pageNumber={pageNumber}></CreatePaging>
             </div>
         )
+    
+    function pagingCallBack (pageNumber) {
+        setPageNumber(pageNumber)
+        setLoaded(false)
+    }
 
     function getNumberOfAllEmployee() {
         axios.get('http://localhost:8080/employee/all').then(res => {
