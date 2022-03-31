@@ -1,74 +1,125 @@
 <div class="my-modal">
-    <div class="modal-header">
-        <h4 class="modal-title">Add new Employee</h4>
+  <div class="modal-header">
+    <h4 class="modal-title">Add new Employee</h4>
+  </div>
+  <div class="modal-body">
+    <div class="form-group form-group-name">
+      <p class="title">Full name employee</p>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter name"
+        [ngModel]="employee.fullName"
+        (ngModelChange)="setEmployeeFullName($event)"
+      />
+      <div class="row">
+        <p class="validator col">{{ nameMessageError }}</p>
+        <p class="name-length-per-max col">{{ nameLength }}/225</p>
+      </div>
     </div>
-    <div class="modal-body">
-        <div class="form-group form-group-name">
-            <p class="title">Full name employee</p>
-            <input type="text" class="form-control" placeholder="Enter name" [ngModel]="employee.fullName" (ngModelChange)="setEmployeeFullName($event)">
-            <div class="row">
-                <p class="validator col">{{nameMessageError}}</p>
-                <p class="name-length-per-max col">{{nameLength}}/225</p>
-            </div>
+    <div class="form-group form-group-team">
+      <p class="title">Team *</p>
+      <div ngbDropdown class="drop-down">
+        <button class="btn" id="team" ngbDropdownToggle>{{ team }}</button>
+        <div class="team-list" ngbDropdownMenu aria-labelledby="team">
+          <div *ngFor="let team of teamList">
+            <button (click)="setTeamId(team.id, team.name)" ngbDropdownItem>
+              {{ team.name }}
+            </button>
+          </div>
         </div>
-        <div class="form-group form-group-team">
-            <p class="title">Team *</p>
-            <div ngbDropdown class="drop-down">
-                <button class="btn" id="team" ngbDropdownToggle>{{team}}</button>
-                <div class="team-list" ngbDropdownMenu aria-labelledby="team">
-                    <div *ngFor="let team of teamList">
-                        <button (click)="setTeamId(team.id, team.name)" ngbDropdownItem>{{team.name}}</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <p class="name-length-per-max"> </p>
-        <div class="form-group row">
-            <div class="form-group-address col-xs-1">
-                <p class="title">Address *</p>
-                <input type="text" class="form-control" placeholder="Enter address" [ngModel]="employee.address" (ngModelChange)="setEmployeeAddress($event)">
-            </div>
-            <div class="form-group-sex col-xs-1">
-                <p class="title">Sex *</p>
-                <div ngbDropdown class="drop-down">
-                    <button class="btn" id="sex" ngbDropdownToggle value="male">{{sex}}</button>
-                    <div ngbDropdownMenu aria-labelledby="sex">
-                        <button (click)="setEmployeeSex(true)" ngbDropdownItem>Male</button>
-                        <button (click)="setEmployeeSex(false)" ngbDropdownItem>Female</button>
-                    </div>
-                </div>
-            </div>
-            <p class="name-length-per-max"> </p>
-        </div>
-
-        <div class="form-group row">
-            <div class="form-group-age col-xs-1">
-                <p class="title">Age *</p>
-                <input type="text" class="form-control" placeholder="Enter age" [ngModel]="employee.age" (ngModelChange)="setEmployeeAge($event)">
-            </div>
-            <div class="form-group-start col-xs-1">
-                <p class="title">Start day *</p>
-                <input type="date" placeholder="dd-mm-yyyy" class="form-control" value="01/17/2021" [ngModel]="employee.startDate" (ngModelChange)="setEmployeeStartDate($event)">
-            </div>
-            <p class="validator">{{ageMessageError}}</p>
-        </div>
-
-        <div class="form-group row">
-            <div class="form-group-money-per-hour col-xs-1">
-                <p class="title">Money/hour *</p>
-                <input type="text" class="form-control" placeholder="Enter money/hour" [ngModel]="employee.salaryPerHour" (ngModelChange)="setEmployeeSalaryPerHour($event)">
-                <p class="validator">{{salaryPerHourMessageError}}</p>
-            </div>
-
-            <div class="form-group-phone-number col-xs-1">
-                <p class="title">Phone number *</p>
-                <input type="text" class="form-control" placeholder="Enter phone number" [ngModel]="employee.phone" (ngModelChange)="setEmployeePhone($event)">
-                <p class="validator">{{phoneMessageError}} </p>
-            </div>
-        </div>
+      </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="saveEmployee()">SUBMIT</button>
-        <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">CANCEL</button>
+    <p class="name-length-per-max"></p>
+    <div class="form-group row">
+      <div class="form-group-address col-xs-1">
+        <p class="title">Address *</p>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter address"
+          [ngModel]="employee.address"
+          (ngModelChange)="setEmployeeAddress($event)"
+        />
+      </div>
+      <div class="form-group-sex col-xs-1">
+        <p class="title">Sex *</p>
+        <div ngbDropdown class="drop-down">
+          <button class="btn" id="sex" ngbDropdownToggle value="male">
+            {{ sex }}
+          </button>
+          <div ngbDropdownMenu aria-labelledby="sex">
+            <button (click)="setEmployeeSex(true)" ngbDropdownItem>Male</button>
+            <button (click)="setEmployeeSex(false)" ngbDropdownItem>
+              Female
+            </button>
+          </div>
+        </div>
+      </div>
+      <p class="name-length-per-max"></p>
     </div>
+
+    <div class="form-group row">
+      <div class="form-group-age col-xs-1">
+        <p class="title">Age *</p>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter age"
+          [ngModel]="employee.age"
+          (ngModelChange)="setEmployeeAge($event)"
+        />
+      </div>
+      <div class="form-group-start col-xs-1">
+        <p class="title">Start day *</p>
+        <input
+          type="date"
+          placeholder="dd-mm-yyyy"
+          class="form-control"
+          value="01/17/2021"
+          [ngModel]="employee.startDate"
+          (ngModelChange)="setEmployeeStartDate($event)"
+        />
+      </div>
+      <p class="validator">{{ ageMessageError }}</p>
+    </div>
+
+    <div class="form-group row">
+      <div class="form-group-money-per-hour col-xs-1">
+        <p class="title">Money/hour *</p>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter money/hour"
+          [ngModel]="employee.salaryPerHour"
+          (ngModelChange)="setEmployeeSalaryPerHour($event)"
+        />
+        <p class="validator">{{ salaryPerHourMessageError }}</p>
+      </div>
+
+      <div class="form-group-phone-number col-xs-1">
+        <p class="title">Phone number *</p>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter phone number"
+          [ngModel]="employee.phone"
+          (ngModelChange)="setEmployeePhone($event)"
+        />
+        <p class="validator">{{ phoneMessageError }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="saveEmployee()">
+      SUBMIT
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="activeModal.close('Close click')"
+    >
+      CANCEL
+    </button>
+  </div>
 </div>
