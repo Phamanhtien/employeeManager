@@ -18,6 +18,12 @@ public class Handler {
     @ExceptionHandler(value = InvalidArgumentException.class)
     public ResponseEntity<Error> invalidArgumentException(InvalidArgumentException invalidArgumentException) {
         Error error = new Error(Constant.INVALID_ARGUMENT_EXCEPTION, invalidArgumentException.getMessage());
-        return new ResponseEntity<Error>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<Error>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = DependenceDataException.class)
+    public ResponseEntity<Error> dependenceDataException(DependenceDataException dependenceDataException) {
+        Error error = new Error(Constant.DEPENDENCE_DATA_EXCEPTION, dependenceDataException.getMessage());
+        return new ResponseEntity<Error>(error, HttpStatus.FAILED_DEPENDENCY);
     }
 }

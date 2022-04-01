@@ -24,13 +24,13 @@ function RetrieveEmployeeByNameWithPaging(searchName,pageNumber) {
     .catch(error => {console.log(error)});
 }
 
-function deleteEmployee(employeeIdList) {
+function DeleteEmployee(employeeIdList) {
     return axios.delete('http://localhost:8080/employee/delete', {data:employeeIdList})
-    .then(res => res.data)
-    .catch(error => {console.log(error)});
+    .then(res => res)
+    .catch(error => error);
 }
 
 export {RetrieveAllEmployeeWithPaging, 
         RetrieveEmployeeByNameWithoutPaging,
         RetrieveEmployeeByNameWithPaging,
-        deleteEmployee}
+        DeleteEmployee}
