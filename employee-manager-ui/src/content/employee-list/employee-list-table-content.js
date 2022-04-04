@@ -8,88 +8,112 @@ import React, { useEffect, useState } from "react";
 function EmployeeListTableContent(props) {
     //props
     const employeeList = props.employeeList;
+    const employeeListComponentPageNumber = props.pageNumber;
     // state
     const [listDeleteEmployeeState, setListDeleteEmployeeState] = useState([]);
-    const [isLoaded, setLoaded] = useState(false);
-
+    // const [isLoaded, setLoaded] = useState(false);
+    const [pageNumber, setPageNumber] = useState(-1);
+    const [isInitital, setInitial] = useState(false);
+    const [a,setA] = useState(0);
     //variable
-    const listDeleteEmployee = [];
+    // const listDeleteEmployee = [];
 
     function callBack() {
         props.EmployeeListTableContentCallBack();
     }
 
     useEffect(() => {
-        if (listDeleteEmployeeState.length === 0) {
-            setListDeleteEmployeeState(initialListDeleteEmployee(employeeList))
-            console.log(listDeleteEmployeeState);
+        if (employeeListComponentPageNumber === pageNumber) {
+            return;
         }
-        console.log("this is employeeList")
-        console.log(employeeList);
-        console.log(listDeleteEmployeeState);
-        
-    });
 
-    console.log("---------------------------------------------------------------------")
+        if (employeeListComponentPageNumber !== pageNumber) {
+            setListDeleteEmployeeState(initialListDeleteEmployee(employeeList));
+            if (
+                listDeleteEmployeeState.length === employeeList.length &&
+                listDeleteEmployeeState.length !== 0
+            ) {
+                setPageNumber(employeeListComponentPageNumber);
+            }
+        }
+    }, [listDeleteEmployeeState, employeeList, isInitital]);
+
     function initialListDeleteEmployee(employeeList) {
         let temp = [];
         for (let i = 0; i < employeeList.length; i++) {
-            let employeeCheckStatus = EmployeeCheckStatus;
+            let employeeCheckStatus = new EmployeeCheckStatus(
+                employeeList[i].id,
+                false
+            );
             employeeCheckStatus.employeeId = employeeList[i].id;
-            console.log(employeeCheckStatus)
-            console.log("temp in function")
-            console.log(temp)
             temp.push(employeeCheckStatus);
-            
         }
-        console.log('this is temp')
-        console.log(temp)
         return temp;
     }
-    initialListDeleteEmployee(employeeList)
-    const employeeListElement = [];
-    // for (let i = 0; i < listDeleteEmployeeState.length; i++) {
-    //     employeeListElement.push(
-    //         <tr className="tbody-row" key={employeeList[i].id}>
-    //             <td>
-    //                 {/* <input
-    //                     type="checkbox"
-    //                     checked={listDeleteEmployeeState[i].isChecked}
-    //                     onChange={() => {
-    //                         listDeleteEmployeeState[i].isChecked =
-    //                             !listDeleteEmployeeState[i].isChecked;
-    //                     }}
-    //                 ></input> */}
-    //                 <input type="checkbox" checked={listDeleteEmployeeState[i].isChecked}></input>
-    //             </td>
-    //             <td className="employee-id">{employeeList[i].id}</td>
-    //             <td className="employee-fullName">
-    //                 {employeeList[i].fullName}
-    //             </td>
-    //             <td className="employee-phone">{employeeList[i].phone}</td>
-    //             <td className="employee-team">{employeeList[i].teamName}</td>
-    //             <td className="employee-detail-delete">
-    //                 <Link to={`../employee/${employeeList[i].id}`}>
-    //                     <BsInfo style={{ fontSize: "150%" }}></BsInfo>
-    //                 </Link>
-    //                 <BsFillTrashFill
-    //                     onClick={() => {
-    //                         DeleteEmployee([employeeList[i].id]).then((res) => {
-    //                             if (res.response !== undefined) {
-    //                                 alert(res.response.data.message);
-    //                             }
 
-    //                             if (res.response === undefined) {
-    //                                 alert("Employee was deleted successfully");
-    //                                 callBack();
-    //                             }
-    //                         });
-    //                     }}
-    //                 ></BsFillTrashFill>
-    //             </td>
-    //         </tr>
-    //     );
-    // }
+    function updateListDeleteEmployee(employeeId) {
+        let temp = listDeleteEmployeeState;
+        let listDeleteEmployeeStateLength = listDeleteEmployeeState.length;
+        for (let i = 0; i < listDeleteEmployeeStateLength; i++) {
+            if (temp[i].employeeId === employeeId) {
+                temp[i].isChecked = !temp[i].isChecked;
+            }
+        }
+        setListDeleteEmployeeState(temp);
+        // callBack()
+        console.log(listDeleteEmployeeState);
+    }
+
+    if (listDeleteEmployeeState.length === employeeList.length) {
+        var employeeListElement = [];
+        for (let i = 0; i < listDeleteEmployeeState.length; i++) {
+            employeeListElement.push(
+                <tr className="tbody-row" key={employeeList[i].id}>
+                    <td>
+                        <input
+                            type="checkbox"
+                            // checked= {true}
+                            checked={listDeleteEmployeeState[i].isChecked}
+                            onChange={() => {
+                                updateListDeleteEmployee(employeeList[i].id);
+                            }}
+                        ></input>
+                    </td>
+                    <td className="employee-id">{employeeList[i].id}</td>
+                    <td className="employee-fullName">
+                        {employeeList[i].fullName}
+                    </td>
+                    <td className="employee-phone">{employeeList[i].phone}</td>
+                    <td className="employee-team">
+                        {employeeList[i].teamName}
+                    </td>
+                    <td className="employee-detail-delete">
+                        <Link to={`../employee/${employeeList[i].id}`}>
+                            <BsInfo style={{ fontSize: "150%" }}></BsInfo>
+                        </Link>
+                        <BsFillTrashFill
+                            onClick={() => {
+                                DeleteEmployee([employeeList[i].id]).then(
+                                    (res) => {
+                                        if (res.response !== undefined) {
+                                            alert(res.response.data.message);
+                                        }
+
+                                        if (res.response === undefined) {
+                                            alert(
+                                                "Employee was deleted successfully"
+                                            );
+                                            callBack();
+                                        }
+                                    }
+                                );
+                            }}
+                        ></BsFillTrashFill>
+                    </td>
+                </tr>
+            );
+        }
+    }
 
     return (
         <table className="table table-striped">

@@ -91,6 +91,7 @@ function EmployeeList() {
                     EmployeeListTableContentCallBack
                 }
                 employeeList={employeeList}
+                pageNumber={pageNumber}
             ></EmployeeListTableContent>
             <CreatePaging
                 pagingCallback={pagingCallBack}
