@@ -1,16 +1,18 @@
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import {BsFillTrashFill } from "react-icons/bs";
+import { BsFillTrashFill } from "react-icons/bs";
 
-import './employee-delete-list.css'
+import "./employee-delete-list.css";
 function EmployeeDeleteList() {
     return (
         <Popup
             position="middle center"
             modal
+            nested
             trigger={
-                <BsFillTrashFill
-                ></BsFillTrashFill>
+                <button>
+                    <BsFillTrashFill></BsFillTrashFill>
+                </button>
             }
         >
             {(close) => (
@@ -22,7 +24,11 @@ function EmployeeDeleteList() {
                         <p>It will delete all employees'data selected</p>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" onClick={() =>close()}>
+                        <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={() => close()}
+                        >
                             NO
                         </button>
                         <button type="button" className="btn btn-primary">

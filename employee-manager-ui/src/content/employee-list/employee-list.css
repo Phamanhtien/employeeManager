@@ -10,6 +10,11 @@
     padding-bottom: 10px;
 }
 
+.employee-list-content-header .icon button {
+    border: none;
+    background-color:transparent;
+}
+
 .tab-name {
     display: inline;
     margin-left: 20px;

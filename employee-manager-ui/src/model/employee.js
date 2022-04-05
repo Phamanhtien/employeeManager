@@ -15,4 +15,19 @@ export default class Employee {
     constructor() {
 
     }
+
+    EmployeeDTO(employee) {
+        this.id = employee.id;
+        this.avatar = employee.avatar;
+        this.fullName = employee.fullName;
+        this.phone = employee.phone;
+        this.address = employee.address;
+        this.teamName = employee.teamName;
+        this.sex = employee.sex;
+        this.age = employee.age;
+        this.startDate = employee.startDate;
+        this.salaryPerHour = employee.salaryPerHour;
+        this.isChecked = employee.isChecked;
+        this.teamId = employee.teamId;
+    }
 }

@@ -4,6 +4,7 @@
     border-radius:0px;
 }
 
+
 .employee-add-modal .modal-header {
     background-color: #0d6efd;
     color: white;
@@ -15,20 +16,20 @@
     color: rgb(216, 216, 216);
 }
 
-.employee-add-modal .modal-body .form-group .drop-down {
+.employee-add-modal .modal-body .drop-down {
     border-bottom: solid 1px;
     border-color: rgb(216, 216, 216);
     height: 24px;
 }
 
-.employee-add-modal .modal-body .form-group .form-control {
+.employee-add-modal .modal-body .form-control {
     padding: 0px;
     border-top: none;
     border-left: none;
     border-right: none;
 }
 
-.employee-add-modal .modal-body .form-group .validator {
+.employee-add-modal .modal-body .validator {
     font-size:75%;
     color: red;
     margin-bottom: 16px;
@@ -37,7 +38,7 @@
     display: inline;
 }
 
-.employee-add-modal .modal-body .form-group .name-length-per-max {
+.employee-add-modal .modal-body .name-length-per-max {
     top: 0px;
     text-align: end;
     font-size:75%;
@@ -48,21 +49,21 @@
     display: inline;
 }
 
-.employee-add-modal .modal-body .form-group .form-group-address {
+.employee-add-modal .modal-body .form-group-address {
     width: 50%;
 }
 
-.employee-add-modal .modal-body .form-group .form-group-sex {
+.employee-add-modal .modal-body .form-group-sex {
     width: 50%;
 }
 
-.employee-add-modal .modal-body .form-group .form-group-sex .drop-down {
+.employee-add-modal .modal-body .form-group-sex .drop-down {
     border-bottom: solid 1px;
     border-color:rgb(216, 216, 216);
     height: 24px;
 }
 
-.employee-add-modal .modal-body .form-group .form-group-sex .drop-down .btn {
+.employee-add-modal .modal-body .form-group-sex .drop-down .btn {
     width: 100%;
     padding: 0px;
     display: flex;
@@ -70,24 +71,32 @@
     
 }
 
-.employee-add-modal .modal-body .form-group .form-group-sex .drop-down .btn::after {
+.employee-add-modal .modal-body .form-group-sex .drop-down .btn::after {
     position: absolute;
     right:  5px;
     top: 10px;
 }
 
-.employee-add-modal .modal-body .form-group .form-group-age {
+.employee-add-modal .modal-body .form-group-age {
     width: 50%;
 }
 
-.employee-add-modal .modal-body .form-group .form-group-start {
+.employee-add-modal .modal-body .form-group-start {
     width: 50%;
 }
 
-.employee-add-modal .modal-body .form-group .form-group-money-per-hour {
+.employee-add-modal .modal-body .form-group-money-per-hour {
     width: 50%;
 }
 
-.employee-add-modal .modal-body .form-group .form-group-phone-number {
+.employee-add-modal .modal-body .form-group-phone-number {
     width: 50%;
+}
+
+.employee-add-modal .modal-body .form-group-team .drop-down .drop-down-button #dropdown-basic-button{
+    border-bottom: 1px solid;
+}
+
+.employee-add-modal .modal-body .form-group-sex .drop-down .drop-down-button #dropdown-basic-button{
+    border-bottom: 1px solid;
 }
