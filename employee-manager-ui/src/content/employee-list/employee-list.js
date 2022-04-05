@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { BsPlusCircleFill, BsFillTrashFill } from "react-icons/bs";
 
 import search from "./../../assets/icon/search.svg";
 import CreatePaging from "../../util/GeneralFunction/CreatePaging";
 import GetNumberOfAllEmployee, {
     RetrieveAllEmployeeWithPaging,
     RetrieveEmployeeByNameWithoutPaging,
-    RetrieveEmployeeByNameWithPaging
+    RetrieveEmployeeByNameWithPaging,
 } from "../../util/GeneralFunction/EmployeeAxios";
 import EmployeeListTableContent from "./employee-list-table-content";
+import EmployeeDeleteList from "./../employee-delete-list/employee-delete-list";
+import EmployeeAdd from "./../employee-add/employee-add"
 import "./employee-list.css";
 
 function EmployeeList() {
@@ -17,6 +18,7 @@ function EmployeeList() {
     const [employeeList, setEmployeeList] = useState([]);
     const [isLoaded, setLoaded] = useState(false);
     const [searchName, setSearchName] = useState("");
+    let listDeleteEmployeeId = [];
 
     useEffect(() => {
         if (!isLoaded) {
@@ -52,8 +54,8 @@ function EmployeeList() {
                     <b>Employee</b>
                 </div>
                 <div className="icon">
-                    <BsPlusCircleFill></BsPlusCircleFill>
-                    <BsFillTrashFill></BsFillTrashFill>
+                    <EmployeeAdd></EmployeeAdd>
+                    <EmployeeDeleteList></EmployeeDeleteList>
                 </div>
             </div>
 
@@ -87,8 +89,11 @@ function EmployeeList() {
                 <p>Search result</p>
             </div>
             <EmployeeListTableContent
-                EmployeeListTableContentCallBack={
-                    EmployeeListTableContentCallBack
+                employeeListTableContentCallBack={
+                    employeeListTableContentCallBack
+                }
+                setListDeleteEmployeeIdCallBack={
+                    setListDeleteEmployeeIdCallBack
                 }
                 employeeList={employeeList}
                 pageNumber={pageNumber}
@@ -106,8 +111,12 @@ function EmployeeList() {
         setLoaded(false);
     }
 
-    function EmployeeListTableContentCallBack() {
+    function employeeListTableContentCallBack() {
         setLoaded(false);
+    }
+
+    function setListDeleteEmployeeIdCallBack(listDeleteEmployeeById) {
+        listDeleteEmployeeId = listDeleteEmployeeById;
     }
 }
 

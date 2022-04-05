@@ -42,16 +42,6 @@ create table Team (
 	[manager_id] int not null,
 )
 
--- create foreign key
-
--- Employee_Working_Date reference to Employee
-alter table Employee_Working_Date add constraint fk_Employee_Working_Date_employee foreign key (employee_id) references Employee(id)  ON DELETE CASCADE
--- Employee_Working_Advance reference to Employee
-alter table Employee_Working_Advance add constraint fk_Employee_Working_Advance_employee foreign key (employee_id) references Employee(id)  ON DELETE CASCADE
--- Employee reference to team
-alter table Employee add constraint fk_employee_team foreign key (team_id) references Team(id)  ON DELETE NO ACTION
--- Team manager reference to Employee
-alter table Team add constraint fk_team_employee foreign key (manager_id) references Employee(id)  ON DELETE NO ACTION
 
 
 --create clustered index clustered_index_Employee_Working_Date_employeeId on Employee_Working_Date([employee_id])
@@ -192,3 +182,14 @@ INSERT INTO Employee_Working_Date ([employee_id],[date],[hour]) VALUES (27,'3/3/
 INSERT INTO Employee_Working_Date ([employee_id],[date],[hour]) VALUES (28,'3/3/2022',8)
 INSERT INTO Employee_Working_Date ([employee_id],[date],[hour]) VALUES (29,'3/3/2022',8)
 INSERT INTO Employee_Working_Date ([employee_id],[date],[hour]) VALUES (30,'3/3/2022',8)
+
+-- create foreign key
+
+-- Employee_Working_Date reference to Employee
+alter table Employee_Working_Date add constraint fk_Employee_Working_Date_employee foreign key (employee_id) references Employee(id)  ON DELETE CASCADE
+-- Employee_Working_Advance reference to Employee
+alter table Employee_Working_Advance add constraint fk_Employee_Working_Advance_employee foreign key (employee_id) references Employee(id)  ON DELETE CASCADE
+-- Employee reference to team
+alter table Employee add constraint fk_employee_team foreign key (team_id) references Team(id)  ON DELETE NO ACTION
+-- Team manager reference to Employee
+alter table Team add constraint fk_team_employee foreign key (manager_id) references Employee(id)  ON DELETE NO ACTION

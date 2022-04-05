@@ -1,4 +1,4 @@
-export class Employee {
+export default class Employee {
     id = 0;
     avatar = "";
     fullName = "";
@@ -11,4 +11,8 @@ export class Employee {
     salaryPerHour = 0;
     isChecked = false;
     teamId = 0;
+
+    constructor() {
+
+    }
 }

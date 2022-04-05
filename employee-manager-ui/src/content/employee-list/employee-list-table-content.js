@@ -13,15 +13,22 @@ function EmployeeListTableContent(props) {
     const [listDeleteEmployeeState, setListDeleteEmployeeState] = useState([]);
     // const [isLoaded, setLoaded] = useState(false);
     const [pageNumber, setPageNumber] = useState(-1);
-    const [isInitital, setInitial] = useState(false);
-    const [a,setA] = useState(0);
     //variable
-    // const listDeleteEmployee = [];
 
     function callBack() {
-        props.EmployeeListTableContentCallBack();
+        props.employeeListTableContentCallBack();
+
     }
 
+    function setListDeleteEmployeeIdCallBack() {
+        let listDeleteEmployeeId = []
+        for (let i = 0 ; i< listDeleteEmployeeState.length; i ++) {
+            if (listDeleteEmployeeState[i].isChecked) {
+                listDeleteEmployeeId.push(listDeleteEmployeeState[i].employeeId)
+            }
+        }
+        props.setListDeleteEmployeeIdCallBack(listDeleteEmployeeId)
+    }
     useEffect(() => {
         if (employeeListComponentPageNumber === pageNumber) {
             return;
@@ -36,7 +43,7 @@ function EmployeeListTableContent(props) {
                 setPageNumber(employeeListComponentPageNumber);
             }
         }
-    }, [listDeleteEmployeeState, employeeList, isInitital]);
+    }, [listDeleteEmployeeState, employeeList]);
 
     function initialListDeleteEmployee(employeeList) {
         let temp = [];
@@ -52,7 +59,7 @@ function EmployeeListTableContent(props) {
     }
 
     function updateListDeleteEmployee(employeeId) {
-        let temp = listDeleteEmployeeState;
+        let temp = [...listDeleteEmployeeState];
         let listDeleteEmployeeStateLength = listDeleteEmployeeState.length;
         for (let i = 0; i < listDeleteEmployeeStateLength; i++) {
             if (temp[i].employeeId === employeeId) {
@@ -60,8 +67,6 @@ function EmployeeListTableContent(props) {
             }
         }
         setListDeleteEmployeeState(temp);
-        // callBack()
-        console.log(listDeleteEmployeeState);
     }
 
     if (listDeleteEmployeeState.length === employeeList.length) {
@@ -76,6 +81,7 @@ function EmployeeListTableContent(props) {
                             checked={listDeleteEmployeeState[i].isChecked}
                             onChange={() => {
                                 updateListDeleteEmployee(employeeList[i].id);
+                                setListDeleteEmployeeIdCallBack();
                             }}
                         ></input>
                     </td>
@@ -103,6 +109,7 @@ function EmployeeListTableContent(props) {
                                             alert(
                                                 "Employee was deleted successfully"
                                             );
+                                            setPageNumber(0)
                                             callBack();
                                         }
                                     }
