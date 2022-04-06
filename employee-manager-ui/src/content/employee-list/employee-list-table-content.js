@@ -15,38 +15,33 @@ function EmployeeListTableContent(props) {
     //variable
 
     function callBack(pageNumber) {
-        let tempPageNumber = pageNumber
+        let tempPageNumber = pageNumber;
         if (employeeList.length == 0) {
-            tempPageNumber = tempPageNumber -1
+            tempPageNumber = tempPageNumber - 1;
         }
         props.employeeListTableContentCallBack(tempPageNumber);
-
     }
 
     function setListDeleteEmployeeIdCallBack() {
-        let listDeleteEmployeeId = []
-        for (let i = 0 ; i< listDeleteEmployeeState.length; i ++) {
+        let listDeleteEmployeeId = [];
+        for (let i = 0; i < listDeleteEmployeeState.length; i++) {
             if (listDeleteEmployeeState[i].isChecked) {
-                listDeleteEmployeeId.push(listDeleteEmployeeState[i].employeeId)
+                listDeleteEmployeeId.push(
+                    listDeleteEmployeeState[i].employeeId
+                );
             }
         }
-        props.setListDeleteEmployeeIdCallBack(listDeleteEmployeeId)
+        props.setListDeleteEmployeeIdCallBack(listDeleteEmployeeId);
     }
     useEffect(() => {
-        if (employeeListComponentPageNumber === pageNumber) {
-            return;
+        setListDeleteEmployeeState(initialListDeleteEmployee(employeeList));
+        if (
+            listDeleteEmployeeState.length === employeeList.length &&
+            listDeleteEmployeeState.length !== 0
+        ) {
+            setPageNumber(employeeListComponentPageNumber);
         }
-
-        if (employeeListComponentPageNumber !== pageNumber) {
-            setListDeleteEmployeeState(initialListDeleteEmployee(employeeList));
-            if (
-                listDeleteEmployeeState.length === employeeList.length &&
-                listDeleteEmployeeState.length !== 0
-            ) {
-                setPageNumber(employeeListComponentPageNumber);
-            }
-        }
-    }, [listDeleteEmployeeState, employeeList]);
+    }, [employeeList]);
 
     function initialListDeleteEmployee(employeeList) {
         let temp = [];

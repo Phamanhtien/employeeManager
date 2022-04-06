@@ -44,7 +44,6 @@ function EmployeeList() {
                 }
             );
         }
-        console.log(employeeList)
     }, [isLoaded]);
 
     return (
