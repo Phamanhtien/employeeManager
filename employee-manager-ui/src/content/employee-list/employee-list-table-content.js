@@ -16,7 +16,6 @@ function EmployeeListTableContent(props) {
     //variable
 
     function callBack(pageNumber) {
-        console.log(pageNumber);
         let tempPageNumber = pageNumber;
         if (employeeList.length === 0) {
             tempPageNumber = tempPageNumber - 1;

@@ -18,10 +18,9 @@ function EmployeeList() {
     const [employeeList, setEmployeeList] = useState([]);
     const [isLoaded, setLoaded] = useState(false);
     const [searchName, setSearchName] = useState("");
-    let listDeleteEmployeeId = [];
+    const [listDeleteEmployeeId, setListDeleteEmployeeId] = useState([]);
 
     useEffect(() => {
-        
         if (searchName === "") {
             GetNumberOfAllEmployee().then((res) => {
                 setNumberOfAllEmployees(res);
@@ -56,7 +55,10 @@ function EmployeeList() {
                     <EmployeeAdd
                         addNewEmployeeCallBack={addNewEmployeeCallBack}
                     ></EmployeeAdd>
-                    <EmployeeDeleteList></EmployeeDeleteList>
+                    <EmployeeDeleteList
+                        employeeDeleteListCallBack={employeeDeleteListCallBack}
+                        listDeleteEmployeeId={listDeleteEmployeeId}
+                    ></EmployeeDeleteList>
                 </div>
             </div>
 
@@ -113,18 +115,24 @@ function EmployeeList() {
     }
 
     function employeeListTableContentCallBack(page) {
-        console.log(page)
+        console.log(page);
         setPageNumber(page);
         setLoaded(false);
     }
 
     function setListDeleteEmployeeIdCallBack(listDeleteEmployeeById) {
-        listDeleteEmployeeId = listDeleteEmployeeById;
+        setListDeleteEmployeeId(listDeleteEmployeeById);
+        console.log(listDeleteEmployeeById);
     }
 
     function addNewEmployeeCallBack() {
         setLoaded(false);
         setPageNumber(pageNumber);
+    }
+
+    function employeeDeleteListCallBack() {
+        setLoaded(false);
+        setPageNumber(0);
     }
 }
 
