@@ -6,10 +6,10 @@ import React, { useEffect, useState } from "react";
 
 import Employee from "./../../model/employee";
 import RetrieveTeams from "./../../util/GeneralFunction/TeamAxios";
+import { AddEmployee } from "./../../util/GeneralFunction/EmployeeAxios";
 import "./employee-add.css";
 
-function EmployeeAdd({ forwardRef }) {
-
+function EmployeeAdd(props) {
     const [employee, setEmployee] = useState(new Employee());
     // name
     const [nameMessageError, setNameMessageError] = useState("");
@@ -19,32 +19,33 @@ function EmployeeAdd({ forwardRef }) {
     const [teamList, setTeamList] = useState([]);
     const [teamName, setTeamName] = useState("Team name");
     const [teamMessageError, setTeamMessageError] = useState("");
+    const [isTeamPassed, setTeamPassed] = useState(false);
     //address
     const [addressMessageError, setAddressMessageError] = useState("");
     const [isAddressPassed, setAddressPassed] = useState(false);
-    //sex 
+    //sex
     const [sex, setSex] = useState("Sex");
     const [sexMessageError, setSexMessageError] = useState("");
-    //
-    let ageMessageError = "";
-    let isAgePassed = false;
-    let salaryPerHourMessageError = "";
-    let isSalaryPerHourPassed = false;
-    let phoneMessageError = "";
-    let isPhonePassed = false;
+    const [isSexPassed, setSexPassed] = useState(false);
+    //age
+    const [ageMessageError, setAgeMessageError] = useState("");
+    const [isAgePassed, setAgePassed] = useState(false);
+    //date
+    const [startDate, setStartDate] = useState("");
+    const [isStartDatePassed, setStartDatePassed] = useState(false);
+    //salaryPerHour
+    const [salaryPerHourMessageError, setSalaryPerHourMessageError] =
+        useState("");
+    const [isSalaryPerHourPassed, setSalaryPerHourPassed] = useState(false);
+    //phone
+    const [phoneMessageError, setPhoneMessageError] = useState("");
+    const [isPhonePassed, setPhonePassed] = useState(false);
 
     useEffect(() => {
-        console.log(teamList);
-        if (teamList.length > 0) {
-            return;
-        }
-
-        if (teamList.length === 0) {
-            RetrieveTeams().then((res) => {
-                setTeamList(res);
-            });
-        }
-    });
+        RetrieveTeams().then((res) => {
+            setTeamList(res);
+        });
+    }, []);
 
     function validateEmployeeFullName(employeeFullName) {
         setNameLength(employeeFullName.length);
@@ -58,12 +59,14 @@ function EmployeeAdd({ forwardRef }) {
         }
     }
 
-    function validateEmployeeTeam (teamName, teamId) {
+    function validateEmployeeTeam(teamName, teamId) {
         if (teamName === "Team name") {
             setTeamMessageError("Team had to be chosen");
+            setTeamPassed(false);
         } else {
             setTeamMessageError("");
-            employee.teamId(teamId);
+            setTeamPassed(true);
+            employee.teamId = teamId;
         }
     }
 
@@ -78,29 +81,141 @@ function EmployeeAdd({ forwardRef }) {
         }
     }
 
-    function validateEmployeeSex (sex) {
+    function validateEmployeeSex(sex) {
+        setSex(sex);
         if (sex === "Sex") {
             setSexMessageError("Sex had to be chosen");
+            setSexPassed(false);
         } else {
             setSexMessageError("");
-            employee.sex(sex);
+            setSexPassed(true);
+            if (sex === "Male") {
+                employee.sex = true;
+            }
+
+            if (sex === "Female") {
+                employee.sex = false;
+            }
         }
     }
 
     function validateEmployeeAge(employeeAge) {
         if (isNaN(Number(employeeAge))) {
-          this.ageMessageError = "Age has to be a number";
-          this.isAgePassed = false;
-        }
-        else if (employeeAge < 18 || employeeAge > 60) {
-          this.ageMessageError = "Age has to from 18 to 60";
-          this.isAgePassed = false;
+            setAgeMessageError("Age has to be a number");
+            setAgePassed(false);
+        } else if (employeeAge < 18 || employeeAge > 60) {
+            setAgeMessageError("Age has to from 18 to 60");
+            setAgePassed(false);
         } else {
-          this.ageMessageError = "";
-          this.isAgePassed = true;
-          this.employee.setAge(employeeAge);
+            setAgeMessageError("");
+            setAgePassed(true);
+            employee.age = employeeAge;
         }
-      }
+    }
+
+    function validateEmployeeStartDate(startDate) {
+        setStartDate(startDate);
+        setStartDatePassed(true);
+        employee.startDate = startDate;
+    }
+
+    function validateEmployeeSalaryPerHour(salaryPerHour) {
+        if (salaryPerHour.trim().length === 0) {
+            setSalaryPerHourMessageError("Salary per hour can not is empty");
+            setSalaryPerHourPassed(false);
+        } else if (isNaN(Number(salaryPerHour))) {
+            setSalaryPerHourMessageError("Salary per hour has to be a number");
+            setSalaryPerHourPassed(false);
+        } else {
+            setSalaryPerHourMessageError("");
+            setSalaryPerHourPassed(true);
+            employee.salaryPerHour = salaryPerHour;
+        }
+    }
+
+    function validateEmployeePhone(employeePhone) {
+        var Regex = /\b[\+]?[(]?[0-9]{2,6}[)]?[-\s\.]?[-\s\/\.0-9]{3,12}\b/m;
+        if (!Regex.test(employeePhone)) {
+            setPhoneMessageError("Invalid phone number format");
+            setPhonePassed(false);
+        } else {
+            setPhoneMessageError("");
+            setPhonePassed(true);
+            employee.phone = employeePhone;
+        }
+    }
+
+    function addEmployee() {
+        console.log(employee);
+        if (!isNamePassed) {
+            if (nameMessageError == "") {
+                alert("Name can not be empty");
+            } else {
+                alert(nameMessageError);
+            }
+            return;
+        }
+
+        if (!isTeamPassed) {
+            alert("Team had to be chosen");
+            return;
+        }
+
+        if (!isAddressPassed) {
+            if (addressMessageError == "") {
+                alert("Address can not be empty");
+            } else {
+                alert(addressMessageError);
+            }
+            return;
+        }
+
+        if (!isSexPassed) {
+            alert("Sex had to be chosen");
+            return;
+        }
+
+        if (!isAgePassed) {
+            if (ageMessageError == "") {
+                alert("Age can not be empty");
+            } else {
+                alert(ageMessageError);
+            }
+            return;
+        }
+
+        if (!isSalaryPerHourPassed) {
+            if (salaryPerHourMessageError == "") {
+                alert("Salary per hour can not be empty");
+            } else {
+                alert(salaryPerHourMessageError);
+            }
+            return;
+        }
+
+        if (!isPhonePassed) {
+            if (phoneMessageError == "") {
+                alert("Phone number can not empty");
+            } else {
+                alert(phoneMessageError);
+            }
+            return;
+        }
+
+        if (
+            isNamePassed &&
+            isAgePassed &&
+            isSalaryPerHourPassed &&
+            isPhonePassed &&
+            isAddressPassed &&
+            isTeamPassed &&
+            isSexPassed
+        ) {
+            AddEmployee(employee)
+                .then((res) => console.log(res))
+                .catch((err) => console.warn(err));
+        }
+    }
 
     return (
         <Popup
@@ -152,9 +267,14 @@ function EmployeeAdd({ forwardRef }) {
                                     {teamList.map((team) => {
                                         return (
                                             <Dropdown.Item
+                                                key={team.id}
                                                 className="drop-down-item"
                                                 onClick={() => {
                                                     setTeamName(team.name);
+                                                    validateEmployeeTeam(
+                                                        team.name,
+                                                        team.id
+                                                    );
                                                 }}
                                             >
                                                 {team.name}
@@ -164,7 +284,9 @@ function EmployeeAdd({ forwardRef }) {
                                 </DropdownButton>
                             </div>
                             <div className="row">
-                                <p className="validator col">{teamMessageError}</p>
+                                <p className="validator col">
+                                    {teamMessageError}
+                                </p>
                             </div>
                         </div>
                         <p className="name-length-per-max"> </p>
@@ -195,12 +317,18 @@ function EmployeeAdd({ forwardRef }) {
                                         id="dropdown-basic-button"
                                         title={sex}
                                     >
-                                        <Dropdown.Item onClick={()=>{
-                                            setSex(Male)
-                                        }}>
+                                        <Dropdown.Item
+                                            onClick={() => {
+                                                validateEmployeeSex("Male");
+                                            }}
+                                        >
                                             Male
                                         </Dropdown.Item>
-                                        <Dropdown.Item href="#/action-2">
+                                        <Dropdown.Item
+                                            onClick={() => {
+                                                validateEmployeeSex("Female");
+                                            }}
+                                        >
                                             Female
                                         </Dropdown.Item>
                                     </DropdownButton>
@@ -214,6 +342,9 @@ function EmployeeAdd({ forwardRef }) {
                                     type="text"
                                     className="form-control"
                                     placeholder="Enter age"
+                                    onChange={(input) => {
+                                        validateEmployeeAge(input.target.value);
+                                    }}
                                 ></input>
                             </div>
                             <div className="form-group-start col-xs-1">
@@ -222,10 +353,15 @@ function EmployeeAdd({ forwardRef }) {
                                     type="date"
                                     placeholder="yyyy-MM-dd"
                                     className="form-control"
-                                    value="2021-01-17"
+                                    value={startDate}
+                                    onChange={(input) => {
+                                        validateEmployeeStartDate(
+                                            input.target.value
+                                        );
+                                    }}
                                 ></input>
                             </div>
-                            <p className="validator"> err </p>
+                            <p className="validator"> {ageMessageError} </p>
                         </div>
                         <div className="form-group row">
                             <div className="form-group-money-per-hour col-xs-1">
@@ -234,8 +370,15 @@ function EmployeeAdd({ forwardRef }) {
                                     type="text"
                                     className="form-control"
                                     placeholder="Enter money/hour"
+                                    onChange={(input) => {
+                                        validateEmployeeSalaryPerHour(
+                                            input.target.value
+                                        );
+                                    }}
                                 ></input>
-                                <p className="validator"> err </p>
+                                <p className="validator">
+                                    {salaryPerHourMessageError}
+                                </p>
                             </div>
                             <div className="form-group-phone-number col-xs-1">
                                 <p className="title"> Phone number * </p>
@@ -243,19 +386,34 @@ function EmployeeAdd({ forwardRef }) {
                                     type="text"
                                     className="form-control"
                                     placeholder="Enter phone number"
+                                    onChange={(input) => {
+                                        validateEmployeePhone(
+                                            input.target.value
+                                        );
+                                    }}
                                 ></input>
-                                <p className="validator"> errr </p>
+                                <p className="validator">{phoneMessageError}</p>
                             </div>
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-primary">
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => {
+                                addEmployee();
+                                props.addNewEmployeeCallBack();
+                            }}
+                        >
                             SUBMIT
                         </button>
                         <button
                             type="button"
                             className="btn btn-outline-dark"
-                            onClick={() => close()}
+                            onClick={() => {
+                                close();
+                                props.addNewEmployeeCallBack();
+                            }}
                         >
                             CANCEL
                         </button>

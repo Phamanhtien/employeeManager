@@ -3,6 +3,7 @@ package com.example.EmployeeManager.Model.EmployeeWorking.Date;
 import com.example.EmployeeManager.Entity.Employee;
 import com.example.EmployeeManager.Entity.EmployeeWorkingDate;
 import com.example.EmployeeManager.Entity.Request.RequestEmployeeWorkingDate;
+import com.example.EmployeeManager.HandleException.DependenceDataException;
 import com.example.EmployeeManager.HandleException.InvalidArgumentException;
 import com.example.EmployeeManager.HandleException.NotFoundException;
 import com.example.EmployeeManager.Repository.EmployeeRepository;
@@ -45,7 +46,7 @@ public class CreateEmployeeWorkingDate {
         Date now = Date.from(Instant.now());
         Date startedDate = optionalEmployee.get().getStartDate();
         if (date.after(now) || date.before(startedDate)) {
-            throw new InvalidArgumentException("working date has to after: " + String.valueOf(startedDate) + " and before " + String.valueOf(now));
+            throw new DependenceDataException(": working date has to after " + String.valueOf(startedDate) + " and before " + String.valueOf(now));
         }
 
         float hour = requestEmployeeWorkingDate.getHour();

@@ -10,7 +10,6 @@ public class EmployeeDTO {
     public static Employee requestToObject(RequestEmployee requestEmployee) {
 
         Employee employee = new Employee();
-        employee.setId(requestEmployee.getId());
         employee.setAvatar(requestEmployee.getAvatar());
         employee.setFullName(requestEmployee.getFullName());
         employee.setPhone(requestEmployee.getPhone());

@@ -9,7 +9,7 @@ import GetNumberOfAllEmployee, {
 } from "../../util/GeneralFunction/EmployeeAxios";
 import EmployeeListTableContent from "./employee-list-table-content";
 import EmployeeDeleteList from "./../employee-delete-list/employee-delete-list";
-import EmployeeAdd from "./../employee-add/employee-add"
+import EmployeeAdd from "./../employee-add/employee-add";
 import "./employee-list.css";
 
 function EmployeeList() {
@@ -21,31 +21,31 @@ function EmployeeList() {
     let listDeleteEmployeeId = [];
 
     useEffect(() => {
-        if (!isLoaded) {
-            if (searchName === "") {
-                GetNumberOfAllEmployee().then((res) => {
-                    setNumberOfAllEmployees(res);
-                });
+        
+        if (searchName === "") {
+            GetNumberOfAllEmployee().then((res) => {
+                setNumberOfAllEmployees(res);
+            });
 
-                RetrieveAllEmployeeWithPaging(pageNumber).then((res) => {
+            RetrieveAllEmployeeWithPaging(pageNumber).then((res) => {
+                setEmployeeList(res);
+                setLoaded(true);
+            });
+        }
+
+        if (searchName !== "") {
+            RetrieveEmployeeByNameWithoutPaging(searchName).then((res) => {
+                setNumberOfAllEmployees(res);
+            });
+            RetrieveEmployeeByNameWithPaging(searchName, pageNumber).then(
+                (res) => {
                     setEmployeeList(res);
                     setLoaded(true);
-                });
-            }
-
-            if (searchName !== "") {
-                RetrieveEmployeeByNameWithoutPaging(searchName).then((res) => {
-                    setNumberOfAllEmployees(res);
-                });
-                RetrieveEmployeeByNameWithPaging(searchName, pageNumber).then(
-                    (res) => {
-                        setEmployeeList(res);
-                        setLoaded(true);
-                    }
-                );
-            }
+                }
+            );
         }
-    });
+        console.log(employeeList)
+    }, [isLoaded]);
 
     return (
         <div>
@@ -54,7 +54,9 @@ function EmployeeList() {
                     <b>Employee</b>
                 </div>
                 <div className="icon">
-                    <EmployeeAdd></EmployeeAdd>
+                    <EmployeeAdd
+                        addNewEmployeeCallBack={addNewEmployeeCallBack}
+                    ></EmployeeAdd>
                     <EmployeeDeleteList></EmployeeDeleteList>
                 </div>
             </div>
@@ -111,12 +113,19 @@ function EmployeeList() {
         setLoaded(false);
     }
 
-    function employeeListTableContentCallBack() {
+    function employeeListTableContentCallBack(page) {
+        console.log(page)
+        setPageNumber(page);
         setLoaded(false);
     }
 
     function setListDeleteEmployeeIdCallBack(listDeleteEmployeeById) {
         listDeleteEmployeeId = listDeleteEmployeeById;
+    }
+
+    function addNewEmployeeCallBack() {
+        setLoaded(false);
+        setPageNumber(pageNumber);
     }
 }
 

@@ -30,7 +30,14 @@ function DeleteEmployee(employeeIdList) {
     .catch(error => error);
 }
 
+function AddEmployee(employee) {
+    return axios.post('http://localhost:8080/employee/add', employee)
+    .then(res => res)
+    .catch(error => error);
+}
+
 export {RetrieveAllEmployeeWithPaging, 
         RetrieveEmployeeByNameWithoutPaging,
         RetrieveEmployeeByNameWithPaging,
-        DeleteEmployee}
+        DeleteEmployee,
+        AddEmployee}

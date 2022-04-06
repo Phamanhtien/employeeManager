@@ -11,12 +11,15 @@ function EmployeeListTableContent(props) {
     const employeeListComponentPageNumber = props.pageNumber;
     // state
     const [listDeleteEmployeeState, setListDeleteEmployeeState] = useState([]);
-    // const [isLoaded, setLoaded] = useState(false);
     const [pageNumber, setPageNumber] = useState(-1);
     //variable
 
-    function callBack() {
-        props.employeeListTableContentCallBack();
+    function callBack(pageNumber) {
+        let tempPageNumber = pageNumber
+        if (employeeList.length == 0) {
+            tempPageNumber = tempPageNumber -1
+        }
+        props.employeeListTableContentCallBack(tempPageNumber);
 
     }
 
@@ -109,8 +112,7 @@ function EmployeeListTableContent(props) {
                                             alert(
                                                 "Employee was deleted successfully"
                                             );
-                                            setPageNumber(0)
-                                            callBack();
+                                            callBack(pageNumber);
                                         }
                                     }
                                 );
