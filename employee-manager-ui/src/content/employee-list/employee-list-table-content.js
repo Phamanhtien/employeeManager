@@ -7,16 +7,18 @@ import React, { useEffect, useState } from "react";
 
 function EmployeeListTableContent(props) {
     //props
-    const employeeList = props.employeeList;
+    let employeeList = props.employeeList;
     const employeeListComponentPageNumber = props.pageNumber;
     // state
     const [listDeleteEmployeeState, setListDeleteEmployeeState] = useState([]);
     const [pageNumber, setPageNumber] = useState(-1);
+    const [isStateChanged,setStateChanged] = useState(false)
     //variable
 
     function callBack(pageNumber) {
+        console.log(pageNumber);
         let tempPageNumber = pageNumber;
-        if (employeeList.length == 0) {
+        if (employeeList.length === 0) {
             tempPageNumber = tempPageNumber - 1;
         }
         props.employeeListTableContentCallBack(tempPageNumber);
@@ -35,13 +37,14 @@ function EmployeeListTableContent(props) {
     }
     useEffect(() => {
         setListDeleteEmployeeState(initialListDeleteEmployee(employeeList));
+        setStateChanged(false)
         if (
             listDeleteEmployeeState.length === employeeList.length &&
             listDeleteEmployeeState.length !== 0
         ) {
             setPageNumber(employeeListComponentPageNumber);
         }
-    }, [employeeList]);
+    }, [employeeList,isStateChanged]);
 
     function initialListDeleteEmployee(employeeList) {
         let temp = [];
@@ -96,8 +99,8 @@ function EmployeeListTableContent(props) {
                             <BsInfo style={{ fontSize: "150%" }}></BsInfo>
                         </Link>
                         <BsFillTrashFill
-                            onClick={() => {
-                                DeleteEmployee([employeeList[i].id]).then(
+                            onClick={async () => {
+                                await DeleteEmployee([employeeList[i].id]).then(
                                     (res) => {
                                         if (res.response !== undefined) {
                                             alert(res.response.data.message);
@@ -107,11 +110,14 @@ function EmployeeListTableContent(props) {
                                             alert(
                                                 "Employee was deleted successfully"
                                             );
-                                            callBack(pageNumber);
                                         }
                                     }
                                 );
-                            }}
+                                employeeList.pop(employeeList[i].id);
+                                callBack(pageNumber)
+                                setStateChanged(true)
+                            }
+                        }
                         ></BsFillTrashFill>
                     </td>
                 </tr>

@@ -25,14 +25,12 @@ function EmployeeAdd(props) {
     const [isAddressPassed, setAddressPassed] = useState(false);
     //sex
     const [sex, setSex] = useState("Sex");
-    const [sexMessageError, setSexMessageError] = useState("");
     const [isSexPassed, setSexPassed] = useState(false);
     //age
     const [ageMessageError, setAgeMessageError] = useState("");
     const [isAgePassed, setAgePassed] = useState(false);
     //date
     const [startDate, setStartDate] = useState("");
-    const [isStartDatePassed, setStartDatePassed] = useState(false);
     //salaryPerHour
     const [salaryPerHourMessageError, setSalaryPerHourMessageError] =
         useState("");
@@ -83,19 +81,14 @@ function EmployeeAdd(props) {
 
     function validateEmployeeSex(sex) {
         setSex(sex);
-        if (sex === "Sex") {
-            setSexMessageError("Sex had to be chosen");
-            setSexPassed(false);
-        } else {
-            setSexMessageError("");
-            setSexPassed(true);
-            if (sex === "Male") {
-                employee.sex = true;
-            }
 
-            if (sex === "Female") {
-                employee.sex = false;
-            }
+        setSexPassed(true);
+        if (sex === "Male") {
+            employee.sex = true;
+        }
+
+        if (sex === "Female") {
+            employee.sex = false;
         }
     }
 
@@ -115,7 +108,6 @@ function EmployeeAdd(props) {
 
     function validateEmployeeStartDate(startDate) {
         setStartDate(startDate);
-        setStartDatePassed(true);
         employee.startDate = startDate;
     }
 
@@ -134,7 +126,7 @@ function EmployeeAdd(props) {
     }
 
     function validateEmployeePhone(employeePhone) {
-        var Regex = /\b[\+]?[(]?[0-9]{2,6}[)]?[-\s\.]?[-\s\/\.0-9]{3,12}\b/m;
+        var Regex = /\b[]?[(]?[0-9]{2,6}[)]?[-\s]?[-\s0-9]{3,12}\b/m;
         if (!Regex.test(employeePhone)) {
             setPhoneMessageError("Invalid phone number format");
             setPhonePassed(false);
@@ -148,7 +140,7 @@ function EmployeeAdd(props) {
     function addEmployee() {
         console.log(employee);
         if (!isNamePassed) {
-            if (nameMessageError == "") {
+            if (nameMessageError === "") {
                 alert("Name can not be empty");
             } else {
                 alert(nameMessageError);
@@ -162,7 +154,7 @@ function EmployeeAdd(props) {
         }
 
         if (!isAddressPassed) {
-            if (addressMessageError == "") {
+            if (addressMessageError === "") {
                 alert("Address can not be empty");
             } else {
                 alert(addressMessageError);
@@ -176,7 +168,7 @@ function EmployeeAdd(props) {
         }
 
         if (!isAgePassed) {
-            if (ageMessageError == "") {
+            if (ageMessageError === "") {
                 alert("Age can not be empty");
             } else {
                 alert(ageMessageError);
@@ -185,7 +177,7 @@ function EmployeeAdd(props) {
         }
 
         if (!isSalaryPerHourPassed) {
-            if (salaryPerHourMessageError == "") {
+            if (salaryPerHourMessageError === "") {
                 alert("Salary per hour can not be empty");
             } else {
                 alert(salaryPerHourMessageError);
@@ -194,7 +186,7 @@ function EmployeeAdd(props) {
         }
 
         if (!isPhonePassed) {
-            if (phoneMessageError == "") {
+            if (phoneMessageError === "") {
                 alert("Phone number can not empty");
             } else {
                 alert(phoneMessageError);
