@@ -1,0 +1,101 @@
+.team-add-modal .modal-header {
+    background-color: #0d6efd;
+
+}
+
+.team-add-modal .modal-header .modal-title {
+    color: white;
+}
+
+.team-add-modal .modal-body .form-group-team {
+    width: 100%;
+}
+
+.team-add-modal .modal-body .form-group-team .drop-down {
+    border-bottom: solid 1px;
+    border-color: rgb(216, 216, 216);
+    height: 24px;
+}
+
+
+.team-add-modal .modal-body .form-group-team .drop-down .team-list ul {
+    padding: none;
+}
+
+.team-add-modal .modal-body .form-group-team .drop-down .team-list ul li {
+    list-style-type: none;
+}
+
+.team-add-modal .modal-body .btn {
+    width: 100%;
+    padding: 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.team-add-modal .modal-body .btn::after {
+    position: absolute;
+    right: 5px;
+    top: 10px;
+}
+
+.team-add-modal .form-group .title {
+    font-size: 75%;
+    margin-bottom: 5px;
+    color: rgb(216, 216, 216);
+}
+
+.team-add-modal .form-group .form-control {
+    padding: 0px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.validator {
+    font-size: 75%;
+    color: red;
+    display: inline;
+}
+
+.team-add-modal .form-group .name-length-per-max {
+    top: 0px;
+    text-align: end;
+    font-size: 75%;
+    color: rgb(216, 216, 216);
+    display: inline;
+}
+
+.team-add-modal .form-group .form-group-address {
+    width: 50%;
+}
+
+.team-add-modal .form-group .form-group-sex {
+    width: 50%;
+
+
+}
+
+.team-add-modal .form-group .form-group-sex .drop-down {
+    border-bottom: solid 1px;
+    border-color: rgb(216, 216, 216);
+    height: 24px;
+}
+
+.team-add-modal .form-group .form-group-sex .drop-down .btn {
+    width: 100%;
+    padding: 0px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.team-add-modal .form-group .form-group-sex .drop-down .btn::after {
+    position: absolute;
+    right: 5px;
+    top: 10px;
+}
+
+.employeeListElement {
+    display: none
+}

@@ -1,23 +1,26 @@
+import React, { useEffect, useState } from "react";
+
 import logo from './../assets/icon/EmployeeLogo.png'
 import './navigator.css'
 
-import React from 'react';
-
 function Navigator () {
-
+    let pathname = window.location.pathname;
+    console.log(pathname)
     return (
         <div className="navbar text-center">
             <div className="">
                 <div className="app-title-logo ">
-                    <img className="logo" src={logo}></img>
+                    <a  href="/employee-list">
+                        <img className="logo" src={logo}></img>
+                    </a>
                 </div>
                 <div className="app-title ">
                     Employee Mannager
                 </div>
             </div>
             <div className="tabs">
-                <a className="btn btn-outline-primary active" href="/employee-list" >Employee</a>
-                <a className="btn btn-outline-primary" href="/team-list" >Team</a>
+                <a className={`btn btn-outline-primary ${pathname === "/employee-list" ? "active" : ""}`} href="/employee-list" >Employee</a>
+                <a className={`btn btn-outline-primary ${pathname === "/team-list" ? "active" : ""}`} href="/team-list" >Team</a>
             </div>
         </div>
     );

@@ -4,7 +4,7 @@ import search from "./../../assets/icon/search.svg";
 import CreatePaging from "../../util/GeneralFunction/CreatePaging";
 import GetNumberOfAllEmployee, {
     RetrieveAllEmployeeWithPaging,
-    RetrieveEmployeeByNameWithoutPaging,
+    GetNumberOfEmployeeByNameWithoutPaging,
     RetrieveEmployeeByNameWithPaging,
 } from "../../util/GeneralFunction/EmployeeAxios";
 import EmployeeListTableContent from "./employee-list-table-content";
@@ -33,7 +33,7 @@ function EmployeeList() {
         }
 
         if (searchName !== "") {
-            RetrieveEmployeeByNameWithoutPaging(searchName).then((res) => {
+            GetNumberOfEmployeeByNameWithoutPaging(searchName).then((res) => {
                 setNumberOfAllEmployees(res);
             });
             RetrieveEmployeeByNameWithPaging(searchName, pageNumber).then(

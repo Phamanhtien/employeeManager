@@ -88,9 +88,15 @@ public class EmployeeController {
         upLoadImageEmployee.saveImage();
     }
 
-    @GetMapping("/search/{full_name}")
-    public int retrieveEmployeeByNameWithoutPaging(@PathVariable String full_name){
+    @GetMapping("/search/{full_name}/count")
+    public int getNumberOfEmployeeByNameWithoutPaging(@PathVariable String full_name){
         retrieveEmployees.setKey(full_name);
         return retrieveEmployees.numberOfAllEmployeeByName();
+    }
+
+    @GetMapping("/search/{full_name}")
+    public List<ResponseEmployee> retrieveEmployeeByNameWithoutPaging(@PathVariable String full_name){
+        retrieveEmployees.setKey(full_name);
+        return retrieveEmployees.retrieveOfAllEmployeeByNameWithoutPaging();
     }
 }

@@ -12,8 +12,8 @@ function RetrieveAllEmployeeWithPaging(pageNumber) {
         .catch(error => console.log(error));
 }
 
-function RetrieveEmployeeByNameWithoutPaging(searchName) {
-    return axios.get('http://localhost:8080/employee/search/'+searchName)
+function GetNumberOfEmployeeByNameWithoutPaging(searchName) {
+    return axios.get('http://localhost:8080/employee/search/'+searchName+"/count")
     .then(res => res.data)
     .catch(error => {console.log(error)});
 }
@@ -36,8 +36,15 @@ function AddEmployee(employee) {
     .catch(error => error);
 }
 
+function RetrieveEmployeeByNameWithoutPaging(searchName) {
+    return axios.get('http://localhost:8080/employee/search/'+searchName)
+    .then(res => res.data)
+    .catch(error => {console.log(error)});
+}
+
 export {RetrieveAllEmployeeWithPaging, 
-        RetrieveEmployeeByNameWithoutPaging,
+        GetNumberOfEmployeeByNameWithoutPaging,
         RetrieveEmployeeByNameWithPaging,
+        RetrieveEmployeeByNameWithoutPaging,
         DeleteEmployee,
         AddEmployee}

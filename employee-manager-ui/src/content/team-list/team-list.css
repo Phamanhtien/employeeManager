@@ -1,4 +1,4 @@
-.content-header {
+.team-list-content-header {
     margin-top: 10px;
     border-top: 0px;
     border-left: 0px;
@@ -7,6 +7,11 @@
     border-style: solid;
     padding-bottom: 10px;
     
+}
+
+.team-list-content-header .icon button {
+    border: none;
+    background-color:transparent;
 }
 
 .tab-name {
@@ -37,4 +42,17 @@
     position: absolute;
     width: 60%;
     right: 0px;
+}
+
+.content-team-list .total-team-box {
+    text-align: left;
+}
+
+.content-header .tab-name .icon button {
+    color: red
+}
+
+.team-list-table-content {
+    display: flex;
+    justify-content: space-between;
 }

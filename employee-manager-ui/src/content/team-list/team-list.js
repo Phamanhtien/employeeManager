@@ -1,82 +1,68 @@
-import { BsPlusCircleFill, BsPersonLinesFill } from 'react-icons/bs';
-import './team-list.css'
+import React, { useEffect, useState } from "react";
+
+import RetrieveTeams, {
+    GetAllTeamMember,
+} from "./../../util/GeneralFunction/TeamAxios";
+import TeamListTableContent from "./team-list-table-content";
+import TeamMemberListTableContent from "./team-member-list-table-content";
+import TeamAdd from "./../add-team/team-add";
+import "./team-list.css";
 
 function TeamList() {
+    const [teamList, setTeamList] = useState([]);
+    const [teamDetailId, setTeamDetailId] = useState(0);
+    const [teamMemberList, setTeamMemberList] = useState([]);
+    const setTeamDetailIdCallBack = (teamId) => {
+        setTeamDetailId(teamId);
+    };
+
+    const [isLoaded, setLoaded] = useState(false);
+    useEffect(async () => {
+        RetrieveTeams().then((res) => {
+            setTeamList(res);
+        });
+        if (teamDetailId > 0) {
+            GetAllTeamMember(teamDetailId).then((res) => {
+                setTeamMemberList(res);
+            });
+        }
+        console.log(teamDetailId);
+        console.log(teamMemberList);
+    }, [teamDetailId]);
+
     return (
         <div>
-            <div class="content-header">
-                <div class="tab-name">
+            <div className="team-list-content-header">
+                <div className="tab-name">
                     <b>Team</b>
                 </div>
-                <div class="icon">
-                    <BsPlusCircleFill></BsPlusCircleFill>
+                <div className="icon">
+                    <TeamAdd></TeamAdd>
                 </div>
             </div>
-            <div class="content-team-list">
-                <div class="total-team-box">
-                    <p class="total-team-text">Total 1 Teams</p>
+            <div className="content-team-list">
+                <div className="total-team-box">
+                    <p className="total-team-text">
+                        Total {teamList.length} Teams
+                    </p>
                 </div>
-                <div class="space"></div>
+                <div className="space"></div>
             </div>
-            <div class="table-content">
-                <table class="table-team-list table table-striped">
-                    <thead class="thead">
-                        <tr class="thead-row">
-                            <th scope="col">
-                                <b>No</b>
-                            </th>
-                            <th scope="col">
-                                <b>Name</b>
-                            </th>
-                            <th scope="col">
-                                <b>Detail</b>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="tbody">
-                        <tr class="tbody-row">
-                            <td class="team-id">1</td>
-                            <td class="team-name">Team này của Tiến</td>
-                            <td class="team-detail">
-                                <BsPersonLinesFill></BsPersonLinesFill>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table class="table-team-member table table-striped" >
-                    <thead class="thead">
-                        <tr class="thead-row">
-                            <th scope="col">
-                                <b>No</b>
-                            </th>
-                            <th scope="col">
-                                <b>Full Name</b>
-                            </th>
-                            <th scope="col">
-                                <b>Phone</b>
-                            </th>
-                            <th scope="col">
-                                <b>Address</b>
-                            </th>
-                            <th scope="col">
-                                <b>Sex</b>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="tbody">
-                        <tr class="tbody-row" >
-                            <td class="team-id">1</td>
-                            <td class="team-name">team này của Tiến</td>
-                            <td class="team-phone">03333</td>
-                            <td class="team-address">...</td>
-                            <td class="team-sex">haha</td>
-                        </tr>
-                    </tbody >
-                </table >
-            </div >
-        </div >
+            <div className="team-list-table-content">
+                <div>
+                    <TeamListTableContent
+                        teamList={teamList}
+                        setTeamDetailIdCallBack={setTeamDetailIdCallBack}
+                    ></TeamListTableContent>
+                </div>
+                <div>
+                    <TeamMemberListTableContent
+                        teamMemberList={teamMemberList}
+                    ></TeamMemberListTableContent>
+                </div>
+            </div>
+        </div>
     );
 }
 
-export default TeamList
+export default TeamList;
