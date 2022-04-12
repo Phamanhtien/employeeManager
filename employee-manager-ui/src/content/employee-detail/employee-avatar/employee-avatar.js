@@ -1,26 +1,34 @@
 import React, { useState, useEffect } from "react";
 import "./employee-avatar.css";
 
-import SexPipe from "./../../../util/GeneralFunction/sex-pipe"
+import SexPipe from "./../../../util/GeneralFunction/sex-pipe";
 import { RetrieveEmployee } from "../../../util/GeneralFunction/EmployeeAxios";
 import Loading from "../../../util/loading/loading";
+import defaultImage from "./../../../assets/default.jpg";
 
-// import {image} from "C:/Users/tienm/OneDrive/Máy tính/employeeManager/image/1.jpg"
-// import "./../../../../../image/"
 function EmployeeAvatar(props) {
-    // const photo = require("./../../../../../image/1.jpg");
-    let employee = props.employee
+    const [avatar, setAvatar] = useState(defaultImage);
+    let employee = props.employee;
+
+
+    useEffect(() => {
+        if (employee.avatar === "") {
+            setAvatar(defaultImage);
+        }
+        if (employee.avatar !== avatar) {
+            setAvatar("http://localhost:8080/images/"+employee.avatar);
+        }
+    });
     if (employee === undefined) {
-        return (
-            <Loading></Loading>
-        )
+        return <Loading></Loading>;
     }
+
     return (
         <div className="avatar">
             <div className="avatar-image-box">
                 <img
                     className="avatar-image"
-                    src= "./../../../../../image/1.jpg"
+                    src={avatar}
                 ></img>
                 <div className="upload-image">
                     <input
@@ -42,10 +50,16 @@ function EmployeeAvatar(props) {
                 </div>
             </div>
             <div className=" badges ">
-                <div className="id badge bg-primary text-wrap ">No: {employee.id}</div>
-                <div className="age badge bg-success text-wrap ">Age: {employee.age}</div>
+                <div className="id badge bg-primary text-wrap ">
+                    No: {employee.id}
+                </div>
+                <div className="age badge bg-success text-wrap ">
+                    Age: {employee.age}
+                </div>
                 <br></br>
-                <div className="badge bg-warning text-wrap ">Sex: {SexPipe(employee.sex)}</div>
+                <div className="badge bg-warning text-wrap ">
+                    Sex: {SexPipe(employee.sex)}
+                </div>
             </div>
         </div>
     );

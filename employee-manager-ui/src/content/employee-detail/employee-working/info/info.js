@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./info.css";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 
@@ -16,8 +16,11 @@ function Info(props) {
     const [isSalaryPerHourPassed, setSalaryPerHourPassed] = useState(false)
 
     let employee = props.employee;
-    console.log(employee);
     
+    useEffect (()=> {
+        
+    })
+
     if (employee === undefined) {
         return <Loading></Loading>;
     }
