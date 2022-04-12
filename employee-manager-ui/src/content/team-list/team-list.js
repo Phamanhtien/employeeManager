@@ -16,8 +16,7 @@ function TeamList() {
         setTeamDetailId(teamId);
     };
 
-    const [isLoaded, setLoaded] = useState(false);
-    useEffect(async () => {
+    useEffect(() => {
         RetrieveTeams().then((res) => {
             setTeamList(res);
         });
@@ -26,8 +25,6 @@ function TeamList() {
                 setTeamMemberList(res);
             });
         }
-        console.log(teamDetailId);
-        console.log(teamMemberList);
     }, [teamDetailId]);
 
     return (

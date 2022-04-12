@@ -5,7 +5,6 @@ import './navigator.css'
 
 function Navigator () {
     let pathname = window.location.pathname;
-    console.log(pathname)
     return (
         <div className="navbar text-center">
             <div className="">

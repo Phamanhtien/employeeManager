@@ -3,54 +3,52 @@
     width: 175px;
 }
 
-.avatar-image-box {
+.avatar .avatar-image-box {
     text-align: center;
     position: relative;
     height: 250px;
 }
 
-.avatar-image {
+.avatar .avatar-image-box .avatar-image {
     width: 100%;
     height: 250px;
 }
 
-.upload-image {
-    display: none;
-    position: relative;
-    top: -28px;
-    background-color: rgb(0, 0, 0);
-    opacity: 0.3;
-}
-
-.uploadImageInput {
+.avatar .avatar-image-box .uploadImageInput {
     display: none;
 }
 
-.badges {
+.avatar .badges {
     margin-right: 0px;
     text-align: center;
 }
-.badge {
+.avatar .badges .badge {
     border-radius: 5px;
     margin: 2px;
     margin-top: 5px;
     width: auto;
 }
 
-.input-choose 
-.button-submit {
-    background-color: transparent;
-    border: none;
-    padding: 1px;
-    width: 40%;
-}
-.input-choose {
-    margin-right: 10px;
-}
-.button-submit {
-    margin-left: 10px;
+.avatar .avatar-image-box .upload-image {
+    display: none;
+    position: relative;
+    top: -25px;
+    background-color: rgb(0, 0, 0);
+    opacity: 0.3;
+    height: 25px;
+    justify-content: space-between;
 }
 
-.avatar-image-box:hover .upload-image{
-    display: block;
+.avatar .avatar-image-box .upload-image .button-submit,
+.avatar .avatar-image-box .upload-image .input-choose {
+    width: 45%;
+    margin: 0px;
+    border: none;
+    border-radius: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.avatar .avatar-image-box:hover .upload-image {
+    display: flex;
 }

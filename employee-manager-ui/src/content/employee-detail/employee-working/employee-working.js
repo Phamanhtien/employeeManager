@@ -1,47 +1,40 @@
-import React from 'react';
-import './employee-working.css'
-import Info from './info/info';
-import Working from './working/working';
-import Advance from './advance/advance';
-import Statistics from './statistics/statistics'
+import React, { useState } from "react";
+import "./employee-working.css";
+import Info from "./info/info";
+import Working from "./working/working";
+import Advance from "./advance/advance";
+import Statistics from "./statistics/statistics";
+import { tab } from "@testing-library/user-event/dist/tab";
 
-class EmployeeWorking extends React.Component {
-    render() {
-        return (
-            <div>
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <p class="nav-link">INFORMATIONS</p>
-                    </li>
-                    <li class="nav-item">
-                        <p class="nav-link">WORKING</p>
-                    </li>
-                    <li class="nav-item">
-                        <p class="nav-link">ADVANCE</p>
-                    </li>
-                    <li class="nav-item">
-                        <p class="nav-link">STATISTICS</p>
-                    </li>
-                </ul>
-                <div>
-                    <Info></Info>
-                </div>
-
-                <div>
-                    <Working></Working>
-                </div >
-                <br></br><br></br>
-
-                <div >
-                   <Advance></Advance>
-                </div >
-
-                <div >
-                   <Statistics></Statistics>
-                </div >
-            </div >
-        )
+function EmployeeWorking(props) {
+    let employee = props.employee
+    const [tabId, setTabId] = useState(1)
+    const [tabElement, setTabElement] = useState(<Info employee={employee}></Info>)
+    if (tabId === 1) {
+        // setTabElement(<Info></Info>)
     }
+
+    return (
+        <div>
+            <ul className="nav nav-tabs">
+                <li className="nav-item">
+                    <p className={`nav-link ${tabId === 1 ? "active" : ""}`}>INFORMATIONS</p>
+                </li>
+                <li className="nav-item">
+                    <p className="nav-link">WORKING</p>
+                </li>
+                <li className="nav-item">
+                    <p className="nav-link">ADVANCE</p>
+                </li>
+                <li className="nav-item">
+                    <p className="nav-link">STATISTICS</p>
+                </li>
+            </ul>
+            <div>
+                {tabElement}
+            </div>
+        </div>
+    );
 }
 
-export default EmployeeWorking
+export default EmployeeWorking;

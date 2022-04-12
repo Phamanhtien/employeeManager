@@ -15,7 +15,7 @@ function CreatePaging(pagingData) {
     for (let i = 0; i <= numberOfPages; i++) {
         pageArray.push(
             <li key={"page-item"+i} className={`page-item ${pagingData.pageNumber === i? "disabled":""} `} onClick={()=>{sendData(i)}}>
-                <a href='#' className="page-link">{i+1}</a>
+                <button className="page-link">{i+1}</button>
             </li>
         );
     }
@@ -23,11 +23,11 @@ function CreatePaging(pagingData) {
     return (
         <ul className="pagination pagination-sm">
         <li className={`page-item ${pagingData.pageNumber === 0? "disabled":""} `} onClick={()=>{sendData(0)}}>
-            <a href='#' className="page-link">Previous</a>
+            <button className="page-link">Previous</button>
         </li>
         {pageArray}
         <li className={`page-item ${pagingData.pageNumber === numberOfPages? "disabled":""} `} onClick={()=>{sendData(pagingData.pageNumber+1)}}>
-            <a href='#' className="page-link" >Next</a>
+        <button className="page-link">Next</button>
         </li>
     </ul>
     )

@@ -1,16 +1,35 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { BsPencilSquare, BsFillTrashFill } from 'react-icons/bs';
+
 import EmployeeAvatar from './employee-avatar/employee-avatar';
 import EmployeeWorking from './employee-working/employee-working';
+import { RetrieveEmployee } from "../../util/GeneralFunction/EmployeeAxios";
+import Loading from "../../util/loading/loading";
 import './employee-detail.css'
 
 function EmployeeDetail() {
+    const [employee, setEmployee] = useState();
+    let pathname = window.location.pathname.split("/");
+    let employeeId = pathname[pathname.length - 1];
+    useEffect(() => {
+        if (employee !== undefined) {
+            return;
+        }
+        RetrieveEmployee(employeeId).then((res) => setEmployee(res));
+        console.log(employee);
+    });
+
+    if (employee === undefined) {
+        return (
+            <Loading></Loading>
+        )
+    }
+
     return (
         <div>
             <div className="content-header">
                 <div className="tab-name">
-                    <b>Phạm Anh Tiến</b>
+                    <b>{employee.fullName}</b>
                 </div>
                 <div className="icon">
                     <BsPencilSquare></BsPencilSquare>
@@ -18,9 +37,9 @@ function EmployeeDetail() {
                 </div>
             </div>
             <div className="employee-detail">
-                <EmployeeAvatar className="employee-avatar"></EmployeeAvatar>
+                <EmployeeAvatar className="employee-avatar" employee={employee}></EmployeeAvatar>
                 <div className='employee-working'>
-                    <EmployeeWorking className></EmployeeWorking>
+                    <EmployeeWorking className= "" employee={employee}></EmployeeWorking>
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@ import { RetrieveEmployeeByNameWithoutPaging } from "../../util/GeneralFunction/
 function TeamAdd() {
     const [employeeList, setEmployeeList] = useState([]);
     //team
-    const [team, setTeam] = useState(new Team());
+    const [team] = useState(new Team());
     //team name
     const [teamNameLength, setTeamNameLength] = useState(0);
     const [teamNameMessageError, setTeamNameMessageError] = useState("");
@@ -39,7 +39,7 @@ function TeamAdd() {
 
     function validateTeamName(teamName) {
         setTeamNameLength(teamName.length);
-        if (teamName == "") {
+        if (teamName === "") {
             setTeamNameMessageError("Team name can not be empty");
             setTeamNamePassed(false);
         } else {
@@ -51,7 +51,7 @@ function TeamAdd() {
 
     function validateTeamManager(managerName, managerId) {
         setTeamNameLength(managerName.length);
-        if (managerName == "") {
+        if (managerName === "") {
             setTeamManagerMessageError("Team manager had to be choosen");
             setTeamManagerPassed(false);
             setManagerName(managerName);

@@ -42,9 +42,16 @@ function RetrieveEmployeeByNameWithoutPaging(searchName) {
     .catch(error => {console.log(error)});
 }
 
+function RetrieveEmployee(employeeId) {
+    return axios.get('http://localhost:8080/employee/'+employeeId)
+    .then(res => res.data)
+    .catch(error => {console.log(error)});
+}
+
 export {RetrieveAllEmployeeWithPaging, 
         GetNumberOfEmployeeByNameWithoutPaging,
         RetrieveEmployeeByNameWithPaging,
         RetrieveEmployeeByNameWithoutPaging,
         DeleteEmployee,
-        AddEmployee}
+        AddEmployee,
+        RetrieveEmployee}

@@ -16,7 +16,6 @@ function EmployeeList() {
     const [numberOfAllEmployees, setNumberOfAllEmployees] = useState(0);
     const [pageNumber, setPageNumber] = useState(0);
     const [employeeList, setEmployeeList] = useState([]);
-    const [isLoaded, setLoaded] = useState(false);
     const [searchName, setSearchName] = useState("");
     const [listDeleteEmployeeId, setListDeleteEmployeeId] = useState([]);
 
@@ -28,7 +27,6 @@ function EmployeeList() {
 
             RetrieveAllEmployeeWithPaging(pageNumber).then((res) => {
                 setEmployeeList(res);
-                setLoaded(true);
             });
         }
 
@@ -39,11 +37,10 @@ function EmployeeList() {
             RetrieveEmployeeByNameWithPaging(searchName, pageNumber).then(
                 (res) => {
                     setEmployeeList(res);
-                    setLoaded(true);
                 }
             );
         }
-    }, [isLoaded]);
+    }, [pageNumber, searchName]);
 
     return (
         <div>
@@ -77,7 +74,6 @@ function EmployeeList() {
                             className="form-control"
                             onChange={(input) => {
                                 setSearchName(input.target.value);
-                                setLoaded(false);
                                 setPageNumber(0);
                             }}
                             placeholder="Search employee by name"
@@ -111,13 +107,10 @@ function EmployeeList() {
 
     function pagingCallBack(pageNumber) {
         setPageNumber(pageNumber);
-        setLoaded(false);
     }
 
     function employeeListTableContentCallBack(page) {
-        console.log(page);
         setPageNumber(page);
-        setLoaded(false);
     }
 
     function setListDeleteEmployeeIdCallBack(listDeleteEmployeeById) {
@@ -126,12 +119,10 @@ function EmployeeList() {
     }
 
     function addNewEmployeeCallBack() {
-        setLoaded(false);
         setPageNumber(pageNumber);
     }
 
     function employeeDeleteListCallBack() {
-        setLoaded(false);
         setPageNumber(0);
     }
 }
