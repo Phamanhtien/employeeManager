@@ -56,7 +56,7 @@ public class UpLoadImageEmployee {
         employeeRepository.save(employee);
 
         // saving image to dir
-        String savingPath = "./src/main/resources/images/";
+        String savingPath = "../image/";
         byte[] imageData = image.getBytes();
         Path path = Paths.get(savingPath + image.getOriginalFilename());
         Files.write(path, imageData);
