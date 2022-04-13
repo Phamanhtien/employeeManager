@@ -6,6 +6,9 @@ import TeamList from "./content/team-list/team-list";
 import EmployeeDetail from "./content/employee-detail/employee-detail";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { createStore} from "redux"
+import employeeStore from "./store/employee-store"
 
 function App() {
     return (
@@ -24,7 +27,11 @@ function App() {
                         ></Route>
                         <Route
                             path="/employee/:employeeId"
-                            element={<EmployeeDetail></EmployeeDetail>}
+                            element={
+                                <Provider store={employeeStore}>
+                                    <EmployeeDetail></EmployeeDetail>
+                                </Provider>
+                            }
                         ></Route>
                         <Route path="*"></Route>
                     </Routes>
