@@ -1,4 +1,5 @@
 export default class Employee {
+    id
     avatar = "";
     fullName = "";
     phone = "";

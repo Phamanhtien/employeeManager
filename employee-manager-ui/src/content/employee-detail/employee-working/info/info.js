@@ -3,31 +3,60 @@ import "./info.css";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 
 import Loading from "../../../../util/loading/loading";
+import RetrieveTeams from "../../../../util/GeneralFunction/TeamAxios";
 
 function Info(props) {
-    const [team, setTeam] = useState();
+    //team
+    const [teamList, setTeamList] = useState([]);
+    const [teamName, setTeamName] = useState("Team name");
+    const [teamMessageError, setTeamMessageError] = useState("");
+    const [isTeamPassed, setTeamPassed] = useState(false);
     // address
     const [address, setAddress] = useState("");
     const [addressMessageError, setAddressMessageError] = useState("");
     const [isAddressPassed, setAddressPassed] = useState(false);
     // salary per hour
-    const [salaryPerHour, setSalaryPerHour] = useState("")
-    const [salaryPerHourMessageError, setSalaryPerHourMessageError] = useState("")
-    const [isSalaryPerHourPassed, setSalaryPerHourPassed] = useState(false)
-
+    const [salaryPerHour, setSalaryPerHour] = useState("");
+    const [salaryPerHourMessageError, setSalaryPerHourMessageError] =
+        useState("");
+    const [isSalaryPerHourPassed, setSalaryPerHourPassed] = useState(false);
+    //
     let employee = props.employee;
-    
-    useEffect (()=> {
-        
-    })
 
-    if (employee === undefined) {
+    useEffect(() => {
+        setAddress(employee.address.trim())
+        setSalaryPerHour(employee.salaryPerHour)
+        RetrieveTeams().then((res) => {
+            setTeamList(res);
+        });
+    }, []);
+
+    if ((employee === undefined, teamList === undefined)) {
         return <Loading></Loading>;
     }
 
-    function validateAddress(address) {
-
+    function validateEmployeeTeam(teamName, teamId) {
+        if (teamName === "Team name") {
+            setTeamMessageError("Team had to be chosen");
+            setTeamPassed(false);
+        } else {
+            setTeamMessageError("");
+            setTeamPassed(true);
+            employee.teamId = teamId;
+        }
     }
+
+    function validateEmployeeAddress(employeeAddress) {
+        if (employeeAddress === "") {
+            setAddressMessageError("Address can not be empty");
+            setAddressPassed(false);
+        } else {
+            setAddressMessageError("");
+            setAddressPassed(true);
+            employee.address = employeeAddress;
+        }
+    }
+
     let date = new Date(employee.startDate).toISOString().split("T")[0];
     return (
         <div>
@@ -45,17 +74,25 @@ function Info(props) {
                     <div className="col col-info form-group drop-down-info">
                         <DropdownButton
                             id="dropdown-basic-button"
-                            title={employee.teamName.trim()}
+                            title={teamName}
                         >
-                            <Dropdown.Item href="#/action-1">
-                                Action
-                            </Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">
-                                Another action
-                            </Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">
-                                Something else
-                            </Dropdown.Item>
+                            {teamList.map((team) => {
+                                return (
+                                    <Dropdown.Item
+                                        key={team.id}
+                                        className="drop-down-item"
+                                        onClick={() => {
+                                            setTeamName(team.name);
+                                            validateEmployeeTeam(
+                                                team.name,
+                                                team.id
+                                            );
+                                        }}
+                                    >
+                                        {team.name}
+                                    </Dropdown.Item>
+                                );
+                            })}
                         </DropdownButton>
                     </div>
                 </div>
@@ -64,13 +101,17 @@ function Info(props) {
                         type="text"
                         className="col col-info"
                         aria-describedby="basic-addon1"
-                        placeholder={employee.address.trim()}
+                        placeholder={address}
+                        onChange={(inputText)=> {
+                            setAddress(inputText.target.value)
+                            validateEmployeeAddress(inputText.target.value)
+                        }}
                     ></input>
                     <input
                         type="text"
-                        className="col col-info"
+                        className="col col-info disabled"
                         aria-describedby="basic-addon1"
-                        value={employee.salaryPerHour}
+                        placeholder={employee.salaryPerHour}
                     ></input>
                 </div>
             </div>

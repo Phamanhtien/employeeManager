@@ -19,17 +19,12 @@
 
 }
 
-.employee-detail {
+.employee-detail-component {
     display: flex;
+    justify-content: space-between;
     margin-top: 5px;
 }
 
-.employee-avatar {
-    width: 175px;
-    margin-right: 5%;
-}
 .employee-working {
-    width: 75%;
-    right: 0px;
-    position: absolute;
+    flex-grow: 8;
 }

@@ -1,6 +1,8 @@
 .avatar {
+    margin-right: 5%;
     margin-top: 3%;
     width: 175px;
+    flex-grow: 1;
 }
 
 .avatar .avatar-image-box {

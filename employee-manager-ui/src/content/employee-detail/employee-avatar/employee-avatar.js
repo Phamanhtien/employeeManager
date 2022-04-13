@@ -14,7 +14,6 @@ function EmployeeAvatar(props) {
     let employee = props.employee;
 
     useEffect(() => {
-        console.log(employee.avatar)
         if (employee.avatar !== "") {
             setAvatar("http://localhost:8080/images/" + employee.avatar);
         }

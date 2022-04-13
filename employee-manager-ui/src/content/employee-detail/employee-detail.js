@@ -36,11 +36,9 @@ function EmployeeDetail() {
                     <BsFillTrashFill></BsFillTrashFill>
                 </div>
             </div>
-            <div className="employee-detail">
+            <div className="employee-detail-component">
                 <EmployeeAvatar className="employee-avatar" employee={employee}></EmployeeAvatar>
-                <div className='employee-working'>
-                    <EmployeeWorking className= "" employee={employee}></EmployeeWorking>
-                </div>
+                <EmployeeWorking className= "employee-working" employee={employee}></EmployeeWorking>
             </div>
         </div>
     )
