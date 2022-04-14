@@ -1,39 +1,40 @@
 import React, { useState } from "react";
+import { useSnapshot } from "valtio";
+
 import "./employee-working.css";
 import Info from "./info/info";
 import Working from "./working/working";
 import Advance from "./advance/advance";
 import Statistics from "./statistics/statistics";
-import { tab } from "@testing-library/user-event/dist/tab";
+import { TabIdState } from "./../../../global-states/tab-id-state"
 
 function EmployeeWorking(props) {
-    let employee = props.employee;
-    const [tabId, setTabId] = useState(1);
+    const tabIdStateSnap = useSnapshot(TabIdState);
     const [tabElement, setTabElement] = useState(
-        <Info employee={employee}></Info>
+        <Info></Info>
     );
 
     function changeTab(tabId) {
         if (tabId === 1) {
-            setTabId(1);
-            setTabElement(<Info employee={employee}></Info>);
+            TabIdState.tabId = 1;
+            setTabElement(<Info></Info>);
             return;
         }
 
         if (tabId === 2) {
-            setTabId(2);
-            setTabElement(<Working employee={employee}></Working>);
+            TabIdState.tabId = 2;
+            setTabElement(<Working></Working>);
             return;
         }
 
         if (tabId === 3) {
-            setTabId(3);
-            setTabElement(<Advance employee={employee}></Advance>);
+            TabIdState.tabId = 3;
+            setTabElement(<Advance></Advance>);
         }
 
         if (tabId === 4) {
-            setTabId(4);
-            setTabElement(<Statistics employee={employee}></Statistics>);
+            TabIdState.tabId = 4;
+            setTabElement(<Statistics></Statistics>);
         }
     }
 
@@ -42,7 +43,7 @@ function EmployeeWorking(props) {
             <ul className="nav nav-tabs">
                 <li className="nav-item">
                     <p
-                        className={`nav-link ${tabId === 1 ? "active" : ""}`}
+                        className={`nav-link ${tabIdStateSnap.tabId === 1 ? "active" : ""}`}
                         onClick={() => {
                             changeTab(1);
                         }}
@@ -52,7 +53,7 @@ function EmployeeWorking(props) {
                 </li>
                 <li className="nav-item">
                     <p
-                        className={`nav-link ${tabId === 2 ? "active" : ""}`}
+                        className={`nav-link ${tabIdStateSnap.tabId === 2 ? "active" : ""}`}
                         onClick={() => {
                             changeTab(2);
                         }}
@@ -62,7 +63,7 @@ function EmployeeWorking(props) {
                 </li>
                 <li className="nav-item">
                     <p
-                        className={`nav-link ${tabId === 3 ? "active" : ""}`}
+                        className={`nav-link ${tabIdStateSnap.tabId === 3 ? "active" : ""}`}
                         onClick={() => {
                             changeTab(3);
                         }}
@@ -72,7 +73,7 @@ function EmployeeWorking(props) {
                 </li>
                 <li className="nav-item">
                     <p
-                        className={`nav-link ${tabId === 4 ? "active" : ""}`}
+                        className={`nav-link ${tabIdStateSnap.tabId === 4 ? "active" : ""}`}
                         onClick={() => {
                             changeTab(4);
                         }}

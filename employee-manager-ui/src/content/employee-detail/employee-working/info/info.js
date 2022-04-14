@@ -12,19 +12,10 @@ function Info(props) {
     //team
     const [teamList, setTeamList] = useState([]);
     const [teamName, setTeamName] = useState("");
-    const [teamMessageError, setTeamMessageError] = useState("");
-    const [isTeamPassed, setTeamPassed] = useState(false);
     // address
     const [address, setAddress] = useState("");
-    const [addressMessageError, setAddressMessageError] = useState("");
-    const [isAddressPassed, setAddressPassed] = useState(false);
     // salary per hour
     const [salaryPerHour, setSalaryPerHour] = useState("");
-    const [salaryPerHourMessageError, setSalaryPerHourMessageError] =
-        useState("");
-    const [isSalaryPerHourPassed, setSalaryPerHourPassed] = useState(false);
-    //
-    let employee = props.employee;
 
     useEffect(() => {
         setTeamName(employeeStateSnap.employee.teamName);
@@ -39,29 +30,18 @@ function Info(props) {
         return <Loading></Loading>;
     }
 
-    function validateEmployeeTeam(teamName, teamId) {
-        if (teamName === "Team name") {
-            setTeamMessageError("Team had to be chosen");
-            setTeamPassed(false);
-        } else {
-            setTeamMessageError("");
-            setTeamPassed(true);
-            EmployeeState.employee.teamId = teamId;
-        }
-    }
-
     function validateEmployeeAddress(employeeAddress) {
         if (employeeAddress === "") {
-            setAddressMessageError("Address can not be empty");
-            setAddressPassed(false);
+            alert("Address can not be empty");
+            return;
         } else {
-            setAddressMessageError("");
-            setAddressPassed(true);
             EmployeeState.employee.address = employeeAddress;
         }
     }
 
-    let date = new Date(employee.startDate).toISOString().split("T")[0];
+    let date = new Date(employeeStateSnap.employee.startDate)
+        .toISOString()
+        .split("T")[0];
     return (
         <div>
             <div className="infomation">
@@ -88,10 +68,7 @@ function Info(props) {
                                         className="drop-down-item"
                                         onClick={() => {
                                             setTeamName(team.name);
-                                            validateEmployeeTeam(
-                                                team.name,
-                                                team.id
-                                            );
+                                            EmployeeState.employee.teamId = team.id;
                                         }}
                                     >
                                         {team.name}
@@ -117,7 +94,7 @@ function Info(props) {
                         type="text"
                         className="col col-info disabled"
                         aria-describedby="basic-addon1"
-                        placeholder={employeeStateSnap.employee.salaryPerHour}
+                        placeholder={salaryPerHour}
                     ></input>
                 </div>
             </div>

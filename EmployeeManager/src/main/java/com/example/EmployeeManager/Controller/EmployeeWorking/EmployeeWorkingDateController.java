@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/employeeWorking/date")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000"})
 public class EmployeeWorkingDateController {
 
     @Autowired

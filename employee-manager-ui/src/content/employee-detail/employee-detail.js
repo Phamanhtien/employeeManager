@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BsPencilSquare, BsFillTrashFill } from "react-icons/bs";
 import { useSnapshot } from "valtio";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import EmployeeAvatar from "./employee-avatar/employee-avatar";
 import EmployeeWorking from "./employee-working/employee-working";
@@ -12,13 +12,15 @@ import {
 } from "../../util/GeneralFunction/EmployeeAxios";
 import Loading from "../../util/loading/loading";
 import { EmployeeState } from "../../global-states/employee-state";
-import Employee from "../../model/employee";
+import { TabIdState } from "../../global-states/tab-id-state";
 import "./employee-detail.css";
 
 function EmployeeDetail() {
     const employeeStateSnap = useSnapshot(EmployeeState);
+    const tabIdStateSnap = useSnapshot(TabIdState);
     let pathname = window.location.pathname.split("/");
     let employeeId = pathname[pathname.length - 1];
+
     let navigate = useNavigate();
     useEffect(() => {
         if (employeeStateSnap.employee.id !== undefined) {
@@ -34,7 +36,6 @@ function EmployeeDetail() {
     }
 
     function updateEmployee(employee) {
-        console.log(employee.address);
         UpdateEmployee(employee).then((res) => {
             if (res === "") {
                 alert(
@@ -62,10 +63,9 @@ function EmployeeDetail() {
 
             if (res.response === undefined) {
                 alert("Employee was deleted successfully");
-                navigate('/employee-list')
-                EmployeeState = new Employee()
+                navigate("/employee-list");
             }
-        });     
+        });
     }
 
     return (
@@ -75,11 +75,16 @@ function EmployeeDetail() {
                     <b>{employeeStateSnap.employee.fullName}</b>
                 </div>
                 <div className="icon">
-                    <BsPencilSquare
-                        onClick={() => {
-                            updateEmployee(EmployeeState.employee);
-                        }}
-                    ></BsPencilSquare>
+                    {tabIdStateSnap.tabId === 1 ? (
+                        <BsPencilSquare
+                            onClick={() => {
+                                updateEmployee(EmployeeState.employee);
+                            }}
+                        ></BsPencilSquare>
+                    ) : (
+                        ""
+                    )}
+
                     <BsFillTrashFill
                         onClick={() => {
                             deleteEmployee(EmployeeState.employee);

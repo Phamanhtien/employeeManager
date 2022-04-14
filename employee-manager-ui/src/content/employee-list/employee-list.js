@@ -11,6 +11,7 @@ import EmployeeListTableContent from "./employee-list-table-content";
 import EmployeeDeleteList from "./../employee-delete-list/employee-delete-list";
 import EmployeeAdd from "./../employee-add/employee-add";
 import { EmployeeState } from "../../global-states/employee-state";
+import Employee from "./../../model/employee"
 import "./employee-list.css";
 
 function EmployeeList() {
@@ -19,7 +20,8 @@ function EmployeeList() {
     const [employeeList, setEmployeeList] = useState([]);
     const [searchName, setSearchName] = useState("");
     const [listDeleteEmployeeId, setListDeleteEmployeeId] = useState([]);
-
+    const [isReload, setIsReload] = useState(false);
+    EmployeeState.employee = new Employee()
     useEffect(() => {
         if (searchName === "") {
             GetNumberOfAllEmployee().then((res) => {
@@ -41,7 +43,7 @@ function EmployeeList() {
                 }
             );
         }
-    }, [pageNumber, searchName, EmployeeState]);
+    }, [pageNumber, searchName, isReload]);
 
     return (
         <div>
@@ -120,6 +122,7 @@ function EmployeeList() {
     }
 
     function addNewEmployeeCallBack() {
+        setIsReload(!isReload);
         setPageNumber(pageNumber);
     }
 
