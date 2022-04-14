@@ -48,10 +48,17 @@ function RetrieveEmployee(employeeId) {
     .catch(error => {console.log(error)});
 }
 
+function UpdateEmployee(employee) {
+    return axios.post('http://localhost:8080/employee/update',employee)
+    .then(res => res.data)
+    .catch(error => {console.log(error)});
+}
+
 export {RetrieveAllEmployeeWithPaging, 
         GetNumberOfEmployeeByNameWithoutPaging,
         RetrieveEmployeeByNameWithPaging,
         RetrieveEmployeeByNameWithoutPaging,
         DeleteEmployee,
         AddEmployee,
-        RetrieveEmployee}
+        RetrieveEmployee,
+        UpdateEmployee}

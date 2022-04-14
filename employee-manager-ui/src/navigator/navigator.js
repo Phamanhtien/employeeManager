@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import logo from './../assets/icon/EmployeeLogo.png'
 import './navigator.css'
@@ -10,7 +10,7 @@ function Navigator () {
             <div className="">
                 <div className="app-title-logo ">
                     <a  href="/employee-list">
-                        <img className="logo" src={logo}></img>
+                        <img className="logo" src={logo} alt ="logo"></img>
                     </a>
                 </div>
                 <div className="app-title ">

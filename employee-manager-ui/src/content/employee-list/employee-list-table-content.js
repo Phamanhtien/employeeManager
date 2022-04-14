@@ -43,7 +43,7 @@ function EmployeeListTableContent(props) {
         ) {
             setPageNumber(employeeListComponentPageNumber);
         }
-    }, [employeeList,isStateChanged]);
+    }, [employeeList,isStateChanged,employeeListComponentPageNumber,listDeleteEmployeeState.length]);
 
     function initialListDeleteEmployee(employeeList) {
         let temp = [];

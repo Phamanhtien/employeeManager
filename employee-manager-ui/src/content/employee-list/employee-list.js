@@ -10,6 +10,7 @@ import GetNumberOfAllEmployee, {
 import EmployeeListTableContent from "./employee-list-table-content";
 import EmployeeDeleteList from "./../employee-delete-list/employee-delete-list";
 import EmployeeAdd from "./../employee-add/employee-add";
+import { EmployeeState } from "../../global-states/employee-state";
 import "./employee-list.css";
 
 function EmployeeList() {
@@ -40,7 +41,7 @@ function EmployeeList() {
                 }
             );
         }
-    }, [pageNumber, searchName]);
+    }, [pageNumber, searchName, EmployeeState]);
 
     return (
         <div>
@@ -68,7 +69,7 @@ function EmployeeList() {
                 <div>
                     <div className="search-container input-group flex-nowrap">
                         <span className="input-group-text" id="addon-wrapping">
-                            <img src={search}></img>
+                            <img src={search} alt="search-icon"></img>
                         </span>
                         <input
                             className="form-control"

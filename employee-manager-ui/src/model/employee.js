@@ -10,10 +10,6 @@ export default class Employee {
     salaryPerHour = 0;
     teamId = 0;
 
-    constructor() {
-
-    }
-
     EmployeeDTO(employee) {
         this.avatar = employee.avatar;
         this.fullName = employee.fullName;

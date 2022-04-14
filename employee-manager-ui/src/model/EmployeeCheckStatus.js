@@ -2,8 +2,8 @@ class EmployeeCheckStatus {
     employeeId = 0;
     isChecked = false;
     constructor (employeeId, isChecked) {
-        employeeId = employeeId
-        isChecked = isChecked
+        this.employeeId = employeeId
+        this.isChecked = isChecked
     }
 }
 

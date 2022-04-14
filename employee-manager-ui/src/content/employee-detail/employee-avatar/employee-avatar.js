@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { useSnapshot } from 'valtio'
 import "./employee-avatar.css";
 
 import SexPipe from "./../../../util/GeneralFunction/sex-pipe";
-import { RetrieveEmployee } from "../../../util/GeneralFunction/EmployeeAxios";
 import Loading from "../../../util/loading/loading";
 import defaultImage from "./../../../assets/default.jpg";
 import UpdateImagePackage from "../../../model/updateImagePackage";
 import { UpdateAvatarImage } from "./../../../util/GeneralFunction/ImageAxios";
+import { EmployeeState } from "../../../global-states/employee-state"
 
 function EmployeeAvatar(props) {
+    const employeeStateSnap = useSnapshot(EmployeeState)
     const [avatar, setAvatar] = useState(defaultImage);
     const [file, setFile] = useState();
-    let employee = props.employee;
 
     useEffect(() => {
-        if (employee.avatar !== "") {
-            setAvatar("http://localhost:8080/images/" + employee.avatar);
+        if (employeeStateSnap.employee.avatar !== "") {
+            setAvatar("http://localhost:8080/images/" + employeeStateSnap.employee.avatar);
         }
     }, [avatar, file]);
 
-    if (employee === undefined) {
+    if (employeeStateSnap.employee.id === undefined) {
         return <Loading></Loading>;
     }
 
@@ -28,11 +29,15 @@ function EmployeeAvatar(props) {
             return;
         }
 
+        if (file.name === EmployeeState.employee.avatar) {
+            return;
+        }
         let updateImagePackage = new UpdateImagePackage();
         updateImagePackage.file = file;
         updateImagePackage.employeeId = employeeId;
         UpdateAvatarImage(updateImagePackage);
-        setAvatar("http://localhost:8080/images/" + file.name)
+        setAvatar(EmployeeState.employee.avatar = file.name)
+
     }
 
     return (
@@ -59,7 +64,7 @@ function EmployeeAvatar(props) {
                     <button
                         className="btn btn-primary button-submit"
                         value=""
-                        onClick={() => uploadImage(file, employee.id)}
+                        onClick={() => uploadImage(file, employeeStateSnap.employee.id)}
                     >
                         Submit
                     </button>
@@ -67,14 +72,14 @@ function EmployeeAvatar(props) {
             </div>
             <div className=" badges ">
                 <div className="id badge bg-primary text-wrap ">
-                    No: {employee.id}
+                    No: {employeeStateSnap.employee.id}
                 </div>
                 <div className="age badge bg-success text-wrap ">
-                    Age: {employee.age}
+                    Age: {employeeStateSnap.employee.age}
                 </div>
                 <br></br>
                 <div className="badge bg-warning text-wrap ">
-                    Sex: {SexPipe(employee.sex)}
+                    Sex: {SexPipe(employeeStateSnap.employee.sex)}
                 </div>
             </div>
         </div>
