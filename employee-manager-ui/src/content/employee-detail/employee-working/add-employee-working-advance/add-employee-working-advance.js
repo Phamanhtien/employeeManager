@@ -5,71 +5,71 @@ import { BsPlusCircleFill } from "react-icons/bs";
 import { useSnapshot } from "valtio";
 import { useMutation } from "react-query";
 
-import { EmployeeState } from "./../../../../global-states/employee-state";
-import ConvertDateToDisplayDate from "./../../../../util/GeneralFunction/Converter"
-import { AddWorkingDateOfAnEmployee } from "./../../../../util/GeneralFunction/WorkingDateAxios"
-import EmployeeWorking from "../../../../model/employeeWorkingDate"
+import { EmployeeState } from "../../../../global-states/employee-state";
+import ConvertDateToDisplayDate from "../../../../util/GeneralFunction/Converter"
+import { AddWorkingAdvanceOfAnEmployee } from "../../../../util/GeneralFunction/WorkingAdvanceAxios"
+import EmployeeWorkingAdvance from "./../../../../model/employeeWorkingAdvance"
 
 
-function AddEmployeeWorking(props) {
+function AddEmployeeWorkingAdvance(props) {
 
     const employeeStateSnap = useSnapshot(EmployeeState);
     const [date, setDate] = useState((today = new Date()) => ConvertDateToDisplayDate(today));
-    const addWorkingDateOfAnEmployee = useMutation("AddWorkingDateOfAnEmployee",(employeeWorkingDate) => AddWorkingDateOfAnEmployee(employeeWorkingDate))
+    const addWorkingAdvanceOfAnEmployee = useMutation("AddWorkingAdvanceOfAnEmployee",(employeeWorkingAdvance) => AddWorkingAdvanceOfAnEmployee(employeeWorkingAdvance))
     const [isDatePassed, setDatePassed] = useState(false);
-    const [hour,setHour] = useState(0)
-    const [isHourPassed, setHourPassed] = useState(false);
+    const [money,setMoney] = useState(0)
+    const [isMoneyPassed, setMoneyPassed] = useState(false);
 
-    function validateDateEmployeeWorkingDate(inputDate) {
+    function validateDateEmployeeWorkingAdvance(inputDate) {
         let today = new Date();
         let input = new Date(inputDate)
         if (input > today) {
-            alert("Working date has to less than to day")
+            alert("Advance date has to less than to day")
             return;
         }
         setDatePassed(true)
         setDate(ConvertDateToDisplayDate(input))
     }
 
-    function validateHourEmployeeWorkingDate(hour) {
-        if (hour.trim()=== "") {
-            alert("Working hour can not be empty")
+    function validateHourEmployeeWorkingDate(money) {
+        if (money.trim()=== "") {
+            alert("Advance money can not be empty")
         }
 
-        if (isNaN(hour)) {
-            alert("Working hour have to be a number")
+        if (isNaN(money)) {
+            alert("Advance money have to be a number")
             return
         }
 
-        if (hour > 24 || hour < 0) {
-            alert("Working hour have to greater than 0 and less than 24")
+        if (money < 0) {
+            alert("Advance money have to greater than 0")
             return;
         }
-        setHour(hour);
-        setHourPassed(hour);
+        setMoney(money);
+        setMoneyPassed(true);
     }
 
-    function AddEmployeeWorking() {
+    function AddEmployeeWorkingAdvance() {
         if (!isDatePassed) {
             alert("Check the employee working")
             return;
         }
 
-        if (!isHourPassed) {
+        if (!isMoneyPassed) {
             alert("Check the working hour")
             return;
         }
 
-        let employeeWorkingDate = new EmployeeWorking()
-        employeeWorkingDate.employeeId = employeeStateSnap.employee.id
-        employeeWorkingDate.date = date
-        employeeWorkingDate.hour = hour
-        addWorkingDateOfAnEmployee.mutate(employeeWorkingDate)
-        if (addWorkingDateOfAnEmployee.isError) {
+        let employeeWorkingAdvance = new EmployeeWorkingAdvance()
+        employeeWorkingAdvance.employeeId = employeeStateSnap.employee.id
+        employeeWorkingAdvance.date = date
+        employeeWorkingAdvance.money = money
+        addWorkingAdvanceOfAnEmployee.mutate(employeeWorkingAdvance)
+        if (addWorkingAdvanceOfAnEmployee.isError) {
             alert("Add new employee working date fail")
         }
 
-        if (addWorkingDateOfAnEmployee.isSuccess) {
+        if (addWorkingAdvanceOfAnEmployee.isSuccess) {
             props.addCallBack()
         }
     }
@@ -102,25 +102,24 @@ function AddEmployeeWorking(props) {
                                     className="form-control"
                                     value={date}
                                     onChange={(input) => {
-                                        validateDateEmployeeWorkingDate(
+                                        validateDateEmployeeWorkingAdvance(
                                             input.target.value
                                         );
                                     }}
                                 ></input>
                             </div>
                             <div className="form-group-age col-xs-1">
-                                <p className="title"> Hour * </p>
+                                <p className="title"> Money * </p>
                                 <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="Enter hour"
-                                    value={hour===0? "" : hour}
+                                    placeholder="Enter money"
+                                    value={money===0? "" : money}
                                     onChange={(input) => {
                                         validateHourEmployeeWorkingDate(input.target.value);
                                     }}
                                 ></input>
                             </div>
-                            {/* <p className="validator"> {ageMessageError} </p> */}
                         </div>
                     </div>
                     <div className="modal-footer">
@@ -128,7 +127,7 @@ function AddEmployeeWorking(props) {
                             type="button"
                             className="btn btn-primary"
                             onClick={() => {
-                                AddEmployeeWorking()
+                                AddEmployeeWorkingAdvance()
                             }}
                         >
                             SUBMIT
@@ -147,4 +146,4 @@ function AddEmployeeWorking(props) {
     );
 }
 
-export default AddEmployeeWorking;
+export default AddEmployeeWorkingAdvance;

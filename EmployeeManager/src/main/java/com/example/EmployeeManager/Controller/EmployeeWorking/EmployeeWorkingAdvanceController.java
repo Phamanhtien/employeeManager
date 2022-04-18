@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/employeeWorking/advance")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000"})
 public class EmployeeWorkingAdvanceController {
     @Autowired
     private RetrieveEmployeeWorkingAdvances retrieveEmployeeWorkingAdvances;
@@ -30,7 +30,7 @@ public class EmployeeWorkingAdvanceController {
     }
 
     @GetMapping("/all/{employeeId}/{page}")
-    public List<EmployeeWorkingAdvance> retrieveAllWorkingAdvancesOfAnEmployee (@PathVariable int employeeId, @PathVariable int page) {
+    public List<EmployeeWorkingAdvance> retrieveAllWorkingAdvancesOfAnEmployeeWithPaging (@PathVariable int employeeId, @PathVariable int page) {
         retrieveEmployeeWorkingAdvances.setEmployeeId(employeeId);
         retrieveEmployeeWorkingAdvances.setPage(page);
         return retrieveEmployeeWorkingAdvances.retrieveEmployeeWorkingAdvancesByEmployeeId();

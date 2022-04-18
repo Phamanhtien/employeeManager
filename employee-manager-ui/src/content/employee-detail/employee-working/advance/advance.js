@@ -1,62 +1,96 @@
-import React from 'react';
-import { BsFillPlusCircleFill, BsFillTrashFill } from 'react-icons/bs';
-import './advance.css'
+import React, {useState} from "react";
+import { BsFillTrashFill } from "react-icons/bs";
+import "./advance.css";
+import { useSnapshot } from "valtio";
+import { EmployeeState } from "./../../../../global-states/employee-state";
+import DataGrid from "react-data-grid";
+import { useQuery } from "react-query";
 
-class Advance extends React.Component {
-    render() {
-        return (
-            <div>
-                <div class="advance-detail">
-                    <div class="head">
-                        <h3>
-                            ADVANCE
-                        </h3>
-                        <BsFillPlusCircleFill></BsFillPlusCircleFill>
-                    </div>
-                    <table class="table-team-working-date table table-striped">
-                        <thead class="thead">
-                            <tr class="thead-row">
-                                <th scope="col">
-                                    <b>No</b>
-                                </th>
-                                <th scope="col">
-                                    <b>Date</b>
-                                </th>
-                                <th scope="col">
-                                    <b>Money</b>
-                                </th>
-                                <th scope="col">
-                                    <b>Option</b>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="tbody">
-                            <tr class="tbody-row">
-                                <td class="advance-id">1</td>
-                                <td class="advance-name">22/03/2022</td>
-                                <td class="advance-money">220000</td>
-                                <td class="advance-trash">
-                                    <BsFillTrashFill></BsFillTrashFill>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <ul class="pagination pagination-sm">
-                        <li class="page-item">
-                            <a class="page-link" >
-                                Previous</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" >1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link">Next</a>
-                        </li>
-                    </ul>
+import AddEmployeeWorkingAdvance from "./../add-employee-working-advance/add-employee-working-advance";
+import CreatePaging from "./../../../../util/GeneralFunction/CreatePaging";
+import GetNumberOfAllWorkingAdvancesOfAnEmployee, {
+       RetrieveAllWorkingAdvancesOfAnEmployeeWithPaging,
+} from "./../../../../util/GeneralFunction/WorkingAdvanceAxios";
+import Loading from "../../../../util/loading/loading";
+
+function Advance() {
+    const employeeStateSnap = useSnapshot(EmployeeState);
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const [isReload, setReload] = useState(false);
+
+    const numberOfAllWorkingAdvanceOfAnEmployeesQuery = useQuery(
+        ["GetNumberOfAllWorkingAdvancesOfAnEmployee", pageNumber, isReload],
+        () =>
+        GetNumberOfAllWorkingAdvancesOfAnEmployee(
+                employeeStateSnap.employee.id
+            ),
+        { keepPreviousData: true }
+    );
+
+    const employeeWorkingAdvanceListQuery = useQuery(
+        ["RetrieveAllWorkingAdvancesOfAnEmployeeWithPaging", pageNumber, isReload],
+        () =>
+        RetrieveAllWorkingAdvancesOfAnEmployeeWithPaging(
+                employeeStateSnap.employee.id,
+                pageNumber
+            ),
+        { keepPreviousData: true }
+    );
+
+    if (employeeWorkingAdvanceListQuery.status === "loading") {
+        return <Loading></Loading>;
+    }
+
+    const columns = [
+        { key: "id", name: "No" },
+        { key: "date", name: "Date" },
+        { key: "money", name: "money" },
+        { key: "option", name: "Option" },
+    ];
+
+    for (let i = 0; i < employeeWorkingAdvanceListQuery.data.length; i++) {
+        employeeWorkingAdvanceListQuery.data[i]["option"] = (
+            <BsFillTrashFill
+                onClick={() => console.log("clicked")}
+            ></BsFillTrashFill>
+        );
+        employeeWorkingAdvanceListQuery.data[i].date = new Date(employeeWorkingAdvanceListQuery.data[i].date)
+            .toISOString()
+            .split("T")[0];
+    }
+
+    return (
+        <div>
+            <div className="advance-detail">
+                <div className="head">
+                    <h3>ADVANCE</h3>
+                    <AddEmployeeWorkingAdvance addCallBack={addCallBack}></AddEmployeeWorkingAdvance>
                 </div>
+                <DataGrid
+                columns={columns}
+                rows={employeeWorkingAdvanceListQuery.data}
+                className="table-team-working-date table table-striped"
+            ></DataGrid>
+                <CreatePaging
+                    pagingCallback={pagingCallBack}
+                    numberOfAllEmployees={
+                        numberOfAllWorkingAdvanceOfAnEmployeesQuery.data
+                    }
+                    pageNumber={pageNumber}
+                ></CreatePaging>
             </div>
-        )
+        </div>
+    );
+
+    function pagingCallBack(pageNumber) {
+        setPageNumber(pageNumber);
+    }
+
+    function addCallBack() {
+        console.log("clicked");
+        setReload((isReload) => !isReload);
     }
 }
 
-export default Advance
+export default Advance;

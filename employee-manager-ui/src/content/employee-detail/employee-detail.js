@@ -15,6 +15,7 @@ import Loading from "../../util/loading/loading";
 import { EmployeeState } from "../../global-states/employee-state";
 import { TabIdState } from "../../global-states/tab-id-state";
 import "./employee-detail.css";
+import Employee from "../../model/employee";
 
 function EmployeeDetail() {
     let pathname = window.location.pathname.split("/");

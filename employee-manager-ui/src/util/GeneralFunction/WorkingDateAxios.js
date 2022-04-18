@@ -19,4 +19,17 @@ function RetrieveAllWorkingDateOfAnEmployeeWithPaging(employeeId, pageNumber) {
         .catch((err) => console.error(err));
 }
 
-export { RetrieveAllWorkingDateOfAnEmployeeWithPaging }
+function AddWorkingDateOfAnEmployee(employeeWorkingDate) {
+    return axios
+        .post(
+            "http://localhost:8080/employeeWorking/date/add",
+            employeeWorkingDate
+        )
+        .then((res) => res)
+        .catch((err) => console.error(err));
+}
+
+export {
+    RetrieveAllWorkingDateOfAnEmployeeWithPaging,
+    AddWorkingDateOfAnEmployee,
+};

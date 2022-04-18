@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { BsFillPlusCircleFill, BsFillTrashFill } from "react-icons/bs";
+import React, { useState } from "react";
+import { BsFillTrashFill } from "react-icons/bs";
 import { useSnapshot } from "valtio";
 import { EmployeeState } from "./../../../../global-states/employee-state";
 import DataGrid from "react-data-grid";
@@ -17,9 +17,10 @@ function Working() {
     const employeeStateSnap = useSnapshot(EmployeeState);
 
     const [pageNumber, setPageNumber] = useState(0);
+    const [isReload, setReload] =useState(false);
 
-    const numberOfAllEmployeesQuery = useQuery(
-        ["GetNumberOfAllWorkingDateOfAnEmployee", pageNumber],
+    const numberOfAllWorkingDateOfAnEmployeesQuery = useQuery(
+        ["GetNumberOfAllWorkingDateOfAnEmployee", pageNumber,isReload],
         () =>
             GetNumberOfAllWorkingDateOfAnEmployee(
                 employeeStateSnap.employee.id
@@ -28,7 +29,7 @@ function Working() {
     );
 
     const employeeWorkingListQuery = useQuery(
-        ["RetrieveAllWorkingDateOfAnEmployeeWithPaging", pageNumber],
+        ["RetrieveAllWorkingDateOfAnEmployeeWithPaging", pageNumber,isReload],
         () =>
             RetrieveAllWorkingDateOfAnEmployeeWithPaging(
                 employeeStateSnap.employee.id,
@@ -64,7 +65,7 @@ function Working() {
         <div className="working-detail">
             <div className="head">
                 <h3>WORKING</h3>
-                <AddEmployeeWorking></AddEmployeeWorking>
+                <AddEmployeeWorking addCallBack={addCallBack}></AddEmployeeWorking>
             </div>
             <DataGrid
                 columns={columns}
@@ -74,7 +75,7 @@ function Working() {
             {/* <DataGrid columns={columns} rows={rows} />; */}
             <CreatePaging
                 pagingCallback={pagingCallBack}
-                numberOfAllEmployees={numberOfAllEmployeesQuery.data}
+                numberOfAllEmployees={numberOfAllWorkingDateOfAnEmployeesQuery.data}
                 pageNumber={pageNumber}
             ></CreatePaging>
         </div>
@@ -82,6 +83,11 @@ function Working() {
 
     function pagingCallBack(pageNumber) {
         setPageNumber(pageNumber);
+    }
+
+    function addCallBack() {
+        console.log("clicked")
+        setReload(isReload=>!isReload);
     }
 }
 
