@@ -2,84 +2,79 @@ import React, { useEffect, useState } from "react";
 import { BsFillPlusCircleFill, BsFillTrashFill } from "react-icons/bs";
 import { useSnapshot } from "valtio";
 import { EmployeeState } from "./../../../../global-states/employee-state";
-import DataGrid from 'react-data-grid';
+import DataGrid from "react-data-grid";
+import { useQuery } from "react-query";
 
 import "./working.css";
 import CreatePaging from "./../../../../util/GeneralFunction/CreatePaging";
-import GetNumberOfAllWorkingDateOfAnEmployee, { RetrieveAllWorkingDateOfAnEmployeeWithPaging } from "./../../../../util/GeneralFunction/WorkingDateAxios";
+import GetNumberOfAllWorkingDateOfAnEmployee, {
+    RetrieveAllWorkingDateOfAnEmployeeWithPaging,
+} from "./../../../../util/GeneralFunction/WorkingDateAxios";
+import Loading from "../../../../util/loading/loading";
+import AddEmployeeWorking from "./../add-employee-working/add-employee-working"
 
 function Working() {
     const employeeStateSnap = useSnapshot(EmployeeState);
-    const [numberOfAllEmployees, setNumberOfAllEmployees] = useState(0);
-    const [pageNumber, setPageNumber] = useState(0);
-    const [employeeWorkingList, setEmployeeWorkingList] = useState([]);
-    useEffect(() => {
-        GetNumberOfAllWorkingDateOfAnEmployee(employeeStateSnap.employee.id)
-            .then((res) => setNumberOfAllEmployees(res))
-            .catch((error) => console.log(error));
-        RetrieveAllWorkingDateOfAnEmployeeWithPaging(
-            employeeStateSnap.employee.id,
-            pageNumber
-        )
-            .then((res) => setEmployeeWorkingList(res))
-            .catch((error) => console.log(error));
-    }, [pageNumber]);
 
-    // const columns = [
-    //     {key: 'id', name:"No"},
-    //     {key: 'date', name:"Date"},
-    //     {key: 'hour', name:"Hour"},
-    //     {key: 'option', name:"Option"}
-    // ]
+    const [pageNumber, setPageNumber] = useState(0);
+
+    const numberOfAllEmployeesQuery = useQuery(
+        ["GetNumberOfAllWorkingDateOfAnEmployee", pageNumber],
+        () =>
+            GetNumberOfAllWorkingDateOfAnEmployee(
+                employeeStateSnap.employee.id
+            ),
+        { keepPreviousData: true }
+    );
+
+    const employeeWorkingListQuery = useQuery(
+        ["RetrieveAllWorkingDateOfAnEmployeeWithPaging", pageNumber],
+        () =>
+            RetrieveAllWorkingDateOfAnEmployeeWithPaging(
+                employeeStateSnap.employee.id,
+                pageNumber
+            ),
+        { keepPreviousData: true }
+    );
+
+    if (employeeWorkingListQuery.status === "loading") {
+        return <Loading></Loading>;
+    }
 
     const columns = [
-        { key: 'id', name: 'ID' },
-        { key: 'title', name: 'Title' }
-      ];
-      
-      const rows = [
-        { id: 0, title: 'Example' },
-        { id: 1, title: 'Demo' }
-      ];
+        { key: "id", name: "No" },
+        { key: "date", name: "Date" },
+        { key: "hour", name: "Hour" },
+        { key: "option", name: "Option" },
+    ];
+
+    for (let i = 0; i < employeeWorkingListQuery.data.length; i++) {
+        employeeWorkingListQuery.data[i]["option"] = (
+            <BsFillTrashFill
+                onClick={() => console.log("clicked")}
+            ></BsFillTrashFill>
+        );
+        employeeWorkingListQuery.data[i].date = new Date(employeeWorkingListQuery.data[i].date)
+            .toISOString()
+            .split("T")[0];
+    }
+
+    // console.log(data)
     return (
         <div className="working-detail">
             <div className="head">
                 <h3>WORKING</h3>
-                <BsFillPlusCircleFill></BsFillPlusCircleFill>
+                <AddEmployeeWorking></AddEmployeeWorking>
             </div>
-            {/* <DataGrid columns={columns} rows={employeeWorkingList}></DataGrid> */}
-            <DataGrid columns={columns} rows={rows} />;
-            <table className="table-team-working-date table table-striped">
-                <thead className="thead">
-                    <tr className="thead-row">
-                        <th scope="col">
-                            <b>No</b>
-                        </th>
-                        <th scope="col">
-                            <b>Date</b>
-                        </th>
-                        <th scope="col">
-                            <b>Hour</b>
-                        </th>
-                        <th scope="col">
-                            <b>Option</b>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody className="tbody">
-                    <tr className="tbody-row">
-                        <td className="team-id">1</td>
-                        <td className="team-name">22/03/2022</td>
-                        <td className="team-phone">3</td>
-                        <td className="team-address">
-                            <BsFillTrashFill></BsFillTrashFill>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <DataGrid
+                columns={columns}
+                rows={employeeWorkingListQuery.data}
+                className="table-team-working-date table table-striped"
+            ></DataGrid>
+            {/* <DataGrid columns={columns} rows={rows} />; */}
             <CreatePaging
                 pagingCallback={pagingCallBack}
-                numberOfAllEmployees={numberOfAllEmployees}
+                numberOfAllEmployees={numberOfAllEmployeesQuery.data}
                 pageNumber={pageNumber}
             ></CreatePaging>
         </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BsPencilSquare, BsFillTrashFill } from "react-icons/bs";
 import { useSnapshot } from "valtio";
 import { useNavigate } from "react-router-dom";
+import { useQuery, } from "react-query";
 
 import EmployeeAvatar from "./employee-avatar/employee-avatar";
 import EmployeeWorking from "./employee-working/employee-working";
@@ -16,22 +17,24 @@ import { TabIdState } from "../../global-states/tab-id-state";
 import "./employee-detail.css";
 
 function EmployeeDetail() {
-    const employeeStateSnap = useSnapshot(EmployeeState);
-    const tabIdStateSnap = useSnapshot(TabIdState);
     let pathname = window.location.pathname.split("/");
     let employeeId = pathname[pathname.length - 1];
 
-    let navigate = useNavigate();
-    useEffect(() => {
-        if (employeeStateSnap.employee.id !== undefined) {
-            return;
-        }
-        RetrieveEmployee(employeeId).then((res) => {
-            EmployeeState.employee = res;
-        });
-    });
+    const employeeStateSnap = useSnapshot(EmployeeState);
+    const tabIdStateSnap = useSnapshot(TabIdState);
 
-    if (employeeStateSnap.employee.id === undefined) {
+    const { status, data } = useQuery("employeeByIdQuery", () =>
+        RetrieveEmployee(employeeId)
+    );
+
+    let navigate = useNavigate();
+
+    if (status === "loading") {
+        return <Loading></Loading>;
+    }
+
+    if (EmployeeState.employee.id === undefined ){
+        EmployeeState.employee = data;
         return <Loading></Loading>;
     }
 
