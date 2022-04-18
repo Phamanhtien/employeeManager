@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/employeeWorking/static")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000"})
 public class EmployeeWorkingStatic {
     @Autowired
     private StaticEmployeeWorking staticEmployeeWorking;
