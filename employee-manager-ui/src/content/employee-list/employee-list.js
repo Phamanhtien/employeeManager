@@ -11,8 +11,9 @@ import EmployeeListTableContent from "./employee-list-table-content";
 import EmployeeDeleteList from "./../employee-delete-list/employee-delete-list";
 import EmployeeAdd from "./../employee-add/employee-add";
 import { EmployeeState } from "../../global-states/employee-state";
-import Employee from "./../../model/employee"
+import Employee from "./../../model/employee";
 import "./employee-list.css";
+import Loading from "../../util/loading/loading";
 
 function EmployeeList() {
     const [numberOfAllEmployees, setNumberOfAllEmployees] = useState(0);
@@ -21,7 +22,7 @@ function EmployeeList() {
     const [searchName, setSearchName] = useState("");
     const [listDeleteEmployeeId, setListDeleteEmployeeId] = useState([]);
     const [isReload, setIsReload] = useState(false);
-    EmployeeState.employee = new Employee()
+
     useEffect(() => {
         if (searchName === "") {
             GetNumberOfAllEmployee().then((res) => {
@@ -44,6 +45,11 @@ function EmployeeList() {
             );
         }
     }, [pageNumber, searchName, isReload]);
+
+    EmployeeState.employee = new Employee();
+    if (EmployeeState.employee === undefined) {
+        return <Loading></Loading>;
+    }
 
     return (
         <div>

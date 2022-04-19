@@ -81,7 +81,6 @@ function Statistics() {
                 <div className="row row-statistics">
                     <div className="row ">
                         <input
-                            readOnly
                             type="number"
                             className="col"
                             placeholder="Month"
@@ -91,7 +90,6 @@ function Statistics() {
                             }}
                         ></input>
                         <input
-                            readOnly
                             type="number"
                             className="col"
                             placeholder="Year"

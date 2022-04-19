@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BsPencilSquare, BsFillTrashFill } from "react-icons/bs";
 import { useSnapshot } from "valtio";
 import { useNavigate } from "react-router-dom";
-import { useQuery, } from "react-query";
+import { useQuery } from "react-query";
 
 import EmployeeAvatar from "./employee-avatar/employee-avatar";
 import EmployeeWorking from "./employee-working/employee-working";
@@ -18,6 +18,7 @@ import "./employee-detail.css";
 import Employee from "../../model/employee";
 
 function EmployeeDetail() {
+    console.log("Employee trong detail " + EmployeeState.employee.id)
     let pathname = window.location.pathname.split("/");
     let employeeId = pathname[pathname.length - 1];
 
@@ -27,18 +28,17 @@ function EmployeeDetail() {
     const { status, data } = useQuery("employeeByIdQuery", () =>
         RetrieveEmployee(employeeId)
     );
-
+    
     let navigate = useNavigate();
 
-    if (status === "loading") {
-        return <Loading></Loading>;
-    }
+    console.log(EmployeeState.employee)
 
-    if (EmployeeState.employee.id === undefined ){
+    if (EmployeeState.employee.id !== data.id) {
         EmployeeState.employee = data;
-        return <Loading></Loading>;
+        return <Loading></Loading>
     }
 
+    console.log("Employee trong detail 2 " + EmployeeState.employee.id)
     function updateEmployee(employee) {
         UpdateEmployee(employee).then((res) => {
             if (res === "") {

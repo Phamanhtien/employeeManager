@@ -26,6 +26,7 @@ function TeamList() {
             });
         }
     }, [teamDetailId]);
+    
 
     return (
         <div>

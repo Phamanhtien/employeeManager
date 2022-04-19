@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import "./advance.css";
 import { useSnapshot } from "valtio";
@@ -37,6 +37,11 @@ function Advance() {
             ),
         { keepPreviousData: true }
     );
+
+    useEffect(() =>{
+        // numberOfAllWorkingAdvanceOfAnEmployeesQuery.refetch();
+        // employeeWorkingAdvanceListQuery.refetch();
+    },[isReload])
 
     if (employeeWorkingAdvanceListQuery.status === "loading") {
         return <Loading></Loading>;

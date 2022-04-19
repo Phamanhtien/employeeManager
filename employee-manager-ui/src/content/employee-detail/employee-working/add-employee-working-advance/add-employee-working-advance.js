@@ -64,14 +64,16 @@ function AddEmployeeWorkingAdvance(props) {
         employeeWorkingAdvance.employeeId = employeeStateSnap.employee.id
         employeeWorkingAdvance.date = date
         employeeWorkingAdvance.money = money
-        addWorkingAdvanceOfAnEmployee.mutate(employeeWorkingAdvance)
-        if (addWorkingAdvanceOfAnEmployee.isError) {
-            alert("Add new employee working date fail")
-        }
+        // addWorkingAdvanceOfAnEmployee.mutate(employeeWorkingAdvance)
+        // if (addWorkingAdvanceOfAnEmployee.isError) {
+        //     alert("Add new employee working date fail")
+        // }
 
-        if (addWorkingAdvanceOfAnEmployee.isSuccess) {
-            props.addCallBack()
-        }
+        // if (addWorkingAdvanceOfAnEmployee.isSuccess) {
+        //     props.addCallBack()
+        // }
+        console.log("call")
+        props.addCallBack()
     }
 
     return (

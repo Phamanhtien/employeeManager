@@ -18,11 +18,7 @@ function EmployeeAvatar(props) {
         if (employeeStateSnap.employee.avatar !== "") {
             setAvatar("http://localhost:8080/images/" + employeeStateSnap.employee.avatar);
         }
-    }, [avatar, file]);
-
-    if (employeeStateSnap.employee.id === undefined) {
-        return <Loading></Loading>;
-    }
+    },[]);
 
     function uploadImage(file, employeeId) {
         if (file === undefined) {
