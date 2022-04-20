@@ -15,7 +15,6 @@ import Loading from "../../util/loading/loading";
 import { EmployeeState } from "../../global-states/employee-state";
 import { TabIdState } from "../../global-states/tab-id-state";
 import "./employee-detail.css";
-import Employee from "../../model/employee";
 
 function EmployeeDetail() {
     let pathname = window.location.pathname.split("/");
@@ -24,23 +23,21 @@ function EmployeeDetail() {
     const employeeStateSnap = useSnapshot(EmployeeState);
     const tabIdStateSnap = useSnapshot(TabIdState);
 
-    const { status, data } = useQuery("employeeByIdQuery", () =>
-        RetrieveEmployee(employeeId)
+    const retrieveEmployeeById = useQuery(["retrieveEmployeeById",employeeId], () =>       RetrieveEmployee(employeeId)
     );
 
     let navigate = useNavigate();
 
-    if (status === "loading") {
+    useEffect(() => {
+        EmployeeState.employee =retrieveEmployeeById.data
+    }, [retrieveEmployeeById.status]);
+
+    if (retrieveEmployeeById.status === "loading") {
         return <Loading></Loading>;
     }
 
-    if (EmployeeState.employee === undefined) {
-        return <Loading></Loading>;
-    }
-
-    if (EmployeeState.employee.id === undefined) {
-        EmployeeState.employee = data;
-        return <Loading></Loading>;
+    if (employeeStateSnap.employee === undefined) {
+        return <Loading></Loading>
     }
 
     function updateEmployee(employee) {
@@ -86,7 +83,7 @@ function EmployeeDetail() {
                     {tabIdStateSnap.tabId === 1 ? (
                         <BsPencilSquare
                             onClick={() => {
-                                updateEmployee(EmployeeState.employee);
+                                updateEmployee(employeeStateSnap.employee);
                             }}
                         ></BsPencilSquare>
                     ) : (
@@ -95,7 +92,7 @@ function EmployeeDetail() {
 
                     <BsFillTrashFill
                         onClick={() => {
-                            deleteEmployee(EmployeeState.employee);
+                            deleteEmployee(employeeStateSnap.employee);
                         }}
                     ></BsFillTrashFill>
                 </div>

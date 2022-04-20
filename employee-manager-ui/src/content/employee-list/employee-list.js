@@ -16,6 +16,7 @@ import "./employee-list.css";
 import Loading from "../../util/loading/loading";
 
 function EmployeeList() {
+    // const employeeStateSnap = useSnapshot(EmployeeState);
     const [numberOfAllEmployees, setNumberOfAllEmployees] = useState(0);
     const [pageNumber, setPageNumber] = useState(0);
     const [employeeList, setEmployeeList] = useState([]);
@@ -47,6 +48,7 @@ function EmployeeList() {
     }, [pageNumber, searchName, isReload]);
 
     EmployeeState.employee = new Employee();
+    
     if (EmployeeState.employee === undefined) {
         return <Loading></Loading>;
     }

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSnapshot } from 'valtio'
 import "./employee-avatar.css";
+import { subscribe } from 'valtio'
 
 import SexPipe from "./../../../util/GeneralFunction/sex-pipe";
-import Loading from "../../../util/loading/loading";
+// import Loading from "../../../util/loading/loading";
 import defaultImage from "./../../../assets/default.jpg";
 import UpdateImagePackage from "../../../model/updateImagePackage";
 import { UpdateAvatarImage } from "./../../../util/GeneralFunction/ImageAxios";
@@ -18,7 +19,9 @@ function EmployeeAvatar(props) {
         if (employeeStateSnap.employee.avatar !== "") {
             setAvatar("http://localhost:8080/images/" + employeeStateSnap.employee.avatar);
         }
-    },[]);
+    },[employeeStateSnap.employee.avatar]);
+    
+    // subscribe(EmployeeState, () => console.log(employeeStateSnap.employee))
 
     function uploadImage(file, employeeId) {
         if (file === undefined) {
@@ -39,7 +42,7 @@ function EmployeeAvatar(props) {
     return (
         <div className="avatar">
             <div className="avatar-image-box">
-                <img className="avatar-image" src={avatar}></img>
+                <img className="avatar-image" src={avatar} alt="avatar"></img>
                 <div className="upload-image">
                     <input
                         className="uploadImageInput"
