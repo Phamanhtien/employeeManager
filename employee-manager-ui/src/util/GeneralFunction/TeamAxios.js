@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export default function RetrieveTeams() {
-    return axios
+export default async function RetrieveTeams() {
+    return await axios
         .get("http://localhost:8080/team/all")
         .then((res) => res.data)
         .catch((error) => console.error(error));

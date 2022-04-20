@@ -19,8 +19,8 @@ function RetrieveAllWorkingDateOfAnEmployeeWithPaging(employeeId, pageNumber) {
         .catch((err) => console.error(err));
 }
 
-function AddWorkingDateOfAnEmployee(employeeWorkingDate) {
-    return axios
+async function AddWorkingDateOfAnEmployee(employeeWorkingDate) {
+    return await axios
         .post(
             "http://localhost:8080/employeeWorking/date/add",
             employeeWorkingDate

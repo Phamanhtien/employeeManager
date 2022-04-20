@@ -42,14 +42,14 @@ function RetrieveEmployeeByNameWithoutPaging(searchName) {
     .catch(error => {console.log(error)});
 }
 
-function RetrieveEmployee(employeeId) {
-    return axios.get('http://localhost:8080/employee/'+employeeId)
+async function RetrieveEmployee(employeeId) {
+    return await axios.get('http://localhost:8080/employee/'+employeeId)
     .then(res => res.data)
     .catch(error => {console.log(error)});
 }
 
-function UpdateEmployee(employee) {
-    return axios.post('http://localhost:8080/employee/update',employee)
+async function UpdateEmployee(employee) {
+    return await axios.post('http://localhost:8080/employee/update',employee)
     .then(res => res.data)
     .catch(error => {console.log(error)});
 }

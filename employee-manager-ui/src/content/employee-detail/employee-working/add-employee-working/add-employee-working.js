@@ -14,8 +14,13 @@ import EmployeeWorking from "../../../../model/employeeWorkingDate"
 function AddEmployeeWorking(props) {
 
     const employeeStateSnap = useSnapshot(EmployeeState);
+
+    const addWorkingDateOfAnEmployee = useMutation((employeeWorkingDate) => AddWorkingDateOfAnEmployee(employeeWorkingDate), {
+        onSuccess:() => props.addCallBack(),
+        onError:() => alert("Add new employee working date fail")
+    })
+
     const [date, setDate] = useState((today = new Date()) => ConvertDateToDisplayDate(today));
-    const addWorkingDateOfAnEmployee = useMutation("AddWorkingDateOfAnEmployee",(employeeWorkingDate) => AddWorkingDateOfAnEmployee(employeeWorkingDate))
     const [isDatePassed, setDatePassed] = useState(false);
     const [hour,setHour] = useState(0)
     const [isHourPassed, setHourPassed] = useState(false);
@@ -49,7 +54,7 @@ function AddEmployeeWorking(props) {
         setHourPassed(hour);
     }
 
-    function AddEmployeeWorking() {
+    async function AddEmployeeWorking() {
         if (!isDatePassed) {
             alert("Check the employee working")
             return;
@@ -65,13 +70,6 @@ function AddEmployeeWorking(props) {
         employeeWorkingDate.date = date
         employeeWorkingDate.hour = hour
         addWorkingDateOfAnEmployee.mutate(employeeWorkingDate)
-        if (addWorkingDateOfAnEmployee.isError) {
-            alert("Add new employee working date fail")
-        }
-
-        if (addWorkingDateOfAnEmployee.isSuccess) {
-            props.addCallBack()
-        }
     }
 
     return (

@@ -3,6 +3,7 @@ import { BsPencilSquare, BsFillTrashFill } from "react-icons/bs";
 import { useSnapshot } from "valtio";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
+import { useLocation } from 'react-router-dom';
 
 import EmployeeAvatar from "./employee-avatar/employee-avatar";
 import EmployeeWorking from "./employee-working/employee-working";
@@ -22,15 +23,19 @@ function EmployeeDetail() {
 
     const employeeStateSnap = useSnapshot(EmployeeState);
     const tabIdStateSnap = useSnapshot(TabIdState);
+    const location = useLocation()
 
-    const retrieveEmployeeById = useQuery(["retrieveEmployeeById",employeeId], () =>       RetrieveEmployee(employeeId)
+    const retrieveEmployeeById = useQuery(
+        ["retrieveEmployeeById", employeeId],
+        () => RetrieveEmployee(employeeId)
     );
 
     let navigate = useNavigate();
 
     useEffect(() => {
-        EmployeeState.employee =retrieveEmployeeById.data
-    }, [retrieveEmployeeById.status]);
+        EmployeeState.employee = retrieveEmployeeById.data;
+        TabIdState.tabId = 1;
+    }, [retrieveEmployeeById.status,location]);
 
     if (retrieveEmployeeById.status === "loading") {
         return <Loading></Loading>;

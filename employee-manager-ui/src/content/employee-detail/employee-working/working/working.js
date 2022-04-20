@@ -25,7 +25,7 @@ function Working() {
             GetNumberOfAllWorkingDateOfAnEmployee(
                 employeeStateSnap.employee.id
             ),
-        { keepPreviousData: true }
+        { keepPreviousData: true },
     );
 
     const employeeWorkingListQuery = useQuery(
@@ -86,7 +86,6 @@ function Working() {
     }
 
     function addCallBack() {
-        console.log("clicked")
         setReload(isReload=>!isReload);
     }
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./info.css";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import { useSnapshot } from "valtio";
+import { useQuery } from "react-query";
 
 import Loading from "../../../../util/loading/loading";
 import RetrieveTeams from "../../../../util/GeneralFunction/TeamAxios";
@@ -10,23 +11,23 @@ import { EmployeeState } from "../../../../global-states/employee-state";
 function Info(props) {
     const employeeStateSnap = useSnapshot(EmployeeState);
     //team
-    const [teamList, setTeamList] = useState([]);
     const [teamName, setTeamName] = useState("");
     // address
     const [address, setAddress] = useState("");
     // salary per hour
     const [salaryPerHour, setSalaryPerHour] = useState("");
+    //Query
+    const retrieveTeams = useQuery("RetrieveTeamsForEditEmployeeInfo", () =>
+        RetrieveTeams()
+    );
 
     useEffect(() => {
         setTeamName(employeeStateSnap.employee.teamName);
         setAddress(employeeStateSnap.employee.address.trim());
         setSalaryPerHour(employeeStateSnap.employee.salaryPerHour);
-        RetrieveTeams().then((res) => {
-            setTeamList(res);
-        });
-    }, []);
+    }, [retrieveTeams.status]);
 
-    if ((employeeStateSnap.employee.id === undefined, teamList === undefined)) {
+    if (retrieveTeams.status === "loading") {
         return <Loading></Loading>;
     }
 
@@ -61,14 +62,15 @@ function Info(props) {
                             id="dropdown-basic-button"
                             title={teamName}
                         >
-                            {teamList.map((team) => {
+                            {retrieveTeams.data.map((team) => {
                                 return (
                                     <Dropdown.Item
                                         key={team.id}
                                         className="drop-down-item"
                                         onClick={() => {
                                             setTeamName(team.name);
-                                            EmployeeState.employee.teamId = team.id;
+                                            EmployeeState.employee.teamId =
+                                                team.id;
                                         }}
                                     >
                                         {team.name}
