@@ -15,3 +15,13 @@
     justify-content: flex-end;
     right: 0px;
 }
+
+.InovuaReactDataGrid {
+    border:none !important
+}
+.InovuaReactDataGrid__column-header__content {
+    text-align: center;
+}
+.InovuaReactDataGrid__cell {
+    border:none !important
+}

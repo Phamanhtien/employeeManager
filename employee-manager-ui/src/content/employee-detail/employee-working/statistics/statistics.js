@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./statistics.css";
 import { useQuery } from "react-query";
 import { useSnapshot } from "valtio";
@@ -20,6 +20,13 @@ function Statistics() {
         () => GetStaticEmployeeWorking(statisticsRequest),
         { enabled: false }
     );
+
+    useEffect(() => {
+        if (statisticsRequest === undefined) {
+            return;
+        }
+        getStaticEmployeeWorking.refetch();
+    }, [statisticsRequest,getStaticEmployeeWorking ]);
 
     function validateMonth(input) {
         if (isNaN(input)) {
@@ -49,7 +56,7 @@ function Statistics() {
         setYearPassed(true);
     }
 
-    function statistics() {
+    async function statistics() {
         if (!isMonthPassed) {
             alert("Please check input month");
             return;
@@ -64,9 +71,7 @@ function Statistics() {
         statisticsRequestTemp.employeeId = employeeStateSnap.employee.id;
         statisticsRequestTemp.month = month;
         statisticsRequestTemp.year = year;
-        setStatisticsRequest(statisticsRequestTemp);
-        getStaticEmployeeWorking.refetch();
-        console.log(employeeStateSnap.employee.id);
+        setStatisticsRequest(statisticsRequestTemp)
     }
 
     if (getStaticEmployeeWorking.status === "loading") {
@@ -122,7 +127,7 @@ function Statistics() {
                             getStaticEmployeeWorking.data === undefined
                                 ? ""
                                 : getStaticEmployeeWorking.data
-                                      .totalNumberWorkingDate
+                                      .totalNumberWorkingDate.toString()
                         }
                     ></input>
                     <input
@@ -133,33 +138,35 @@ function Statistics() {
                         value={
                             getStaticEmployeeWorking.data === undefined
                                 ? ""
-                                : getStaticEmployeeWorking.data.totalMoneyGet
+                                : "$"+getStaticEmployeeWorking.data.totalMoneyGet
                         }
                     ></input>
                 </div>
 
                 <div className="row row-statistics">
                     <input
+                        readOnly
                         type="text "
                         className="col "
                         placeholder="Total Advance "
                         value={
                             getStaticEmployeeWorking.data === undefined
                                 ? ""
-                                : getStaticEmployeeWorking.data
+                                : "$"+getStaticEmployeeWorking.data
                                       .totalMoneyAdvance
                         }
                     ></input>
                     <input
+                        readOnly
                         type="text "
                         className="col "
                         placeholder="Total recives  "
                         value={
                             getStaticEmployeeWorking.data === undefined
                                 ? ""
-                                : getStaticEmployeeWorking.data.totalMoneyGet -
+                                : "$"+(getStaticEmployeeWorking.data.totalMoneyGet -
                                   getStaticEmployeeWorking.data
-                                      .totalMoneyAdvance
+                                      .totalMoneyAdvance)
                         }
                     ></input>
                 </div>
