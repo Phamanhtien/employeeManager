@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 
 import search from "./../../assets/icon/search.svg";
 import CreatePaging from "../../util/GeneralFunction/CreatePaging";
@@ -16,40 +17,86 @@ import "./employee-list.css";
 import Loading from "../../util/loading/loading";
 
 function EmployeeList() {
-    // const employeeStateSnap = useSnapshot(EmployeeState);
-    const [numberOfAllEmployees, setNumberOfAllEmployees] = useState(0);
+    // useState
+    const [numberOfAllEmployees, setNumberOfAllEmployees] = useState(-1);
     const [pageNumber, setPageNumber] = useState(0);
     const [employeeList, setEmployeeList] = useState([]);
     const [searchName, setSearchName] = useState("");
     const [listDeleteEmployeeId, setListDeleteEmployeeId] = useState([]);
     const [isReload, setIsReload] = useState(false);
 
+    // useQuery
+    const getNumberOfAllEmployee = useQuery(
+        ["getNumberOfAllEmployee"],
+        () => GetNumberOfAllEmployee(),
+        {
+            enabled: false,
+        }
+    );
+
+    const retrieveAllEmployeeWithPaging = useQuery(
+        ["RetrieveAllEmployeeWithPaging", pageNumber],
+        () => RetrieveAllEmployeeWithPaging(pageNumber),
+        {
+            enabled: false,
+        }
+    );
+
+    const getNumberOfEmployeeByNameWithoutPaging = useQuery(
+        ["GetNumberOfEmployeeByNameWithoutPaging", searchName],
+        () => GetNumberOfEmployeeByNameWithoutPaging(searchName),
+        {
+            enabled: false,
+        }
+    );
+
+    const retrieveEmployeeByNameWithPaging = useQuery(
+        ["RetrieveEmployeeByNameWithPaging",searchName,pageNumber],
+        () => RetrieveEmployeeByNameWithPaging(searchName,pageNumber),
+        { 
+            enabled: false,
+        }
+    )
+
     useEffect(() => {
         if (searchName === "") {
-            GetNumberOfAllEmployee().then((res) => {
-                setNumberOfAllEmployees(res);
-            });
-
-            RetrieveAllEmployeeWithPaging(pageNumber).then((res) => {
-                setEmployeeList(res);
-            });
+            console.log("á");
+            getNumberOfAllEmployee.refetch();
+            if (getNumberOfAllEmployee.status === "success") {
+                setNumberOfAllEmployees(getNumberOfAllEmployee.data);
+            }
+            retrieveAllEmployeeWithPaging.refetch();
+            if (retrieveAllEmployeeWithPaging.status === "success") {
+                setEmployeeList(retrieveAllEmployeeWithPaging.data);
+            }
         }
 
         if (searchName !== "") {
-            GetNumberOfEmployeeByNameWithoutPaging(searchName).then((res) => {
-                setNumberOfAllEmployees(res);
-            });
-            RetrieveEmployeeByNameWithPaging(searchName, pageNumber).then(
-                (res) => {
-                    setEmployeeList(res);
-                }
-            );
+            console.log("đã có chữ trong search");
+            getNumberOfEmployeeByNameWithoutPaging.refetch();
+            if (getNumberOfEmployeeByNameWithoutPaging.status === "success") {
+                setNumberOfAllEmployees(
+                    getNumberOfEmployeeByNameWithoutPaging.data
+                );
+            }
+            retrieveEmployeeByNameWithPaging.refetch();
+            if(retrieveEmployeeByNameWithPaging.status === "success") {
+                setEmployeeList(retrieveEmployeeByNameWithPaging.data)
+            }
         }
-    }, [pageNumber, searchName, isReload]);
+    }, [
+        pageNumber,
+        searchName,
+        isReload,
+        getNumberOfAllEmployee.status,
+        retrieveAllEmployeeWithPaging.status,
+        getNumberOfEmployeeByNameWithoutPaging.status,
+        retrieveEmployeeByNameWithPaging.status,
+    ]);
 
     EmployeeState.employee = new Employee();
-    
-    if (EmployeeState.employee === undefined) {
+
+    if (retrieveAllEmployeeWithPaging.data === undefined) {
         return <Loading></Loading>;
     }
 

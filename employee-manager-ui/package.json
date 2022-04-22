@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@inovua/reactdatagrid-community": "^4.17.0",
+    "@inovua/reactdatagrid-enterprise": "^4.17.0",
     "@mui/x-data-grid": "^5.9.0",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.3",

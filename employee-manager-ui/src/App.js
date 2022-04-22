@@ -8,7 +8,9 @@ import EmployeeDetail from "./content/employee-detail/employee-detail";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-const queryClient = new QueryClient();
+const employeeDetailQueryClient = new QueryClient();
+const employeeListQueryClient = new QueryClient();
+const teamListQueryClient = new QueryClient();
 
 function App() {
     return (
@@ -19,16 +21,30 @@ function App() {
                     <Routes>
                         <Route
                             path="/employee-list"
-                            element={<EmployeeList></EmployeeList>}
+                            element={
+                                <QueryClientProvider
+                                    client={employeeListQueryClient}
+                                >
+                                    <EmployeeList></EmployeeList>
+                                </QueryClientProvider>
+                            }
                         ></Route>
                         <Route
                             path="/team-list"
-                            element={<TeamList></TeamList>}
+                            element={
+                                <QueryClientProvider
+                                    client={teamListQueryClient}
+                                >
+                                    <TeamList></TeamList>
+                                </QueryClientProvider>
+                            }
                         ></Route>
                         <Route
                             path="/employee/:employeeId"
                             element={
-                                <QueryClientProvider client={queryClient}>
+                                <QueryClientProvider
+                                    client={employeeDetailQueryClient}
+                                >
                                     <EmployeeDetail></EmployeeDetail>
                                 </QueryClientProvider>
                             }

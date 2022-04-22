@@ -1,9 +1,13 @@
 import { BsFillTrashFill, BsInfo } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import ReactDataGrid from "@inovua/reactdatagrid-enterprise";
+import "@inovua/reactdatagrid-enterprise/index.css";
 
 import EmployeeCheckStatus from "./../../model/EmployeeCheckStatus";
 import { DeleteEmployee } from "../../util/GeneralFunction/EmployeeAxios";
 import React, { useEffect, useState } from "react";
+
+const gridStyle = { minHeight: 243, textAlign: "center" };
 
 function EmployeeListTableContent(props) {
     //props
@@ -12,7 +16,7 @@ function EmployeeListTableContent(props) {
     // state
     const [listDeleteEmployeeState, setListDeleteEmployeeState] = useState([]);
     const [pageNumber, setPageNumber] = useState(-1);
-    const [isStateChanged,setStateChanged] = useState(false)
+    const [isStateChanged, setStateChanged] = useState(false);
     //variable
 
     function callBack(pageNumber) {
@@ -36,14 +40,19 @@ function EmployeeListTableContent(props) {
     }
     useEffect(() => {
         setListDeleteEmployeeState(initialListDeleteEmployee(employeeList));
-        setStateChanged(false)
+        setStateChanged(false);
         if (
             listDeleteEmployeeState.length === employeeList.length &&
             listDeleteEmployeeState.length !== 0
         ) {
             setPageNumber(employeeListComponentPageNumber);
         }
-    }, [employeeList,isStateChanged,employeeListComponentPageNumber,listDeleteEmployeeState.length]);
+    }, [
+        employeeList,
+        isStateChanged,
+        employeeListComponentPageNumber,
+        listDeleteEmployeeState.length,
+    ]);
 
     function initialListDeleteEmployee(employeeList) {
         let temp = [];
@@ -69,85 +78,98 @@ function EmployeeListTableContent(props) {
         setListDeleteEmployeeState(temp);
     }
 
-    if (listDeleteEmployeeState.length === employeeList.length) {
-        var employeeListElement = [];
-        for (let i = 0; i < listDeleteEmployeeState.length; i++) {
-            employeeListElement.push(
-                <tr className="tbody-row" key={employeeList[i].id}>
-                    <td>
-                        <input
-                            type="checkbox"
-                            // checked= {true}
-                            checked={listDeleteEmployeeState[i].isChecked}
-                            onChange={() => {
-                                updateListDeleteEmployee(employeeList[i].id);
-                                setListDeleteEmployeeIdCallBack();
-                            }}
-                        ></input>
-                    </td>
-                    <td className="employee-id">{employeeList[i].id}</td>
-                    <td className="employee-fullName">
-                        {employeeList[i].fullName}
-                    </td>
-                    <td className="employee-phone">{employeeList[i].phone}</td>
-                    <td className="employee-team">
-                        {employeeList[i].teamName}
-                    </td>
-                    <td className="employee-detail-delete">
-                        <Link to={`../employee/${employeeList[i].id}`}>
-                            <BsInfo style={{ fontSize: "150%" }}></BsInfo>
-                        </Link>
-                        <BsFillTrashFill
-                            onClick={async () => {
-                                await DeleteEmployee([employeeList[i].id]).then(
-                                    (res) => {
-                                        if (res.response !== undefined) {
-                                            alert(res.response.data.message);
-                                        }
+    if (listDeleteEmployeeState.length !== employeeList.length) {
+        return;
+    }
 
-                                        if (res.response === undefined) {
-                                            alert(
-                                                "Employee was deleted successfully"
-                                            );
-                                        }
-                                    }
-                                );
-                                employeeList.pop(employeeList[i].id);
-                                callBack(pageNumber)
-                                setStateChanged(true)
+    const columns = [
+        { name: "checkbox", header: "", defaultFlex: 1 },
+        { name: "id", header: "No", defaultFlex: 2 },
+        { name: "fullName", header: "Full Name", defaultFlex: 2 },
+        { name: "phone", header: "Phone", defaultFlex: 2 },
+        { name: "teamName", header: "Team", defaultFlex: 2 },
+        { name: "option", header: "Option", defaultFlex: 2 },
+    ];
+
+    for (let i = 0; i < employeeList.length; i++) {
+        employeeList[i]["checkbox"] = (
+            <input
+                type="checkbox"
+                // checked= {true}
+                checked={listDeleteEmployeeState[i].isChecked}
+                onChange={() => {
+                    updateListDeleteEmployee(employeeList[i].id);
+                    setListDeleteEmployeeIdCallBack();
+                }}
+            ></input>
+        );
+
+        employeeList[i]["option"] = (
+            <div>
+                <Link to={`../employee/${employeeList[i].id}`}>
+                    <BsInfo style={{ fontSize: "150%" }}></BsInfo>
+                </Link>
+                <BsFillTrashFill
+                    onClick={async () => {
+                        await DeleteEmployee([employeeList[i].id]).then(
+                            (res) => {
+                                if (res.response !== undefined) {
+                                    alert(res.response.data.message);
+                                }
+
+                                if (res.response === undefined) {
+                                    alert("Employee was deleted successfully");
+                                }
                             }
-                        }
-                        ></BsFillTrashFill>
-                    </td>
-                </tr>
-            );
-        }
+                        );
+                        employeeList.pop(employeeList[i].id);
+                        callBack(pageNumber);
+                        setStateChanged(true);
+                    }}
+                ></BsFillTrashFill>
+            </div>
+        );
     }
 
     return (
-        <table className="table table-striped">
-            <thead className="thead">
-                <tr className="thead-row">
-                    <th scope="col"></th>
-                    <th scope="col">
-                        <b>No</b>
-                    </th>
-                    <th scope="col">
-                        <b>Full name</b>
-                    </th>
-                    <th scope="col">
-                        <b>Phone</b>
-                    </th>
-                    <th scope="col">
-                        <b>Team</b>
-                    </th>
-                    <th scope="col">
-                        <b>Option</b>
-                    </th>
-                </tr>
-            </thead>
-            <tbody className="tbody">{employeeListElement}</tbody>
-        </table>
+        <div>
+            <ReactDataGrid
+                idProperty="id"
+                style={gridStyle}
+                className=""
+                rowClassName="tbody-row"
+                showZebraRows={true}
+                enableColumnAutosize={true}
+                // rowIndexColumn
+                columns={columns}
+                dataSource={employeeList}
+                // pageSize={5}
+                // rowsPerPageOptions={[5]}
+            ></ReactDataGrid>
+            {/* <table className="table table-striped">
+                <thead className="thead">
+                    <tr className="thead-row">
+                        <th scope="col"></th>
+                        <th scope="col">
+                            <b>No</b>
+                        </th>
+                        <th scope="col">
+                            <b>Full name</b>
+                        </th>
+                        <th scope="col">
+                            <b>Phone</b>
+                        </th>
+                        <th scope="col">
+                            <b>Team</b>
+                        </th>
+                        <th scope="col">
+                            <b>Option</b>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody className="tbody">{employeeListElement}</tbody>
+            </table> */}
+        </div>
     );
 }
 

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import { useSnapshot } from "valtio";
 import { EmployeeState } from "./../../../../global-states/employee-state";
-import DataGrid from "react-data-grid";
 import { useQuery } from "react-query";
+import ReactDataGrid from "@inovua/reactdatagrid-community";
+import "@inovua/reactdatagrid-community/index.css";
 
 import "./working.css";
 import CreatePaging from "./../../../../util/GeneralFunction/CreatePaging";
@@ -11,25 +12,27 @@ import GetNumberOfAllWorkingDateOfAnEmployee, {
     RetrieveAllWorkingDateOfAnEmployeeWithPaging,
 } from "./../../../../util/GeneralFunction/WorkingDateAxios";
 import Loading from "../../../../util/loading/loading";
-import AddEmployeeWorking from "./../add-employee-working/add-employee-working"
+import AddEmployeeWorking from "./../add-employee-working/add-employee-working";
+
+const gridStyle = { minHeight: 243, textAlign: "center" };
 
 function Working() {
     const employeeStateSnap = useSnapshot(EmployeeState);
 
     const [pageNumber, setPageNumber] = useState(0);
-    const [isReload, setReload] =useState(false);
+    const [isReload, setReload] = useState(false);
 
     const numberOfAllWorkingDateOfAnEmployeesQuery = useQuery(
-        ["GetNumberOfAllWorkingDateOfAnEmployee", pageNumber,isReload],
+        ["GetNumberOfAllWorkingDateOfAnEmployee", pageNumber, isReload],
         () =>
             GetNumberOfAllWorkingDateOfAnEmployee(
                 employeeStateSnap.employee.id
             ),
-        { keepPreviousData: true },
+        { keepPreviousData: true }
     );
 
     const employeeWorkingListQuery = useQuery(
-        ["RetrieveAllWorkingDateOfAnEmployeeWithPaging", pageNumber,isReload],
+        ["RetrieveAllWorkingDateOfAnEmployeeWithPaging", pageNumber, isReload],
         () =>
             RetrieveAllWorkingDateOfAnEmployeeWithPaging(
                 employeeStateSnap.employee.id,
@@ -43,10 +46,10 @@ function Working() {
     }
 
     const columns = [
-        { key: "id", name: "No" },
-        { key: "date", name: "Date" },
-        { key: "hour", name: "Hour" },
-        { key: "option", name: "Option" },
+        { name: "id", header: "No", defaultFlex: 1 },
+        { name: "date", header: "Date", defaultFlex: 1 },
+        { name: "hour", header: "Hour", defaultFlex: 1 },
+        { name: "option", header: "Option", defaultFlex: 1 },
     ];
 
     for (let i = 0; i < employeeWorkingListQuery.data.length; i++) {
@@ -55,27 +58,39 @@ function Working() {
                 onClick={() => console.log("clicked")}
             ></BsFillTrashFill>
         );
-        employeeWorkingListQuery.data[i].date = new Date(employeeWorkingListQuery.data[i].date)
+        employeeWorkingListQuery.data[i].date = new Date(
+            employeeWorkingListQuery.data[i].date
+        )
             .toISOString()
             .split("T")[0];
     }
 
-    // console.log(data)
     return (
         <div className="working-detail">
             <div className="head">
                 <h3>WORKING</h3>
-                <AddEmployeeWorking addCallBack={addCallBack}></AddEmployeeWorking>
+                <AddEmployeeWorking
+                    addCallBack={addCallBack}
+                ></AddEmployeeWorking>
             </div>
-            <DataGrid
-                columns={columns}
-                rows={employeeWorkingListQuery.data}
-                className="table-team-working-date table table-striped"
-            ></DataGrid>
-            {/* <DataGrid columns={columns} rows={rows} />; */}
+            <ReactDataGrid
+                    idProperty="id"
+                    style={gridStyle}
+                    className=""
+                    rowClassName="tbody-row"
+                    showZebraRows={true}
+                    enableColumnAutosize={true}
+                    rowIndexColumn
+                    columns={columns}
+                    dataSource={employeeWorkingListQuery.data}
+                    // pageSize={5}
+                    // rowsPerPageOptions={[5]}
+                ></ReactDataGrid>
             <CreatePaging
                 pagingCallback={pagingCallBack}
-                numberOfAllEmployees={numberOfAllWorkingDateOfAnEmployeesQuery.data}
+                numberOfAllEmployees={
+                    numberOfAllWorkingDateOfAnEmployeesQuery.data
+                }
                 pageNumber={pageNumber}
             ></CreatePaging>
         </div>
@@ -86,7 +101,7 @@ function Working() {
     }
 
     function addCallBack() {
-        setReload(isReload=>!isReload);
+        setReload((isReload) => !isReload);
     }
 }
 

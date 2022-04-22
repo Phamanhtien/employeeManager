@@ -25,3 +25,7 @@
 .InovuaReactDataGrid__cell {
     border:none !important
 }
+
+.InovuaReactDataGrid__column-header__resize-wrapper {
+    border:none !important
+}

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import "./advance.css";
 import { useSnapshot } from "valtio";
 import { EmployeeState } from "./../../../../global-states/employee-state";
-// import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import ReactDataGrid from "@inovua/reactdatagrid-community";
 import "@inovua/reactdatagrid-community/index.css";
 import { useQuery } from "react-query";
